@@ -10,7 +10,7 @@ export default function Home() {
         <PrismShape />
       </div>
       <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-400">
-        Prismfolio
+        Livio Macaj
       </h1>
       <p className="max-w-2xl text-lg md:text-xl text-muted-foreground mb-8">
         A creative developer and designer crafting beautiful, intuitive, and performant web experiences. Welcome to my digital space.

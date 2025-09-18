@@ -30,8 +30,8 @@ export default function AboutPage() {
         <p className="text-lg text-muted-foreground">My story, skills, and professional journey.</p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <Card className="md:col-span-2 lg:col-span-3 bg-card/60 backdrop-blur-sm border-white/10">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <Card className="lg:col-span-2 bg-card/60 backdrop-blur-sm border-white/10">
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
               <User className="text-primary" />
@@ -45,7 +45,7 @@ export default function AboutPage() {
           </CardContent>
         </Card>
         
-        <Card className="lg:col-span-1 bg-card/60 backdrop-blur-sm border-white/10">
+        <Card className="lg:col-span-2 bg-card/60 backdrop-blur-sm border-white/10">
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
               <Code className="text-primary" />
@@ -63,7 +63,7 @@ export default function AboutPage() {
           </CardContent>
         </Card>
         
-        <div className="md:col-span-2 space-y-6">
+        <div className="md:col-span-2 lg:col-span-4 grid md:grid-cols-2 gap-6">
             {experience.map((exp) => (
                 <Card key={exp.company} className="bg-card/60 backdrop-blur-sm border-white/10">
                     <CardHeader>

@@ -18,7 +18,7 @@ export default function ContactPage() {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <Mail className="text-accent" />
-              <a href="mailto:hello@prismfolio.com" className="hover:text-primary">hello@prismfolio.com</a>
+              <a href="mailto:hello@livio.dev" className="hover:text-primary">hello@livio.dev</a>
             </div>
             <div className="flex items-center gap-3">
               <Phone className="text-accent" />
