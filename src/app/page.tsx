@@ -5,11 +5,11 @@ import PrismShape from '@/components/prism-shape';
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center text-center h-full">
+    <main className="flex flex-col items-center justify-center text-center h-full pt-16 md:pt-24">
       <div className="relative w-full max-w-lg mx-auto mb-12">
         <PrismShape />
       </div>
-      <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-accent">
+      <h1 className="text-5xl md:text-7xl font-bold tracking-tighter mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-blue-400">
         Prismfolio
       </h1>
       <p className="max-w-2xl text-lg md:text-xl text-muted-foreground mb-8">

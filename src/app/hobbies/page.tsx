@@ -4,15 +4,12 @@ import { Card, CardContent } from '@/components/ui/card';
 
 export default function HobbiesPage() {
   const hobbies = PlaceHolderImages.filter(p => p.id.startsWith('hobby-'));
-  const getSpan = (index: number) => {
-    if ((index + 1) % 5 === 1 || (index + 1) % 5 === 2) {
-      return 'col-span-2 row-span-2';
-    }
-    if ((index + 1) % 5 === 3) {
-      return 'col-span-1 row-span-2';
-    }
-    return 'col-span-1 row-span-1';
-  }
+  
+  // A more dynamic masonry-like layout
+  const spans = [
+    'col-span-2 row-span-2', 'col-span-1 row-span-1', 'col-span-1 row-span-2', 'col-span-1 row-span-1', 
+    'col-span-1 row-span-1', 'col-span-2 row-span-1', 'col-span-1 row-span-1', 'col-span-1 row-span-2',
+  ];
 
   return (
     <div className="w-full">
@@ -21,16 +18,17 @@ export default function HobbiesPage() {
         <p className="text-lg text-muted-foreground">When I&apos;m not coding, you can find me...</p>
       </header>
       
-      <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-fr">
+      <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[150px] gap-1">
         {hobbies.map((hobby, index) => (
-          <Card key={hobby.id} className={`overflow-hidden group bg-card/60 backdrop-blur-lg border-none rounded-none transition-all hover:border-primary/50 hover:shadow-lg hover:shadow-primary/10 ${getSpan(index)}`}>
-            <CardContent className="p-0 relative w-full h-full">
+          <Card key={hobby.id} className={`overflow-hidden group relative bg-card/60 border-none rounded-lg ${spans[index % spans.length]}`}>
+            <CardContent className="p-0 w-full h-full">
               <Image
                 src={hobby.imageUrl}
                 alt={hobby.description}
                 fill
                 className="object-cover transition-transform duration-300 group-hover:scale-105"
                 data-ai-hint={hobby.imageHint}
+                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
               />
               <div className="absolute inset-0 bg-black/50 flex items-end p-4 transition-opacity opacity-0 group-hover:opacity-100">
                 <h3 className="text-lg font-semibold text-white">{hobby.description}</h3>
