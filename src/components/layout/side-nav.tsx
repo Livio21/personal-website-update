@@ -66,7 +66,7 @@ export function SideNav() {
         </button>
 
         {/* Modal content */}
-        <div className={cn("transition-opacity duration-300", isOpen ? 'opacity-100 delay-300' : 'opacity-0')}>
+        <div className={cn("transition-opacity", isOpen ? 'opacity-100 duration-300 delay-300' : 'opacity-0 duration-200')}>
             <div className="flex items-center justify-between mb-8">
                 <Link href="/" className="font-bold text-lg text-primary">Livio Macaj</Link>
                 <button onClick={() => setIsOpen(false)} className="p-1 rounded-md hover:bg-secondary" aria-label="Close navigation">

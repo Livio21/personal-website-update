@@ -50,7 +50,7 @@ export function ProjectModal() {
       </div>
 
       <Dialog open={!!selectedProject} onOpenChange={(isOpen) => !isOpen && handleClose()}>
-        <DialogContent className="sm:max-w-[625px]">
+        <DialogContent className="sm:max-w-[625px] bg-zinc-900/80 backdrop-blur-lg border-white/10">
           {selectedProject && (
             <>
               <DialogHeader>
