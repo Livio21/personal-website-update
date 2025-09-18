@@ -18,7 +18,7 @@ export default function HobbiesPage() {
         <p className="text-lg text-muted-foreground">When I&apos;m not coding, you can find me...</p>
       </header>
       
-      <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[150px] gap-1">
+      <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[150px] gap-1 pl-8">
         {hobbies.map((hobby, index) => (
           <Card key={hobby.id} className={`overflow-hidden group relative bg-card/60 border-none rounded-lg ${spans[index % spans.length]}`}>
             <CardContent className="p-0 w-full h-full">

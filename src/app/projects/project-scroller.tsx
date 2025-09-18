@@ -67,7 +67,7 @@ export function ProjectScroller() {
         {projects.map((project, index) => (
           <section
             key={project.id}
-            className="h-screen w-full snap-start flex items-center justify-center relative p-8 md:p-16"
+            className="h-screen w-full snap-start flex flex-1 items-center justify-center relative p-8 md:p-16"
           >
             <div className="absolute inset-0 z-0">
                <Image
@@ -80,7 +80,7 @@ export function ProjectScroller() {
                 />
                 <div className="absolute inset-0 bg-black/60" />
             </div>
-            <div className="relative z-10 w-full max-w-5xl h-full flex items-center">
+            <div className="relative pl-4 z-10 w-full max-w-6xl h-full flex items-center">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div className="p-8 rounded-xl bg-blue-950/50 backdrop-blur-lg border border-white/10">
                   <h2 className="text-4xl font-bold text-primary mb-4">Project {index + 1}</h2>
@@ -98,17 +98,34 @@ export function ProjectScroller() {
         ))}
       </div>
       
-      {/* "You are here" indicator */}
-      <div className="hidden md:flex flex-col items-start justify-center gap-4 p-6 w-56">
-        <h3 className="text-sm font-semibold text-muted-foreground mb-2">Projects</h3>
-        {projects.map((project, index) => (
-            <button key={project.id} onClick={() => scrollToProject(index)} className="text-left w-full">
-                <p className={cn("font-semibold truncate", currentProjectIndex === index ? 'text-primary' : 'text-foreground')}>
-                    {project.description.split('.')[0]}
-                </p>
-                <p className="text-xs text-muted-foreground mt-1">2024</p>
-            </button>
-        ))}
+      {/* Compact vertical project indicator */}
+      <div className="hidden md:flex flex-col justify-center p-2 -mr-12">
+        <h3 className="text-xl font-semibold text-muted-foreground mb-6 text-center">Projects</h3>
+        <div className="flex flex-col gap-2 w-full">
+          {projects.map((project, index) => {
+            const isActive = currentProjectIndex === index;
+            return (
+              <button
+                key={project.id}
+                onClick={() => scrollToProject(index)}
+                className={cn(
+                  "relative flex flex-col gap-4 transition-all duration-300 w-full",
+                )}
+                aria-label={`Go to ${project.description.split('.')[0]}`}
+              >
+                <span
+                  className={cn(
+                    "text-xs font-medium truncate transition-all duration-300 text-center",
+                    isActive ? "text-primary text-md font-bold" : "text-muted-foreground"
+                  )}
+              
+                >
+                  {project.description.split('.')[0]}
+                </span>
+              </button>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

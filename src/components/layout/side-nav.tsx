@@ -49,7 +49,7 @@ export function SideNav() {
       <div 
         ref={navRef}
         className={cn(
-            "fixed top-1/2 left-6 -translate-y-1/2 z-50 transition-all duration-500 ease-in-out",
+            "fixed top-1/2 left-2 -translate-y-1/2 z-50 transition-all duration-200 ease-in-out",
             isOpen ? 'w-56 h-auto p-6 bg-blue-950/50 backdrop-blur-lg border border-white/10 rounded-2xl' : 'w-14 h-14'
         )}
       >
@@ -57,7 +57,7 @@ export function SideNav() {
         <button
             onClick={handleToggle}
             className={cn(
-                "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-14 h-14 bg-zinc-900/80 backdrop-blur-lg border border-white/10 rounded-full z-10 transition-opacity duration-300",
+                "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-14 h-14 bg-zinc-900/80 backdrop-blur-lg border border-white/10 rounded-full z-10 transition-opacity duration-100",
                 isOpen && 'opacity-0 pointer-events-none'
             )}
             aria-label="Open navigation"
@@ -66,9 +66,8 @@ export function SideNav() {
         </button>
 
         {/* Modal content */}
-        <div className={cn("transition-opacity", isOpen ? 'opacity-100 duration-300 delay-300' : 'opacity-0 duration-200')}>
+        <div className={cn("transition-opacity", isOpen ? 'opacity-100  ' : 'opacity-0 w-0 h-0 duration-200')}>
             <div className="flex items-center justify-between mb-8">
-                <Link href="/" className="font-bold text-lg text-primary">Livio Macaj</Link>
                 <button onClick={() => setIsOpen(false)} className="p-1 rounded-md hover:bg-secondary" aria-label="Close navigation">
                     <X className="size-5 text-white" />
                 </button>

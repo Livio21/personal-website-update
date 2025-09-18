@@ -24,13 +24,13 @@ const experience = [
 
 export default function AboutPage() {
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <header className="mb-12">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">About Me</h1>
         <p className="text-lg text-muted-foreground">My story, skills, and professional journey.</p>
       </header>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 pl-8">
         <Card className="md:col-span-3 lg:col-span-3 bg-card/60 backdrop-blur-sm border-white/10">
           <CardHeader>
             <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
