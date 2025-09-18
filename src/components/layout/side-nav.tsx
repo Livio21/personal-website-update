@@ -50,7 +50,7 @@ export function SideNav() {
         ref={navRef}
         className={cn(
             "fixed top-1/2 left-6 -translate-y-1/2 z-50 transition-all duration-500 ease-in-out",
-            isOpen ? 'w-56 h-auto p-6 bg-zinc-900/80 backdrop-blur-lg border border-white/10 rounded-2xl' : 'w-14 h-14'
+            isOpen ? 'w-56 h-auto p-6 bg-blue-950/50 backdrop-blur-lg border border-white/10 rounded-2xl' : 'w-14 h-14'
         )}
       >
         {/* Button */}
