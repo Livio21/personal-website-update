@@ -1,14 +1,9 @@
-import { ProjectModal } from './project-modal';
+import { ProjectScroller } from './project-scroller';
 
 export default function ProjectsPage() {
   return (
-    <div className="w-full">
-      <header className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">My Projects</h1>
-        <p className="text-lg text-muted-foreground">A selection of my work. Click on a project to see more.</p>
-      </header>
-
-      <ProjectModal />
+    <div className="w-full h-full -m-12">
+      <ProjectScroller />
     </div>
   );
 }
