@@ -9,8 +9,8 @@ export default function ProjectsPage() {
   const projects = PlaceHolderImages.filter(p => p.id.startsWith('project-'));
 
   return (
-    <div className="w-full max-w-5xl mx-auto">
-      <header className="mb-12 text-center">
+    <div className="w-full">
+      <header className="mb-12">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">My Projects</h1>
         <p className="text-lg text-muted-foreground">A selection of my work. Swipe to explore.</p>
       </header>

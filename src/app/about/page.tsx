@@ -30,8 +30,8 @@ const experience = [
 
 export default function AboutPage() {
   return (
-    <div className="w-full max-w-4xl mx-auto">
-      <header className="mb-12 text-center">
+    <div className="w-full">
+      <header className="mb-12">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">About Me</h1>
         <p className="text-lg text-muted-foreground">A little bit about my journey, skills, and experience.</p>
       </header>
@@ -45,7 +45,7 @@ export default function AboutPage() {
             </div>
           </AccordionTrigger>
           <AccordionContent className="text-lg text-muted-foreground p-4">
-            Hello! I&apos;m a passionate developer and designer with a knack for creating engaging and user-friendly digital experiences. My journey into the world of tech began with a fascination for how things work, which quickly evolved into a love for building and designing applications. I thrive on solving complex problems and am constantly learning new technologies to push the boundaries of what&apos;s possible on the web.
+            Hello! I'm a passionate developer and designer with a knack for creating engaging and user-friendly digital experiences. My journey into the world of tech began with a fascination for how things work, which quickly evolved into a love for building and designing applications. I thrive on solving complex problems and am constantly learning new technologies to push the boundaries of what's possible on the web.
           </AccordionContent>
         </AccordionItem>
         <AccordionItem value="item-2">

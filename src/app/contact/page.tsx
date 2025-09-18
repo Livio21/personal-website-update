@@ -3,17 +3,17 @@ import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
 
 export default function ContactPage() {
   return (
-    <div className="w-full max-w-5xl mx-auto">
-      <header className="mb-12 text-center">
+    <div className="w-full">
+      <header className="mb-12">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">Get In Touch</h1>
-        <p className="text-lg text-muted-foreground">I&apos;d love to hear from you. Let&apos;s build something great together.</p>
+        <p className="text-lg text-muted-foreground">I'd love to hear from you. Let's build something great together.</p>
       </header>
 
       <div className="grid md:grid-cols-2 gap-10 bg-card/60 backdrop-blur-lg border border-border/20 rounded-lg p-8">
         <div className="space-y-6">
           <h2 className="text-2xl font-semibold text-primary">Contact Information</h2>
           <p className="text-muted-foreground">
-            Feel free to reach out through any of the following channels. I&apos;m always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team.
+            Feel free to reach out through any of the following channels. I'm always open to discussing new projects, creative ideas, or opportunities to be part of an amazing team.
           </p>
           <div className="space-y-4">
             <div className="flex items-center gap-3">
