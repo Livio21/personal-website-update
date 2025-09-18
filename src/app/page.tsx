@@ -5,7 +5,7 @@ import PrismShape from '@/components/prism-shape';
 
 export default function Home() {
   return (
-    <main className="flex flex-col items-center justify-center text-center h-full pt-16 md:pt-24">
+    <main className="flex flex-col items-center justify-center text-center h-full">
       <div className="relative w-full max-w-lg mx-auto mb-12">
         <PrismShape />
       </div>

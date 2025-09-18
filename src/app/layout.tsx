@@ -23,7 +23,7 @@ export default function RootLayout({
       <body className="font-body antialiased bg-background">
         <div className="relative flex min-h-screen">
           <SideNav />
-          <main className="flex-1 px-4 py-8 md:py-12 md:pl-20">
+          <main className="flex-1 p-8 md:p-12">
             {children}
           </main>
         </div>
