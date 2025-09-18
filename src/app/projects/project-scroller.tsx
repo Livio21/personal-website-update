@@ -10,68 +10,76 @@ import { cn } from '@/lib/utils';
 export function ProjectScroller() {
   const projects = PlaceHolderImages.filter(p => p.id.startsWith('project-'));
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
-  const sectionsRef = useRef<HTMLDivElement[]>([]);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const scrollToProject = (index: number) => {
-    sectionsRef.current[index]?.scrollIntoView({
-      behavior: 'smooth',
-      block: 'start',
-    });
+    if (containerRef.current) {
+        const sectionHeight = containerRef.current.clientHeight;
+        containerRef.current.scrollTo({
+            top: index * sectionHeight,
+            behavior: 'smooth',
+        });
+    }
   };
 
   useEffect(() => {
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            const index = sectionsRef.current.indexOf(entry.target as HTMLDivElement);
-            if (index !== -1) {
-              setCurrentProjectIndex(index);
-            }
-          }
-        });
-      },
-      { threshold: 0.6 } // 60% of the item must be visible
-    );
-
-    sectionsRef.current.forEach((section) => {
-      if (section) observer.observe(section);
-    });
+    const handleScroll = () => {
+        if (containerRef.current) {
+            const index = Math.round(containerRef.current.scrollTop / containerRef.current.clientHeight);
+            setCurrentProjectIndex(index);
+        }
+    };
+    
+    const currentContainer = containerRef.current;
+    currentContainer?.addEventListener('scroll', handleScroll, { passive: true });
 
     return () => {
-      sectionsRef.current.forEach((section) => {
-        if (section) observer.unobserve(section);
-      });
+        currentContainer?.removeEventListener('scroll', handleScroll);
     };
-  }, [projects.length]);
+  }, []);
   
-  const currentProject = projects[currentProjectIndex];
-
   return (
-    <div className="relative h-screen w-full snap-y snap-mandatory overflow-y-scroll">
-      {/* "You are here" indicator */}
-      <div className="fixed top-1/2 right-6 -translate-y-1/2 z-20 flex flex-col items-center gap-4">
-        {currentProjectIndex > 0 && (
-          <Button size="icon" variant="outline" className="rounded-full bg-card/50 backdrop-blur-sm" onClick={() => scrollToProject(currentProjectIndex - 1)}>
+    <div ref={containerRef} className="relative h-screen w-full snap-y snap-mandatory overflow-y-scroll no-scrollbar">
+      {/* Top and Bottom Nav Buttons */}
+      {currentProjectIndex > 0 && (
+          <Button 
+            size="icon" 
+            variant="outline" 
+            className="rounded-full bg-card/50 backdrop-blur-sm fixed top-6 left-1/2 -translate-x-1/2 z-20" 
+            onClick={() => scrollToProject(currentProjectIndex - 1)}
+          >
             <ArrowUp />
           </Button>
         )}
-        <div className="p-4 rounded-lg bg-card/60 backdrop-blur-lg border border-white/10 text-center w-40">
-            <p className="font-bold text-primary text-lg">{currentProject.description.split('.')[0]}</p>
-            <p className="text-sm text-muted-foreground mt-1">2024</p>
-        </div>
-        {currentProjectIndex < projects.length - 1 && (
-          <Button size="icon" variant="outline" className="rounded-full bg-card/50 backdrop-blur-sm" onClick={() => scrollToProject(currentProjectIndex + 1)}>
+      {currentProjectIndex < projects.length - 1 && (
+        <Button 
+            size="icon" 
+            variant="outline" 
+            className="rounded-full bg-card/50 backdrop-blur-sm fixed bottom-6 left-1/2 -translate-x-1/2 z-20" 
+            onClick={() => scrollToProject(currentProjectIndex + 1)}
+        >
             <ArrowDown />
-          </Button>
-        )}
+        </Button>
+      )}
+
+
+      {/* "You are here" indicator */}
+      <div className="fixed top-1/2 right-6 -translate-y-1/2 z-20 flex flex-col items-start gap-4 p-4 rounded-lg bg-card/60 backdrop-blur-lg border border-white/10 w-48">
+        <h3 className="text-sm font-semibold text-muted-foreground mb-2">Projects</h3>
+        {projects.map((project, index) => (
+            <button key={project.id} onClick={() => scrollToProject(index)} className="text-left w-full">
+                <p className={cn("font-semibold truncate", currentProjectIndex === index ? 'text-primary' : 'text-foreground')}>
+                    {project.description.split('.')[0]}
+                </p>
+                <p className="text-xs text-muted-foreground mt-1">2024</p>
+            </button>
+        ))}
       </div>
 
       {/* Project Sections */}
       {projects.map((project, index) => (
         <section
           key={project.id}
-          ref={el => sectionsRef.current[index] = el!}
           className="h-screen w-full snap-start flex items-center justify-center relative p-8 md:p-16"
         >
           <div className="absolute inset-0 z-0">
@@ -104,3 +112,5 @@ export function ProjectScroller() {
     </div>
   );
 }
+
+    
