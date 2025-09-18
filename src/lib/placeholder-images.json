@@ -1,3 +1,76 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "project-1",
+      "description": "A web application for task management.",
+      "imageUrl": "https://picsum.photos/seed/p1/600/400",
+      "imageHint": "abstract tech"
+    },
+    {
+      "id": "project-2",
+      "description": "An e-commerce platform for a fictional brand.",
+      "imageUrl": "https://picsum.photos/seed/p2/600/400",
+      "imageHint": "modern design"
+    },
+    {
+      "id": "project-3",
+      "description": "A data visualization dashboard for analytics.",
+      "imageUrl": "https://picsum.photos/seed/p3/600/400",
+      "imageHint": "data charts"
+    },
+    {
+      "id": "project-4",
+      "description": "A mobile app for social networking.",
+      "imageUrl": "https://picsum.photos/seed/p4/600/400",
+      "imageHint": "user interface"
+    },
+    {
+      "id": "hobby-1",
+      "description": "Photography",
+      "imageUrl": "https://picsum.photos/seed/h1/400/400",
+      "imageHint": "camera landscape"
+    },
+    {
+      "id": "hobby-2",
+      "description": "Hiking",
+      "imageUrl": "https://picsum.photos/seed/h2/400/400",
+      "imageHint": "mountain trail"
+    },
+    {
+      "id": "hobby-3",
+      "description": "Painting",
+      "imageUrl": "https://picsum.photos/seed/h3/400/400",
+      "imageHint": "art canvas"
+    },
+    {
+      "id": "hobby-4",
+      "description": "Playing Guitar",
+      "imageUrl": "https://picsum.photos/seed/h4/400/400",
+      "imageHint": "acoustic guitar"
+    },
+    {
+      "id": "hobby-5",
+      "description": "Reading",
+      "imageUrl": "https://picsum.photos/seed/h5/400/400",
+      "imageHint": "open book"
+    },
+    {
+      "id": "hobby-6",
+      "description": "Cooking",
+      "imageUrl": "https://picsum.photos/seed/h6/400/400",
+      "imageHint": "gourmet food"
+    },
+    {
+      "id": "hobby-7",
+      "description": "Gaming",
+      "imageUrl": "https://picsum.photos/seed/h7/400/400",
+      "imageHint": "gaming setup"
+    },
+    {
+      "id": "hobby-8",
+      "description": "Gardening",
+      "imageUrl": "https://picsum.photos/seed/h8/400/400",
+      "imageHint": "house plants"
+    }
+  ]
 }
