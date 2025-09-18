@@ -27,7 +27,7 @@ export function SideNav() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (navRef.current && !navRef.current.contains(event.target as Node)) {
+      if (isOpen && navRef.current && !navRef.current.contains(event.target as Node)) {
         setIsOpen(false)
       }
     }
@@ -35,7 +35,7 @@ export function SideNav() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
-  }, [navRef])
+  }, [isOpen, navRef])
 
   return (
     <>
@@ -53,7 +53,7 @@ export function SideNav() {
       {/* Side Nav Modal */}
       <div 
         ref={navRef}
-        className={`fixed top-6 left-6 bg-zinc-900/80 backdrop-blur-lg border border-white/10 rounded-lg shadow-lg p-6
+        className={`fixed top-1/2 left-6 -translate-y-1/2 bg-zinc-900/80 backdrop-blur-lg border border-white/10 rounded-2xl shadow-lg p-6
         transition-all duration-300 ease-in-out z-40 ${isOpen ? 'translate-x-0 opacity-100' : '-translate-x-full opacity-0 pointer-events-none'}`}
       >
         <div className="flex items-center justify-between mb-8">
@@ -67,8 +67,8 @@ export function SideNav() {
                 <Link
                     key={item.href}
                     href={item.href}
-                    className={`px-3 py-2 rounded-md text-lg font-medium transition-colors
-                    ${pathname === item.href ? "bg-primary text-primary-foreground" : "text-gray-300 hover:bg-secondary/50"}`}
+                    className={`px-3 py-2 rounded-md text-lg font-medium transition-colors border border-transparent
+                    ${pathname === item.href ? "bg-primary text-primary-foreground" : "text-gray-300 hover:bg-secondary/50 border-white/10"}`}
                 >
                     {item.label}
                 </Link>
