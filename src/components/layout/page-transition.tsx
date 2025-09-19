@@ -4,67 +4,71 @@
 import { usePathname } from "next/navigation";
 import { useState, useEffect, ReactNode } from "react";
 import { LoadingScreen } from "./loading-screen";
+import { AnimatePresence, motion } from "framer-motion";
 
-const MIN_LOADING_TIME = 150; 
+const MIN_LOADING_TIME = 250; 
 
 export function PageTransition({ children }: { children: ReactNode }) {
   const pathname = usePathname();
   const [isLoading, setIsLoading] = useState(false);
   const [progress, setProgress] = useState(0);
-  const [pageContent, setPageContent] = useState<ReactNode>(children);
-  const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
-    setIsMounted(true);
-  }, []);
+    // This effect runs on component mount and on pathname change
+    // We use a guard to avoid showing the loader on initial page load
+    const isInitialLoad = !sessionStorage.getItem('initialLoadComplete');
 
-  useEffect(() => {
-    if (isMounted && pageContent !== children) {
-      setIsLoading(true);
-      setProgress(0);
-
-      // Simulate loading progress
-      const progressInterval = setInterval(() => {
-        setProgress((prev) => {
-          if (prev >= 95) {
-            clearInterval(progressInterval);
-            return 95;
-          }
-          return prev + Math.floor(Math.random() * 15) + 5;
-        });
-      }, 100);
-
-
-      const timer = setTimeout(() => {
-        clearInterval(progressInterval);
-        setProgress(100);
-        
-        // Short delay to show 100% before hiding
-        setTimeout(() => {
-            setPageContent(children);
-            setIsLoading(false);
-        }, 200);
-
-      }, MIN_LOADING_TIME);
-
-      return () => {
-        clearTimeout(timer);
-        clearInterval(progressInterval);
-      };
-    } else if (!isMounted) {
-        setPageContent(children);
+    if (isInitialLoad) {
+      sessionStorage.setItem('initialLoadComplete', 'true');
+      return;
     }
-  }, [children, pathname, isMounted, pageContent]);
+
+    // Start loading sequence for subsequent navigations
+    setIsLoading(true);
+    setProgress(0);
+
+    const progressInterval = setInterval(() => {
+      setProgress((prev) => {
+        if (prev >= 95) {
+          clearInterval(progressInterval);
+          return 95;
+        }
+        const increment = Math.random() * 20;
+        return Math.min(prev + increment, 95);
+      });
+    }, 100);
+
+    const timer = setTimeout(() => {
+      clearInterval(progressInterval);
+      setProgress(100);
+      setTimeout(() => setIsLoading(false), 200); // Wait for the bar to fill before hiding
+    }, MIN_LOADING_TIME);
+
+    return () => {
+      clearTimeout(timer);
+      clearInterval(progressInterval);
+    };
+  }, [pathname]);
 
   return (
     <div className="relative h-full w-full">
-      {isLoading && <LoadingScreen progress={progress} />}
-      <div
-        className="h-full w-full transition-opacity duration-300"
-        style={{ opacity: isLoading ? 0 : 1 }}
-      >
-        {pageContent}
-      </div>
+      <AnimatePresence mode="wait" initial={false}>
+        {isLoading ? (
+          <motion.div key="loader">
+            <LoadingScreen progress={progress} />
+          </motion.div>
+        ) : (
+          <motion.div
+            key={pathname}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.3, delay: 0.1 }}
+            className="h-full w-full"
+          >
+            {children}
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 }
