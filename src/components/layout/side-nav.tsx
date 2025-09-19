@@ -5,7 +5,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState, useEffect, useRef } from "react"
 import { cn } from "@/lib/utils"
-import { motion, useDragControls, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion"
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -20,7 +20,29 @@ export function SideNav() {
   const [isOpen, setIsOpen] = useState(false)
   const navRef = useRef<HTMLDivElement>(null)
   const [menuPosition, setMenuPosition] = useState({ top: "auto", bottom: "auto", left: "auto", right: "auto" });
+  const [position, setPosition] = useState({ x: 16, y: 16 });
 
+  useEffect(() => {
+    try {
+      const savedPosition = localStorage.getItem('nav-button-position');
+      if (savedPosition) {
+        setPosition(JSON.parse(savedPosition));
+      }
+    } catch (error) {
+      // If localStorage is not available or fails, use default
+      console.error("Could not read from localStorage", error);
+    }
+  }, []);
+
+  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: any) => {
+    const newPos = { x: info.point.x, y: info.point.y };
+    try {
+      localStorage.setItem('nav-button-position', JSON.stringify(newPos));
+      setPosition(newPos);
+    } catch (error) {
+      console.error("Could not write to localStorage", error);
+    }
+  };
 
   useEffect(() => {
     setIsOpen(false)
@@ -41,20 +63,20 @@ export function SideNav() {
   const handleToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
 
-    const target = e.currentTarget as HTMLDivElement;
+    const target = e.currentTarget.parentElement as HTMLDivElement;
     const rect = target.getBoundingClientRect();
     
     const newMenuPosition: any = {};
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
 
-    if (rect.left + rect.width / 2 > viewportWidth / 2) {
+    if (rect.left + 224 > viewportWidth - 16) {
       newMenuPosition.right = viewportWidth - rect.right;
     } else {
       newMenuPosition.left = rect.left;
     }
     
-    if (rect.top + rect.height / 2 > viewportHeight / 2) {
+    if (rect.top + 284 > viewportHeight - 16) {
       newMenuPosition.bottom = viewportHeight - rect.top;
     } else {
       newMenuPosition.top = rect.top + rect.height;
@@ -72,6 +94,8 @@ export function SideNav() {
           <motion.div 
             drag
             dragMomentum={false}
+            onDragEnd={handleDragEnd}
+            style={position}
             dragConstraints={{
               left: 16,
               top: 16,
@@ -82,7 +106,7 @@ export function SideNav() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0, scale: 0.9 }}
             transition={{ duration: 0.2 }}
-            className="fixed top-4 left-4 z-[60] w-14 h-14 cursor-grab active:cursor-grabbing bg-card/80 backdrop-blur-lg border border-white/10 rounded-full flex items-center justify-center"
+            className="fixed z-[60] w-14 h-14 cursor-grab active:cursor-grabbing bg-card/80 backdrop-blur-lg border border-white/10 rounded-full flex items-center justify-center"
             onClick={handleToggle}
             aria-label="Toggle navigation"
           >
