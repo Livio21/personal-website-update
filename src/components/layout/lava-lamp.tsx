@@ -19,13 +19,13 @@ interface Blob {
 
 const generateBlobs = (amount: number, offset: number = 0): Blob[] => {
   return Array.from({ length: amount }, (_, i) => {
-    const height = inRange(80, 200);
+    const height = inRange(40, 120);
     return {
       key: i + offset,
       speed: inRange(15, 40),
       delay: inRange(0, 10) - 10,
       height: height,
-      width: inRange(80, 200),
+      width: inRange(40, 120),
       skewX: inRange(0, 20) - 10,
       skewY: inRange(0, 20) - 10,
       x: inRange(0, 100),
