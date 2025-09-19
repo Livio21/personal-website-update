@@ -1,3 +1,5 @@
+"use client";
+
 import { AboutContent } from "./about-content"
 
 const skills = [

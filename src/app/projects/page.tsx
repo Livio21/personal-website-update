@@ -1,3 +1,5 @@
+"use client";
+
 import { ProjectScroller } from './project-scroller';
 
 export default function ProjectsPage() {
