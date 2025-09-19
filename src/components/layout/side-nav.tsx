@@ -19,8 +19,6 @@ export function SideNav() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const navRef = useRef<HTMLDivElement>(null)
-  const controls = useDragControls()
-  const [position, setPosition] = useState({ x: 16, y: 16 });
   const [menuPosition, setMenuPosition] = useState({ top: "auto", bottom: "auto", left: "auto", right: "auto" });
 
 
@@ -42,63 +40,60 @@ export function SideNav() {
 
   const handleToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
+
+    const target = e.currentTarget as HTMLDivElement;
+    const rect = target.getBoundingClientRect();
+    
+    const newMenuPosition: any = {};
+    const viewportWidth = window.innerWidth;
+    const viewportHeight = window.innerHeight;
+
+    if (rect.left + rect.width / 2 > viewportWidth / 2) {
+      newMenuPosition.right = viewportWidth - rect.right;
+    } else {
+      newMenuPosition.left = rect.left;
+    }
+    
+    if (rect.top + rect.height / 2 > viewportHeight / 2) {
+      newMenuPosition.bottom = viewportHeight - rect.top;
+    } else {
+      newMenuPosition.top = rect.top + rect.height;
+    }
+    
+    setMenuPosition(newMenuPosition);
     setIsOpen(!isOpen);
   };
   
-  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: any) => {
-      const newPos = { x: info.point.x, y: info.point.y };
-      const viewportWidth = window.innerWidth;
-      const viewportHeight = window.innerHeight;
-
-      const menuWidth = 224; // w-56
-      const menuHeight = 280; // h-[280px]
-
-      const newMenuPosition: any = {};
-
-      // Horizontal positioning
-      if (newPos.x > viewportWidth / 2) {
-          newMenuPosition.right = viewportWidth - newPos.x - 28;
-      } else {
-          newMenuPosition.left = newPos.x - 28;
-      }
-
-      // Vertical positioning
-      if (newPos.y > viewportHeight / 2) {
-          newMenuPosition.bottom = viewportHeight - newPos.y - 28;
-      } else {
-          newMenuPosition.top = newPos.y - 28;
-      }
-      
-      setMenuPosition(newMenuPosition);
-      setPosition(newPos);
-  };
 
   return (
     <div ref={navRef}>
-      <motion.div 
-        drag
-        dragListener={false}
-        onPointerDown={(e) => controls.start(e)}
-        dragControls={controls}
-        dragMomentum={false}
-        onDragEnd={handleDragEnd}
-        dragConstraints={{
-          left: 16,
-          top: 16,
-          right: typeof window !== 'undefined' ? window.innerWidth - (56 + 16) : 0,
-          bottom: typeof window !== 'undefined' ? window.innerHeight - (56 + 16) : 0,
-        }}
-        dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
-        className="fixed top-4 left-4 z-[60] w-14 h-14 cursor-grab active:cursor-grabbing bg-card/80 backdrop-blur-lg border border-white/10 rounded-full flex items-center justify-center"
-        onClick={handleToggle}
-        aria-label="Toggle navigation"
-      >
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M3 12H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M3 6H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-          <path d="M3 18H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-        </svg>
-      </motion.div>
+      <AnimatePresence>
+        {!isOpen && (
+          <motion.div 
+            drag
+            dragMomentum={false}
+            dragConstraints={{
+              left: 16,
+              top: 16,
+              right: typeof window !== 'undefined' ? window.innerWidth - (56 + 16) : 0,
+              bottom: typeof window !== 'undefined' ? window.innerHeight - (56 + 16) : 0,
+            }}
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.2 }}
+            className="fixed top-4 left-4 z-[60] w-14 h-14 cursor-grab active:cursor-grabbing bg-card/80 backdrop-blur-lg border border-white/10 rounded-full flex items-center justify-center"
+            onClick={handleToggle}
+            aria-label="Toggle navigation"
+          >
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M3 12H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M3 6H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+              <path d="M3 18H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+            </svg>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
       <AnimatePresence>
         {isOpen && (
@@ -108,7 +103,7 @@ export function SideNav() {
             exit={{ opacity: 0, scale: 0.95 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
             style={menuPosition}
-            className="fixed z-50 w-56 h-[280px] p-4 bg-card/50 backdrop-blur-lg border border-white/10 rounded-2xl"
+            className="fixed z-50 w-56 p-4 bg-card/50 backdrop-blur-lg border border-white/10 rounded-2xl"
           >
             <div className="flex items-center justify-end mb-4">
                 <button onClick={() => setIsOpen(false)} className="p-1 rounded-md hover:bg-secondary" aria-label="Close navigation">
@@ -126,7 +121,7 @@ export function SideNav() {
                         key={item.href}
                         href={item.href}
                         className={cn(
-                          "relative px-3 py-2 rounded-full text-center text-lg font-medium transition-colors hover:text-primary",
+                          "relative px-3 py-2 rounded-md text-left text-lg font-medium transition-colors hover:text-primary",
                           isActive ? "text-primary" : "text-gray-300"
                         )}
                     >
@@ -134,7 +129,7 @@ export function SideNav() {
                             <motion.div
                                 layoutId="mobile-nav-active-pill"
                                 className="absolute inset-0 bg-primary"
-                                style={{ borderRadius: 9999 }}
+                                style={{ borderRadius: 8 }}
                                 transition={{ type: "spring", stiffness: 350, damping: 30 }}
                             />
                         )}
