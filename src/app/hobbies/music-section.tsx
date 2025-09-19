@@ -1,3 +1,4 @@
+
 "use client"
 
 import Image from 'next/image';
@@ -19,6 +20,22 @@ interface MusicSectionProps {
 export function MusicSection({ tracks }: MusicSectionProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+    if (!tracks || tracks.length === 0) {
+        return (
+            <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-background/90 overflow-y-auto no-scrollbar">
+                <div className="text-left mb-8">
+                    <h2 className="text-4xl md:text-5xl font-headline font-light tracking-tight mb-2">
+                        Music
+                    </h2>
+                    <p className="text-lg text-muted-foreground font-body">What I'm currently listening to, via Last.fm.</p>
+                </div>
+                <div className='flex-grow flex items-center justify-center text-center text-muted-foreground font-body'>
+                    <p>Could not load tracks from Last.fm. <br/> Please set up your API key or check the console.</p>
+                </div>
+            </section>
+        );
+    }
+
     const featuredTrack = tracks[0];
     const otherTracks = tracks.slice(1);
     const rotationPreview = otherTracks.slice(0, 4);
@@ -34,34 +51,28 @@ export function MusicSection({ tracks }: MusicSectionProps) {
 
       <div className="flex-grow w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {/* Featured Album */}
-        {featuredTrack ? (
-            <div className='group flex flex-col items-center text-center'>
-                <h3 className="text-2xl font-light mb-4 text-primary font-headline">Recently Played</h3>
-                <Card className="w-full max-w-sm overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 group-hover:scale-105">
-                    <Image
-                        src={featuredTrack.image.find(i => i.size === 'extralarge')?.['#text'] || "https://picsum.photos/seed/album3/600/600"}
-                        alt={`Album art for ${featuredTrack.name} by ${featuredTrack.artist['#text']}`}
-                        width={600}
-                        height={600}
-                        className="object-cover w-full h-full"
-                        data-ai-hint={"album cover"}
-                    />
-                </Card>
-                <div className="mt-4">
-                    <h4 className="text-3xl font-light font-headline">{featuredTrack.name}</h4>
-                    <p className="text-xl text-muted-foreground mb-4 font-body">{featuredTrack.artist['#text']}</p>
-                    <Button asChild>
-                        <Link href={featuredTrack.url} target="_blank" rel="noopener noreferrer">
-                            View on Last.fm
-                        </Link>
-                    </Button>
-                </div>
+        <div className='group flex flex-col items-center text-center'>
+            <h3 className="text-2xl font-light mb-4 text-primary font-headline">Recently Played</h3>
+            <Card className="w-full max-w-sm overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 group-hover:scale-105">
+                <Image
+                    src={featuredTrack.image.find(i => i.size === 'extralarge')?.['#text'] || "https://picsum.photos/seed/album3/600/600"}
+                    alt={`Album art for ${featuredTrack.name} by ${featuredTrack.artist['#text']}`}
+                    width={600}
+                    height={600}
+                    className="object-cover w-full h-full"
+                    data-ai-hint={"album cover"}
+                />
+            </Card>
+            <div className="mt-4">
+                <h4 className="text-3xl font-light font-headline">{featuredTrack.name}</h4>
+                <p className="text-xl text-muted-foreground mb-4 font-body">{featuredTrack.artist['#text']}</p>
+                <Button asChild>
+                    <Link href={featuredTrack.url} target="_blank" rel="noopener noreferrer">
+                        View on Last.fm
+                    </Link>
+                </Button>
             </div>
-        ) : (
-            <div className='flex items-center justify-center text-center text-muted-foreground font-body'>
-                <p>Could not load tracks from Last.fm. <br/> Please set up your API key.</p>
-            </div>
-        )}
+        </div>
 
         {/* Other Albums */}
         {tracks.length > 1 && (
@@ -92,9 +103,9 @@ export function MusicSection({ tracks }: MusicSectionProps) {
                         ))}
                     </div>
                     {otherTracks.length > 0 && (
-                        <Button 
-                            variant="outline" 
-                            size="sm" 
+                        <Button
+                            variant="outline"
+                            size="sm"
                             className="absolute top-2 right-2 z-10 bg-card/50 backdrop-blur-sm"
                             onClick={() => setIsModalOpen(true)}
                         >
