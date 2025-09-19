@@ -4,7 +4,7 @@ export default function ContactPage() {
   return (
     <div className="w-full p-8 md:p-24 md:pl-32">
       <header className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">Get In Touch</h1>
+        <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-2">Get In Touch</h1>
         <p className="text-lg text-muted-foreground">I'd love to hear from you. Let's build something great together.</p>
       </header>
 

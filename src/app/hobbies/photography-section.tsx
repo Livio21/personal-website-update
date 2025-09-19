@@ -45,7 +45,7 @@ export function PhotographySection() {
     <>
       <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-background/80 overflow-y-auto no-scrollbar">
         <div className="text-left mb-8">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">
+          <h2 className="text-4xl md:text-5xl font-light tracking-tight mb-2">
             Photography
           </h2>
           <p className="text-lg text-muted-foreground">Capturing moments and perspectives.</p>

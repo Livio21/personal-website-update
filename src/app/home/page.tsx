@@ -5,7 +5,7 @@ export default function Home() {
   return (
     <div className="w-full p-8 md:p-24 md:pl-32">
       <header className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-400">
+        <h1 className="text-4xl md:text-5xl font-light tracking-tight mb-2 bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-400">
           Livio Macaj
         </h1>
         <p className="max-w-2xl text-lg text-muted-foreground">
