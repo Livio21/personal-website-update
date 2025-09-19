@@ -11,6 +11,7 @@ export function ProjectScroller() {
   const projects = PlaceHolderImages.filter(p => p.id.startsWith('project-'));
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const scrollToProject = (index: number) => {
     if (containerRef.current) {
@@ -19,49 +20,91 @@ export function ProjectScroller() {
             top: index * sectionHeight,
             behavior: 'smooth',
         });
+        setCurrentProjectIndex(index);
     }
   };
 
+  const handleNext = () => {
+    const nextIndex = (currentProjectIndex + 1) % projects.length;
+    scrollToProject(nextIndex);
+  };
+  
+  const handlePrev = () => {
+      const prevIndex = (currentProjectIndex - 1 + projects.length) % projects.length;
+      scrollToProject(prevIndex);
+  };
+
+  // Auto-scroll and manual scroll handling
   useEffect(() => {
     const handleScroll = () => {
         if (containerRef.current) {
             const index = Math.round(containerRef.current.scrollTop / containerRef.current.clientHeight);
-            setCurrentProjectIndex(index);
+            if (index !== currentProjectIndex) {
+              setCurrentProjectIndex(index);
+            }
         }
     };
     
+    const resetAutoScroll = () => {
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+      scrollTimeoutRef.current = setTimeout(handleNext, 8000);
+    };
+
     const currentContainer = containerRef.current;
     currentContainer?.addEventListener('scroll', handleScroll, { passive: true });
+    
+    resetAutoScroll(); // Start auto-scroll on mount
 
     return () => {
         currentContainer?.removeEventListener('scroll', handleScroll);
+        if (scrollTimeoutRef.current) {
+          clearTimeout(scrollTimeoutRef.current);
+        }
     };
-  }, []);
-  
+  }, [currentProjectIndex, projects.length]); // Rerun when index changes to reset timer
+
+  // Keyboard navigation
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        handleNext();
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        handlePrev();
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [currentProjectIndex, projects.length]); // Re-add listener if projects/index change
+
+
   return (
     <div className="flex h-screen w-full">
       <div ref={containerRef} className="relative h-full flex-1 snap-y snap-mandatory overflow-y-scroll no-scrollbar">
         {/* Top and Bottom Nav Buttons */}
-        {currentProjectIndex > 0 && (
-            <Button 
-              size="icon" 
-              variant="outline" 
-              className="rounded-full bg-card/50 backdrop-blur-sm fixed top-6 left-1/2 -translate-x-1/2 z-20" 
-              onClick={() => scrollToProject(currentProjectIndex - 1)}
-            >
-              <ArrowUp />
-            </Button>
-          )}
-        {currentProjectIndex < projects.length - 1 && (
-          <Button 
-              size="icon" 
-              variant="outline" 
-              className="rounded-full bg-card/50 backdrop-blur-sm fixed bottom-6 left-1/2 -translate-x-1/2 z-20" 
-              onClick={() => scrollToProject(currentProjectIndex + 1)}
-          >
-              <ArrowDown />
-          </Button>
-        )}
+        <Button 
+          size="icon" 
+          variant="outline" 
+          className="rounded-full bg-card/50 backdrop-blur-sm fixed top-6 left-1/2 -translate-x-1/2 z-20" 
+          onClick={handlePrev}
+        >
+          <ArrowUp />
+        </Button>
+
+        <Button 
+            size="icon" 
+            variant="outline" 
+            className="rounded-full bg-card/50 backdrop-blur-sm fixed bottom-6 left-1/2 -translate-x-1/2 z-20" 
+            onClick={handleNext}
+        >
+            <ArrowDown />
+        </Button>
 
         {/* Project Sections */}
         {projects.map((project, index) => (
@@ -99,9 +142,8 @@ export function ProjectScroller() {
       </div>
       
       {/* Compact vertical project indicator */}
-      <div className="hidden md:flex flex-col justify-center p-2 -mr-12">
-        <h3 className="text-xl font-semibold text-muted-foreground mb-6 text-center">Projects</h3>
-        <div className="flex flex-col gap-2 w-full">
+      <div className="hidden md:flex flex-col justify-center p-2 pr-4">
+        <div className="flex flex-col gap-4 w-full">
           {projects.map((project, index) => {
             const isActive = currentProjectIndex === index;
             return (
@@ -109,16 +151,15 @@ export function ProjectScroller() {
                 key={project.id}
                 onClick={() => scrollToProject(index)}
                 className={cn(
-                  "relative flex flex-col gap-4 transition-all duration-300 w-full",
+                  "relative flex flex-col gap-4 transition-all duration-300 w-full text-right",
                 )}
                 aria-label={`Go to ${project.description.split('.')[0]}`}
               >
                 <span
                   className={cn(
-                    "text-xs font-medium truncate transition-all duration-300 text-center",
-                    isActive ? "text-primary text-md font-bold" : "text-muted-foreground"
+                    "text-xs font-medium truncate transition-all duration-300",
+                    isActive ? "text-primary text-lg font-bold" : "text-muted-foreground"
                   )}
-              
                 >
                   {project.description.split('.')[0]}
                 </span>
