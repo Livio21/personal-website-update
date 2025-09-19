@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { SideNav } from '@/components/layout/side-nav';
 import { Toaster } from '@/components/ui/toaster';
+import { SiteHeader } from '@/components/layout/site-header';
 
 export const metadata: Metadata = {
   title: 'Livio Macaj',
@@ -22,8 +23,11 @@ export default function RootLayout({
       </head>
       <body className="font-body antialiased bg-background">
         <div className="relative flex min-h-screen">
-          <SideNav />
-          <main className="flex-1 p-8 pr-0 md:p-12 md:pr-0 ">
+          <div className="md:hidden">
+            <SideNav />
+          </div>
+          <SiteHeader />
+          <main className="flex-1 p-8 pt-24 md:p-12 md:pt-24 w-full">
             {children}
           </main>
         </div>

@@ -49,16 +49,16 @@ export function SideNav() {
       <div 
         ref={navRef}
         className={cn(
-            "fixed top-1/2 left-2 -translate-y-1/2 z-50 transition-all duration-200 ease-in-out",
-            isOpen ? 'w-56 h-auto p-6 bg-blue-950/50 backdrop-blur-lg border border-white/10 rounded-2xl' : 'w-14 h-14'
+            "fixed top-4 left-4 z-50 transition-all duration-300 ease-in-out",
+            isOpen ? 'w-56 h-auto p-4 bg-blue-950/50 backdrop-blur-lg border border-white/10 rounded-2xl' : 'w-14 h-14'
         )}
       >
         {/* Button */}
         <button
             onClick={handleToggle}
             className={cn(
-                "absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 flex items-center justify-center w-14 h-14 bg-zinc-900/80 backdrop-blur-lg border border-white/10 rounded-full z-10 transition-opacity duration-100",
-                isOpen && 'opacity-0 pointer-events-none'
+                "absolute top-0 left-0 flex items-center justify-center w-14 h-14 bg-zinc-900/80 backdrop-blur-lg border border-white/10 rounded-full z-10 transition-transform duration-300",
+                isOpen && 'scale-0'
             )}
             aria-label="Open navigation"
         >
@@ -66,8 +66,8 @@ export function SideNav() {
         </button>
 
         {/* Modal content */}
-        <div className={cn("transition-opacity", isOpen ? 'opacity-100  ' : 'opacity-0 w-0 h-0 duration-200')}>
-            <div className="flex items-center justify-between mb-8">
+        <div className={cn("transition-opacity duration-200", isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none')}>
+            <div className="flex items-center justify-end mb-4">
                 <button onClick={() => setIsOpen(false)} className="p-1 rounded-md hover:bg-secondary" aria-label="Close navigation">
                     <X className="size-5 text-white" />
                 </button>
@@ -87,9 +87,6 @@ export function SideNav() {
             </nav>
         </div>
       </div>
-      
-       {/* Overlay */}
-       {isOpen && <div className="fixed inset-0 bg-black/60 z-30 md:hidden" onClick={() => setIsOpen(false)} />}
     </>
   )
 }
