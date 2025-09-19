@@ -1,6 +1,5 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
 
 export default function Home() {
   return (
@@ -18,7 +17,7 @@ export default function Home() {
         <div className="flex gap-4">
           <Button asChild size="lg">
             <Link href="/projects">
-              View My Work <ArrowRight className="ml-2" />
+              View My Work
             </Link>
           </Button>
           <Button asChild variant="outline" size="lg">

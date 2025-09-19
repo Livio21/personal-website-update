@@ -1,5 +1,4 @@
 import { ContactForm } from './contact-form';
-import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
 
 export default function ContactPage() {
   return (
@@ -17,20 +16,17 @@ export default function ContactPage() {
           </p>
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <Mail className="text-accent" />
               <a href="mailto:iamlivio@gmail.com" className="hover:text-primary">iamlivio@gmail.com</a>
             </div>
             <div className="flex items-center gap-3">
-              <Phone className="text-accent" />
               <span>+355 685 11 2709</span>
             </div>
             <div className="flex items-center gap-3">
-              <MapPin className="text-accent" />
               <span>Tirana, Albania</span>
             </div>
           </div>
           <div className="flex items-center gap-4 pt-4">
-             <a href="https://www.linkedin.com/in/livio-macaj" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Linkedin size={24}/></a>
+             <a href="https://www.linkedin.com/in/livio-macaj" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary text-sm">LinkedIn</a>
           </div>
         </div>
         <div>

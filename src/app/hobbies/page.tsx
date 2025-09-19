@@ -5,7 +5,6 @@ import { PhotographySection } from './photography-section';
 import { MusicSection } from './music-section';
 import { BlogSection } from './blog-section';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 const sections = ['Photography', 'Music', 'Blog'];
@@ -81,7 +80,7 @@ export default function HobbiesPage() {
           )} 
           onClick={handlePrev}
         >
-          <ArrowLeft />
+          {"<"}
         </Button>
 
         <Button 
@@ -93,7 +92,7 @@ export default function HobbiesPage() {
             )} 
             onClick={handleNext}
         >
-            <ArrowRight />
+            {">"}
         </Button>
       
       <div 

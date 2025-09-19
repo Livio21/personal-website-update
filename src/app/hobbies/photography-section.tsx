@@ -3,13 +3,10 @@
 import { useState } from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Camera, Plus, Minus, X } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
-  DialogOverlay,
-  DialogPortal,
 } from "@/components/ui/dialog"
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
@@ -48,8 +45,7 @@ export function PhotographySection() {
     <>
       <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-background/80 overflow-y-auto no-scrollbar">
         <div className="text-left mb-8">
-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 flex items-center gap-4">
-            <Camera className="text-primary size-10" />
+          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">
             Photography
           </h2>
           <p className="text-lg text-muted-foreground">Capturing moments and perspectives.</p>
@@ -77,7 +73,6 @@ export function PhotographySection() {
         {canExpand && (
           <div className="mt-4 text-center">
             <Button onClick={() => setIsExpanded(!isExpanded)} variant="outline" className="bg-card/50 backdrop-blur-sm">
-              {isExpanded ? <Minus className="mr-2" /> : <Plus className="mr-2" />}
               {isExpanded ? 'Show Less' : 'Show More'}
             </Button>
           </div>

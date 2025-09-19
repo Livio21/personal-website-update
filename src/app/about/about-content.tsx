@@ -2,7 +2,6 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { User, Code, Briefcase } from "lucide-react"
 import { useTransition, animated } from '@react-spring/web'
 
 interface Experience {
@@ -48,7 +47,6 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
             <Card className="bg-card/60 backdrop-blur-sm border-white/10 h-full">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
-                  <User className="text-primary" />
                   My Story
                 </CardTitle>
               </CardHeader>
@@ -66,7 +64,6 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
             <Card className="bg-card/60 backdrop-blur-sm border-white/10 h-full">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
-                  <Code className="text-primary" />
                   Skills
                 </CardTitle>
               </CardHeader>
@@ -90,7 +87,7 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
       <div className="lg:col-span-3">
         {cardTransitions((style, item) => item && (
             <animated.div style={style}>
-                <h2 className="text-3xl font-bold mb-8 flex items-center gap-3"><Briefcase className="text-primary" /> Professional Experience</h2>
+                <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">Professional Experience</h2>
                  <div className="space-y-6">
                     {experienceTransitions((style, exp) => (
                         <animated.div style={style}>

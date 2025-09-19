@@ -2,7 +2,6 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Music, PlayCircle, Headset, Maximize } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
@@ -10,9 +9,6 @@ import { useState } from 'react';
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogDescription,
 } from "@/components/ui/dialog";
 import { ScrollArea } from '@/components/ui/scroll-area';
 
@@ -85,8 +81,7 @@ export function MusicSection() {
     return (
     <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-background/90 overflow-y-auto no-scrollbar">
       <div className="text-left mb-8">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 flex items-center gap-4">
-          <Music className="text-primary size-10" />
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">
           Music
         </h2>
         <p className="text-lg text-muted-foreground">A few of the albums I have on repeat.</p>
@@ -112,7 +107,7 @@ export function MusicSection() {
                     <p className="text-xl text-muted-foreground mb-4">{featuredAlbum.artist}</p>
                     <Button asChild>
                         <Link href={featuredAlbum.spotifyUrl} target="_blank" rel="noopener noreferrer">
-                            <PlayCircle className="mr-2"/> Listen on Spotify
+                            Listen on Spotify
                         </Link>
                     </Button>
                 </div>
@@ -136,8 +131,8 @@ export function MusicSection() {
                                     data-ai-hint={album.imageHint}
                                 />
                                  <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-2 text-center opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
-                                    <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer">
-                                        <Headset className="w-8 h-8 text-primary" />
+                                    <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer" className="text-primary font-bold">
+                                        Listen
                                     </Link>
                                 </div>
                             </CardContent>
@@ -146,11 +141,11 @@ export function MusicSection() {
                 </div>
                 <Button 
                     variant="outline" 
-                    size="icon" 
+                    size="sm" 
                     className="absolute top-2 right-2 z-10 bg-card/50 backdrop-blur-sm"
                     onClick={() => setIsModalOpen(true)}
                 >
-                    <Maximize />
+                    View All
                 </Button>
             </div>
         </div>
@@ -172,8 +167,8 @@ export function MusicSection() {
                             data-ai-hint={album.imageHint}
                         />
                         <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer">
-                                <Headset className="w-10 h-10 text-primary" />
+                            <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer" className="text-primary font-bold">
+                                Listen
                             </Link>
                         </div>
                         <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none">

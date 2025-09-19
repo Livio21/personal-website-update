@@ -4,7 +4,6 @@ import { useState, useEffect, useRef } from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
-import { ArrowDown, ArrowUp, ExternalLink } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function ProjectScroller() {
@@ -100,7 +99,7 @@ export function ProjectScroller() {
           className="rounded-full bg-card/50 backdrop-blur-sm fixed top-6 left-1/2 -translate-x-1/2 z-20" 
           onClick={handlePrev}
         >
-          <ArrowUp />
+          {'^'}
         </Button>
 
         <Button 
@@ -109,7 +108,7 @@ export function ProjectScroller() {
             className="rounded-full bg-card/50 backdrop-blur-sm fixed bottom-6 left-1/2 -translate-x-1/2 z-20" 
             onClick={handleNext}
         >
-            <ArrowDown />
+            {'v'}
         </Button>
 
         {projects.map((project, index) => (
@@ -135,7 +134,7 @@ export function ProjectScroller() {
                   <p className="text-lg text-muted-foreground mb-6">{project.description}</p>
                   <Button variant="outline" asChild>
                     <a href={project.url} target="_blank" rel="noopener noreferrer">
-                      View Project <ExternalLink className="ml-2" />
+                      View Project
                     </a>
                   </Button>
                 </div>

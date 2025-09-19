@@ -1,18 +1,15 @@
 "use client"
 
 import { useState } from 'react';
-import { Rss, X } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
-import { ArrowRight } from 'lucide-react';
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogTitle,
   DialogDescription,
-  DialogClose
 } from "@/components/ui/dialog"
 import { ScrollArea } from '@/components/ui/scroll-area';
 
@@ -49,8 +46,7 @@ export function BlogSection() {
   return (
     <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-background overflow-y-auto no-scrollbar">
       <div className="text-left mb-8">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 flex items-center gap-4">
-          <Rss className="text-primary size-10" />
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">
           Mini Blogs
         </h2>
         <p className="text-lg text-muted-foreground">Sharing thoughts on tech and development.</p>
@@ -73,7 +69,7 @@ export function BlogSection() {
                     ))}
                 </div>
                 <Button variant="link" className="p-0 h-auto" onClick={() => setSelectedPost(post)}>
-                  Read More <ArrowRight className="ml-2 size-4" />
+                  Read More
                 </Button>
             </CardFooter>
           </Card>
