@@ -46,7 +46,7 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
           <animated.div style={style}>
             <Card className="bg-card/60 backdrop-blur-sm border-white/10 h-full">
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-2xl font-semibold font-headline">
+                <CardTitle className="text-2xl font-light font-headline">
                   My Story
                 </CardTitle>
               </CardHeader>
@@ -63,7 +63,7 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
           <animated.div style={style}>
             <Card className="bg-card/60 backdrop-blur-sm border-white/10 h-full">
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-2xl font-semibold font-headline">
+                <CardTitle className="text-2xl font-light font-headline">
                   Skills
                 </CardTitle>
               </CardHeader>
@@ -71,7 +71,7 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
                 <div className="flex flex-wrap gap-2">
                   {skillsTransitions((style, skill) => (
                     <animated.div style={style}>
-                       <Badge variant="secondary" className="text-md py-1 px-3 rounded-full font-body">
+                       <Badge variant="secondary" className="text-md py-1 px-3 rounded-full font-code">
                         {skill}
                       </Badge>
                     </animated.div>
@@ -87,15 +87,15 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
       <div className="lg:col-span-3">
         {cardTransitions((style, item) => item && (
             <animated.div style={style}>
-                <h2 className="text-3xl font-bold mb-8 flex items-center gap-3 font-headline">Professional Experience</h2>
+                <h2 className="text-3xl font-light mb-8 font-headline">Professional Experience</h2>
                  <div className="space-y-6">
                     {experienceTransitions((style, exp) => (
                         <animated.div style={style}>
                         <Card className="bg-card/60 backdrop-blur-sm border-white/10">
                             <CardHeader>
                                 <div className="flex justify-between items-baseline">
-                                <CardTitle className="text-xl font-headline">{exp.role}</CardTitle>
-                                <p className="text-sm font-normal text-muted-foreground font-body">{exp.period}</p>
+                                <CardTitle className="text-xl font-light font-headline">{exp.role}</CardTitle>
+                                <p className="text-sm font-normal text-muted-foreground font-code">{exp.period}</p>
                                 </div>
                                 <p className="text-md text-primary font-medium pt-1 font-body">{exp.company}</p>
                             </CardHeader>

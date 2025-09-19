@@ -56,8 +56,8 @@ export function BlogSection() {
         {blogPosts.map((post) => (
           <Card key={post.title} className="bg-card/60 backdrop-blur-sm border-white/10 flex flex-col">
             <CardHeader>
-              <CardTitle className="font-headline">{post.title}</CardTitle>
-              <CardDescription className="font-body">{post.date}</CardDescription>
+              <CardTitle className="font-light font-headline">{post.title}</CardTitle>
+              <CardDescription className="font-code">{post.date}</CardDescription>
             </CardHeader>
             <CardContent className="flex-grow">
               <p className="text-muted-foreground font-body">{post.description}</p>
@@ -65,7 +65,7 @@ export function BlogSection() {
             <CardFooter className="flex-col items-start gap-4">
                <div className="flex flex-wrap gap-2">
                     {post.tags.map(tag => (
-                        <Badge key={tag} variant="secondary" className="font-body">{tag}</Badge>
+                        <Badge key={tag} variant="secondary" className="font-code">{tag}</Badge>
                     ))}
                 </div>
                 <Button variant="link" className="p-0 h-auto font-body" onClick={() => setSelectedPost(post)}>
@@ -81,8 +81,8 @@ export function BlogSection() {
           {selectedPost && (
             <>
               <DialogHeader>
-                <DialogTitle className="text-3xl font-bold font-headline">{selectedPost.title}</DialogTitle>
-                <DialogDescription className="font-body">{selectedPost.date}</DialogDescription>
+                <DialogTitle className="text-3xl font-light font-headline">{selectedPost.title}</DialogTitle>
+                <DialogDescription className="font-code">{selectedPost.date}</DialogDescription>
               </DialogHeader>
               <ScrollArea className="h-full pr-4">
                   <p className="text-muted-foreground whitespace-pre-wrap font-body">{selectedPost.content}</p>

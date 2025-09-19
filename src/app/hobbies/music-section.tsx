@@ -91,7 +91,7 @@ export function MusicSection() {
         {/* Featured Album */}
         {featuredAlbum && (
             <div className='group flex flex-col items-center text-center'>
-                <h3 className="text-2xl font-semibold mb-4 text-primary font-headline">Featured Album</h3>
+                <h3 className="text-2xl font-light mb-4 text-primary font-headline">Featured Album</h3>
                 <Card className="w-full max-w-sm overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 group-hover:scale-105">
                     <Image
                         src={featuredAlbum.imageUrl}
@@ -103,7 +103,7 @@ export function MusicSection() {
                     />
                 </Card>
                 <div className="mt-4">
-                    <h4 className="text-3xl font-bold font-headline">{featuredAlbum.title}</h4>
+                    <h4 className="text-3xl font-light font-headline">{featuredAlbum.title}</h4>
                     <p className="text-xl text-muted-foreground mb-4 font-body">{featuredAlbum.artist}</p>
                     <Button asChild>
                         <Link href={featuredAlbum.spotifyUrl} target="_blank" rel="noopener noreferrer">
@@ -116,7 +116,7 @@ export function MusicSection() {
 
         {/* Other Albums */}
         <div className="flex flex-col items-center">
-            <h3 className="text-2xl font-semibold mb-4 font-headline">On Rotation</h3>
+            <h3 className="text-2xl font-light mb-4 font-headline">On Rotation</h3>
             <div className="relative group w-full max-w-sm aspect-square">
                 <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
                     {rotationPreview.map((album) => (
@@ -131,9 +131,11 @@ export function MusicSection() {
                                     data-ai-hint={album.imageHint}
                                 />
                                  <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-2 text-center opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
-                                    <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer" className="text-primary font-bold font-body">
-                                        Listen
-                                    </Link>
+                                    <Button asChild variant="link" className="text-primary font-bold font-body">
+                                        <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer">
+                                            Listen
+                                        </Link>
+                                    </Button>
                                 </div>
                             </CardContent>
                         </Card>
@@ -152,7 +154,7 @@ export function MusicSection() {
       </div>
 
        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="bg-card/80 backdrop-blur-lg border-white/10 sm:max-w-4xl h-[85vh]">
+        <DialogContent className="bg-card/80 backdrop-blur-lg border-white/10 sm:max-w-4xl h-[85vh] max-h-[85vh]">
           <ScrollArea className="h-full pr-4 -mr-2">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 py-4">
                 {otherAlbums.map((album) => (
@@ -167,11 +169,13 @@ export function MusicSection() {
                             data-ai-hint={album.imageHint}
                         />
                         <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer" className="text-primary font-bold font-body">
-                                Listen
-                            </Link>
+                            <Button asChild variant="link" className="text-primary font-bold font-body">
+                                <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer">
+                                    Listen
+                                </Link>
+                            </Button>
                         </div>
-                        <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
+                        <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none group-hover:opacity-0 transition-opacity">
                             <p className="font-semibold text-white truncate font-headline">{album.title}</p>
                             <p className="text-sm text-gray-300 truncate font-body">{album.artist}</p>
                         </div>
