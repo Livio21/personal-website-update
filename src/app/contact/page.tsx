@@ -5,7 +5,7 @@ import { ContactForm } from './contact-form';
 export default function ContactPage() {
   return (
     <div className="w-full min-h-screen flex flex-col items-center justify-center p-4">
-      <div className="grid md:grid-cols-2 gap-10 bg-card/40 backdrop-blur-lg border border-border/20 rounded-lg p-8 w-full max-w-5xl">
+      <div className="grid md:grid-cols-2 gap-10 bg-card/40 backdrop-blur-lg border border-white/10 rounded-lg p-8 w-full max-w-5xl">
         <div className="space-y-6 flex flex-col justify-center">
             <header className="text-left mb-4">
                 <h1 className="text-4xl md:text-5xl font-headline font-light tracking-tight mb-2">Get In Touch</h1>
