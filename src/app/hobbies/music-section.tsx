@@ -157,37 +157,31 @@ export function MusicSection() {
       </div>
 
        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="bg-card/60 backdrop-blur-lg border-white/10 sm:max-w-3xl h-[80vh]">
-          <DialogHeader>
-            <DialogTitle className="text-3xl font-bold">On Rotation</DialogTitle>
-            <DialogDescription>All the albums currently on my playlist.</DialogDescription>
-          </DialogHeader>
-          <ScrollArea className="h-full pr-4">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
+        <DialogContent className="bg-card/80 backdrop-blur-lg border-white/10 sm:max-w-4xl h-[85vh]">
+          <ScrollArea className="h-full pr-4 -mr-2">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 py-4">
                 {otherAlbums.map((album) => (
-                    <div key={album.title} className="group">
-                        <Card className="overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 group-hover:scale-105 mb-2">
-                             <CardContent className="p-0 w-full h-full relative">
-                                <Image
-                                    src={album.imageUrl}
-                                    alt={`Album art for ${album.title} by ${album.artist}`}
-                                    width={300}
-                                    height={300}
-                                    className="object-cover w-full h-full"
-                                    data-ai-hint={album.imageHint}
-                                />
-                                <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                    <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer">
-                                        <Headset className="w-10 h-10 text-primary" />
-                                    </Link>
-                                </div>
-                             </CardContent>
-                        </Card>
-                        <div className="text-left p-2 absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
+                    <Card key={album.title} className="group overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 hover:scale-105 rounded-md">
+                        <CardContent className="p-0 w-full h-full relative">
+                        <Image
+                            src={album.imageUrl}
+                            alt={`Album art for ${album.title} by ${album.artist}`}
+                            width={300}
+                            height={300}
+                            className="object-cover w-full h-full"
+                            data-ai-hint={album.imageHint}
+                        />
+                        <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer">
+                                <Headset className="w-10 h-10 text-primary" />
+                            </Link>
+                        </div>
+                        <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
                             <p className="font-semibold text-white truncate">{album.title}</p>
                             <p className="text-sm text-gray-300 truncate">{album.artist}</p>
                         </div>
-                    </div>
+                        </CardContent>
+                    </Card>
                 ))}
             </div>
           </ScrollArea>
