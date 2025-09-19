@@ -6,14 +6,24 @@ import { MusicSection } from './music-section';
 import { BlogSection } from './blog-section';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { getRecentTracks, type LastFmTrack } from './actions';
 
 const sections = ['Photography', 'Music', 'Blog'];
 
 export default function HobbiesPage() {
   const [currentSection, setCurrentSection] = useState(0);
+  const [tracks, setTracks] = useState<LastFmTrack[]>([]);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    async function fetchTracks() {
+      const recentTracks = await getRecentTracks();
+      setTracks(recentTracks);
+    }
+    fetchTracks();
+  }, []);
 
   const scrollToSection = (index: number) => {
     if (scrollContainerRef.current && !isScrollingRef.current) {
@@ -100,7 +110,7 @@ export default function HobbiesPage() {
         className="flex w-full h-full snap-x snap-mandatory overflow-x-scroll no-scrollbar"
       >
         <PhotographySection />
-        <MusicSection />
+        <MusicSection tracks={tracks} />
         <BlogSection />
       </div>
     </div>

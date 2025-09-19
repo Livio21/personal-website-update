@@ -11,72 +11,21 @@ import {
   DialogContent,
 } from "@/components/ui/dialog";
 import { ScrollArea } from '@/components/ui/scroll-area';
+import type { LastFmTrack } from './actions';
 
-const albums = [
-    {
-        title: "Random Access Memories",
-        artist: "Daft Punk",
-        imageUrl: "https://picsum.photos/seed/album3/600/600",
-        imageHint: "disco music",
-        spotifyUrl: "https://open.spotify.com/album/4m2880jivSbbyEGAKfITCa",
-        featured: true
-    },
-    {
-        title: "Currents",
-        artist: "Tame Impala",
-        imageUrl: "https://picsum.photos/seed/album1/300/300",
-        imageHint: "psychedelic rock",
-        spotifyUrl: "https://open.spotify.com/album/79dL7FLiJFOO0EoehUHQBv",
-    },
-    {
-        title: "Blonde",
-        artist: "Frank Ocean",
-        imageUrl: "https://picsum.photos/seed/album2/300/300",
-        imageHint: "abstract album",
-        spotifyUrl: "https://open.spotify.com/album/3mH6qwIy9crq0I9YQbOuDf",
-    },
-    {
-        title: "The Dark Side of the Moon",
-        artist: "Pink Floyd",
-        imageUrl: "https://picsum.photos/seed/album4/300/300",
-        imageHint: "prism light",
-        spotifyUrl: "https://open.spotify.com/album/4LH4d3cOWNNsVw41Gqt2kv",
-    },
-    {
-        title: "AM",
-        artist: "Arctic Monkeys",
-        imageUrl: "https://picsum.photos/seed/album5/300/300",
-        imageHint: "soundwave line",
-        spotifyUrl: "https://open.spotify.com/album/78bpIziExqiI9qztvNFlQu",
-    },
-    {
-        title: "Discovery",
-        artist: "Daft Punk",
-        imageUrl: "https://picsum.photos/seed/album6/300/300",
-        imageHint: "futuristic chrome",
-        spotifyUrl: "https://open.spotify.com/album/2noRn2Aes5aoNVsU6iWThc"
-    },
-    {
-        title: "Because the Internet",
-        artist: "Childish Gambino",
-        imageUrl: "https://picsum.photos/seed/album7/300/300",
-        imageHint: "holographic",
-        spotifyUrl: "https://open.spotify.com/album/4GNIhgEGXzWGAefgN5qjdU"
-    },
-    {
-        title: "IGOR",
-        artist: "Tyler, The Creator",
-        imageUrl: "https://picsum.photos/seed/album8/300/300",
-        imageHint: "pink suit",
-        spotifyUrl: "https://open.spotify.com/album/5zi7WsKlIiUXv09ltAlcaK"
-    }
-];
+// This is now an async component that can fetch data.
+// We are passing tracks as a prop for now.
+interface MusicSectionProps {
+    tracks: LastFmTrack[];
+}
 
-export function MusicSection() {
-    const featuredAlbum = albums.find(a => a.featured);
-    const otherAlbums = albums.filter(a => !a.featured);
-    const rotationPreview = otherAlbums.slice(0, 4);
+export function MusicSection({ tracks }: MusicSectionProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
+
+    // TODO: Adapt this logic for featured tracks vs. others once API is live
+    const featuredTrack = tracks[0];
+    const otherTracks = tracks.slice(1);
+    const rotationPreview = otherTracks.slice(0, 4);
 
     return (
     <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-background/90 overflow-y-auto no-scrollbar">
@@ -84,33 +33,37 @@ export function MusicSection() {
         <h2 className="text-4xl md:text-5xl font-headline font-light tracking-tight mb-2">
           Music
         </h2>
-        <p className="text-lg text-muted-foreground font-body">A few of the albums I have on repeat.</p>
+        <p className="text-lg text-muted-foreground font-body">What I'm currently listening to, via Last.fm.</p>
       </div>
 
       <div className="flex-grow w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {/* Featured Album */}
-        {featuredAlbum && (
+        {featuredTrack ? (
             <div className='group flex flex-col items-center text-center'>
-                <h3 className="text-2xl font-light mb-4 text-primary font-headline">Featured Album</h3>
+                <h3 className="text-2xl font-light mb-4 text-primary font-headline">Recently Played</h3>
                 <Card className="w-full max-w-sm overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 group-hover:scale-105">
                     <Image
-                        src={featuredAlbum.imageUrl}
-                        alt={`Album art for ${featuredAlbum.title} by ${featuredAlbum.artist}`}
+                        src={featuredTrack.image.find(i => i.size === 'extralarge')?.['#text'] || "https://picsum.photos/seed/album3/600/600"}
+                        alt={`Album art for ${featuredTrack.name} by ${featuredTrack.artist['#text']}`}
                         width={600}
                         height={600}
                         className="object-cover w-full h-full"
-                        data-ai-hint={featuredAlbum.imageHint}
+                        data-ai-hint={"album cover"}
                     />
                 </Card>
                 <div className="mt-4">
-                    <h4 className="text-3xl font-light font-headline">{featuredAlbum.title}</h4>
-                    <p className="text-xl text-muted-foreground mb-4 font-body">{featuredAlbum.artist}</p>
+                    <h4 className="text-3xl font-light font-headline">{featuredTrack.name}</h4>
+                    <p className="text-xl text-muted-foreground mb-4 font-body">{featuredTrack.artist['#text']}</p>
                     <Button asChild>
-                        <Link href={featuredAlbum.spotifyUrl} target="_blank" rel="noopener noreferrer">
-                            Listen on Spotify
+                        <Link href={featuredTrack.url} target="_blank" rel="noopener noreferrer">
+                            View on Last.fm
                         </Link>
                     </Button>
                 </div>
+            </div>
+        ) : (
+            <div className='flex items-center justify-center text-center text-muted-foreground font-body'>
+                <p>Could not load tracks from Last.fm. <br/> Please set up your API key.</p>
             </div>
         )}
 
@@ -119,20 +72,20 @@ export function MusicSection() {
             <h3 className="text-2xl font-light mb-4 font-headline">On Rotation</h3>
             <div className="relative group w-full max-w-sm aspect-square">
                 <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
-                    {rotationPreview.map((album) => (
-                        <Card key={album.title} className="overflow-hidden bg-card/60 border-none shadow-lg group/item">
+                    {rotationPreview.map((track, index) => (
+                        <Card key={track.name + index} className="overflow-hidden bg-card/60 border-none shadow-lg group/item">
                             <CardContent className="p-0 w-full h-full relative">
                                 <Image
-                                    src={album.imageUrl}
-                                    alt={`Album art for ${album.title} by ${album.artist}`}
+                                    src={track.image.find(i => i.size === 'large')?.['#text'] || "https://picsum.photos/seed/album1/300/300"}
+                                    alt={`Album art for ${track.name} by ${track.artist['#text']}`}
                                     width={300}
                                     height={300}
                                     className="object-cover w-full h-full"
-                                    data-ai-hint={album.imageHint}
+                                    data-ai-hint="album art"
                                 />
                                  <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-2 text-center opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
                                     <Button asChild variant="link" className="text-primary font-bold font-body">
-                                        <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer">
+                                        <Link href={track.url} target="_blank" rel="noopener noreferrer">
                                             Listen
                                         </Link>
                                     </Button>
@@ -141,43 +94,45 @@ export function MusicSection() {
                         </Card>
                     ))}
                 </div>
-                <Button 
-                    variant="outline" 
-                    size="sm" 
-                    className="absolute top-2 right-2 z-10 bg-card/50 backdrop-blur-sm"
-                    onClick={() => setIsModalOpen(true)}
-                >
-                    View All
-                </Button>
+                {otherTracks.length > 0 && (
+                    <Button 
+                        variant="outline" 
+                        size="sm" 
+                        className="absolute top-2 right-2 z-10 bg-card/50 backdrop-blur-sm"
+                        onClick={() => setIsModalOpen(true)}
+                    >
+                        View All
+                    </Button>
+                )}
             </div>
         </div>
       </div>
 
        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="bg-card/80 backdrop-blur-lg border-white/10 sm:max-w-4xl h-[85vh] max-h-[85vh]">
+        <DialogContent className="bg-card/80 backdrop-blur-lg border-white/10 sm:max-w-4xl max-h-[85vh]">
           <ScrollArea className="h-full pr-4 -mr-2">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 py-4">
-                {otherAlbums.map((album) => (
-                    <Card key={album.title} className="group overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 hover:scale-105 rounded-md">
+                {otherTracks.map((track, index) => (
+                    <Card key={track.name+index} className="group overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 hover:scale-105 rounded-md">
                         <CardContent className="p-0 w-full h-full relative">
                         <Image
-                            src={album.imageUrl}
-                            alt={`Album art for ${album.title} by ${album.artist}`}
+                            src={track.image.find(i => i.size === 'large')?.['#text'] || "https://picsum.photos/seed/album-other/300/300"}
+                            alt={`Album art for ${track.name} by ${track.artist['#text']}`}
                             width={300}
                             height={300}
                             className="object-cover w-full h-full"
-                            data-ai-hint={album.imageHint}
+                            data-ai-hint="album art"
                         />
                         <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
                             <Button asChild variant="link" className="text-primary font-bold font-body">
-                                <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer">
+                                <Link href={track.url} target="_blank" rel="noopener noreferrer">
                                     Listen
                                 </Link>
                             </Button>
                         </div>
                         <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none group-hover:opacity-0 transition-opacity">
-                            <p className="font-semibold text-white truncate font-headline">{album.title}</p>
-                            <p className="text-sm text-gray-300 truncate font-body">{album.artist}</p>
+                            <p className="font-semibold text-white truncate font-headline">{track.name}</p>
+                            <p className="text-sm text-gray-300 truncate font-body">{track.artist['#text']}</p>
                         </div>
                         </CardContent>
                     </Card>
