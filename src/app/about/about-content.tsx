@@ -19,12 +19,12 @@ interface AboutContentProps {
 
 export function AboutContent({ skills, experience }: AboutContentProps) {
 
-  const introTransitions = useTransition(true, {
-    from: { opacity: 0, transform: 'translateY(20px)' },
+  const cardTransitions = useTransition(true, {
+    from: { opacity: 0, transform: 'translateY(40px)' },
     enter: { opacity: 1, transform: 'translateY(0px)' },
-    trail: 150
+    trail: 200,
   });
-  
+
   const skillsTransitions = useTransition(skills, {
     from: { opacity: 0, transform: 'scale(0.8)' },
     enter: { opacity: 1, transform: 'scale(1)' },
@@ -40,10 +40,11 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
   });
 
   return (
-    <div className="max-w-4xl mx-auto space-y-12">
-      <div className="grid grid-cols-1 md:grid-cols-5 gap-8">
-        {introTransitions((style, item) => item && (
-          <animated.div style={style} className="md:col-span-3">
+    <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+      {/* Left Column */}
+      <div className="lg:col-span-2 space-y-8">
+        {cardTransitions((style, item) => item && (
+          <animated.div style={style}>
             <Card className="bg-card/60 backdrop-blur-sm border-white/10 h-full">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
@@ -60,8 +61,8 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
           </animated.div>
         ))}
 
-        {introTransitions((style, item) => item && (
-          <animated.div style={style} className="md:col-span-2">
+        {cardTransitions((style, item) => item && (
+          <animated.div style={style}>
             <Card className="bg-card/60 backdrop-blur-sm border-white/10 h-full">
               <CardHeader>
                 <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
@@ -84,28 +85,32 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
           </animated.div>
         ))}
       </div>
-      
-      <div>
-        <h2 className="text-3xl font-bold text-center mb-8 flex items-center justify-center gap-3"><Briefcase className="text-primary" /> Professional Experience</h2>
-        <div className="relative pl-6 after:absolute after:inset-y-0 after:left-8 after:w-0.5 after:bg-border">
-          {experienceTransitions((style, exp, t, index) => (
-            <animated.div style={style} className="relative mb-8 pl-8">
-              <div className="absolute left-0 top-1.5 -translate-x-1/2 w-5 h-5 bg-primary rounded-full border-4 border-background" />
-              <Card className="bg-card/60 backdrop-blur-sm border-white/10">
-                <CardHeader>
-                    <div className="flex justify-between items-baseline">
-                      <CardTitle className="text-xl">{exp.role}</CardTitle>
-                      <p className="text-sm font-normal text-muted-foreground">{exp.period}</p>
-                    </div>
-                    <p className="text-md text-primary font-medium pt-1">{exp.company}</p>
-                </CardHeader>
-                <CardContent>
-                    <p className="text-muted-foreground">{exp.description}</p>
-                </CardContent>
-              </Card>
+
+      {/* Right Column */}
+      <div className="lg:col-span-3">
+        {cardTransitions((style, item) => item && (
+            <animated.div style={style}>
+                <h2 className="text-3xl font-bold mb-8 flex items-center gap-3"><Briefcase className="text-primary" /> Professional Experience</h2>
+                 <div className="space-y-6">
+                    {experienceTransitions((style, exp) => (
+                        <animated.div style={style}>
+                        <Card className="bg-card/60 backdrop-blur-sm border-white/10">
+                            <CardHeader>
+                                <div className="flex justify-between items-baseline">
+                                <CardTitle className="text-xl">{exp.role}</CardTitle>
+                                <p className="text-sm font-normal text-muted-foreground">{exp.period}</p>
+                                </div>
+                                <p className="text-md text-primary font-medium pt-1">{exp.company}</p>
+                            </CardHeader>
+                            <CardContent>
+                                <p className="text-muted-foreground">{exp.description}</p>
+                            </CardContent>
+                        </Card>
+                        </animated.div>
+                    ))}
+                </div>
             </animated.div>
-          ))}
-        </div>
+        ))}
       </div>
     </div>
   );
