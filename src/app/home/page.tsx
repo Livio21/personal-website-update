@@ -16,10 +16,6 @@ export default function Home() {
       </header>
       
       <div className="flex flex-col items-start gap-8">
-        <div className="relative w-full max-w-md">
-          <PrismShape />
-        </div>
-        
         <div className="flex gap-4">
           <Button asChild size="lg">
             <Link href="/projects">

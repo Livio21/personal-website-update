@@ -1,4 +1,5 @@
 import { AboutContent } from "./about-content"
+import { Code, User, Briefcase } from "lucide-react"
 
 const skills = [
   "Python", "JavaScript", "HTML/CSS", "Kotlin", "Odoo", "VueJS", "ReactJS", 
@@ -35,10 +36,10 @@ const experience = [
 
 export default function AboutPage() {
   return (
-    <div className="w-full p-8 md:p-24 md:pl-32">
-      <header className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">About Me</h1>
-        <p className="text-lg text-muted-foreground">My story, skills, and professional journey.</p>
+    <div className="w-full p-8 md:p-16 lg:p-24 pl-12 md:pl-20 lg:pl-24">
+      <header className="mb-12 text-center max-w-4xl mx-auto">
+        <h1 className="text-4xl md:text-6xl font-bold tracking-tight mb-4">About Me</h1>
+        <p className="text-lg md:text-xl text-muted-foreground">My story, skills, and professional journey.</p>
       </header>
 
       <AboutContent skills={skills} experience={experience} />
