@@ -4,9 +4,9 @@ import { motion } from "framer-motion";
 
 export function LoadingScreen({ progress }: { progress: number }) {
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-background">
-      <div className="w-64">
-        <div className="h-2 w-full bg-card/50 backdrop-blur-sm border border-white/10 rounded-full overflow-hidden">
+    <div className="fixed inset-0 z-50 flex items-center justify-center">
+      <div className="w-[452px]">
+        <div className="h-[54px] w-full bg-card/50 backdrop-blur-sm border border-white/10 rounded-full overflow-hidden">
           <motion.div
             className="h-full bg-primary rounded-full"
             initial={{ width: "0%" }}
