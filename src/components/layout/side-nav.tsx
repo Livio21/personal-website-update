@@ -8,6 +8,7 @@ import {
   X,
 } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { motion } from "framer-motion"
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -77,11 +78,19 @@ export function SideNav() {
                     <Link
                         key={item.href}
                         href={item.href}
-                        className={cn(`px-3 py-2 rounded-full text-center text-lg font-medium transition-colors border border-transparent`,
-                        pathname === item.href ? "bg-primary text-primary-foreground" : "text-gray-300 hover:bg-secondary/50 border-white/10"
+                        className={cn(`relative px-3 py-2 rounded-full text-center text-lg font-medium transition-colors border border-transparent`,
+                         "text-gray-300 hover:text-primary"
                         )}
                     >
-                        {item.label}
+                         {item.href === pathname && (
+                            <motion.div
+                                layoutId="mobile-nav-active-pill"
+                                className="absolute inset-0 bg-primary"
+                                style={{ borderRadius: 9999 }}
+                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                            />
+                        )}
+                        <span className="relative z-10 mix-blend-exclusion">{item.label}</span>
                     </Link>
                 ))}
             </nav>
