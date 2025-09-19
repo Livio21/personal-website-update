@@ -70,13 +70,15 @@ export function SideNav() {
     const viewportWidth = window.innerWidth;
     const viewportHeight = window.innerHeight;
 
-    if (rect.left + 224 > viewportWidth - 16) {
+    // Check horizontal position
+    if (rect.left + 224 > viewportWidth - 16) { // 224px menu width + 16px padding
       newMenuPosition.right = viewportWidth - rect.right;
     } else {
       newMenuPosition.left = rect.left;
     }
     
-    if (rect.top + 284 > viewportHeight - 16) {
+    // Check vertical position
+    if (rect.top + 284 > viewportHeight - 16) { // ~284px menu height + 16px padding
       newMenuPosition.bottom = viewportHeight - rect.top;
     } else {
       newMenuPosition.top = rect.top + rect.height;
