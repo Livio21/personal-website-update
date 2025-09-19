@@ -2,7 +2,7 @@
 
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { User, Code, Briefcase } from "lucide-react"
+import { User, Code } from "lucide-react"
 import { useTransition, animated } from '@react-spring/web'
 
 interface Experience {
@@ -18,8 +18,8 @@ interface AboutContentProps {
 }
 
 export function AboutContent({ skills, experience }: AboutContentProps) {
-  const cards = [
-    <Card key="story" className="md:col-span-3 lg:col-span-3 row-span-2 bg-card/60 backdrop-blur-sm border-white/10">
+  const mainContent = [
+    <Card key="story" className="bg-card/60 backdrop-blur-sm border-white/10 mb-6">
       <CardHeader>
         <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
           <User className="text-primary" />
@@ -32,7 +32,7 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
         </p>
       </CardContent>
     </Card>,
-    <Card key="skills" className="md:col-span-3 lg:col-span-2 row-span-2 bg-card/60 backdrop-blur-sm border-white/10">
+    <Card key="skills" className="bg-card/60 backdrop-blur-sm border-white/10">
       <CardHeader>
         <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
           <Code className="text-primary" />
@@ -48,34 +48,48 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
           ))}
         </div>
       </CardContent>
-    </Card>,
-    ...experience.map((exp, index) => (
-      <Card key={exp.company} className="bg-card/60 backdrop-blur-sm border-white/10 md:col-span-1 lg:col-span-1 row-span-2 flex flex-col">
-          <CardHeader>
-              <CardTitle className="text-xl">{exp.role}</CardTitle>
-              <p className="text-md text-primary font-medium pt-1">{exp.company}</p>
-              <p className="text-sm font-normal text-muted-foreground pt-1">{exp.period}</p>
-          </CardHeader>
-          <CardContent className="flex-grow">
-              <p className="text-muted-foreground">{exp.description}</p>
-          </CardContent>
-      </Card>
-    ))
+    </Card>
   ];
 
-  const transitions = useTransition(cards, {
+  const experienceTransitions = useTransition(experience, {
+    from: { opacity: 0, transform: 'translateY(20px)' },
+    enter: { opacity: 1, transform: 'translateY(0px)' },
+    trail: 150,
+    keys: item => item.company + item.role,
+  });
+
+  const mainContentTransitions = useTransition(mainContent, {
     from: { opacity: 0, transform: 'translateY(20px)' },
     enter: { opacity: 1, transform: 'translateY(0px)' },
     trail: 150,
   });
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6 auto-rows-fr pl-8">
-      {transitions((style, item) => (
-        <animated.div style={style} className={item.props.className}>
-          {item}
-        </animated.div>
-      ))}
+    <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 pl-8">
+      <div className="lg:col-span-2 space-y-6">
+        {mainContentTransitions((style, item) => (
+          <animated.div style={style}>
+            {item}
+          </animated.div>
+        ))}
+      </div>
+      <div className="space-y-6">
+        <h2 className="text-2xl font-semibold text-primary ml-1">Experience</h2>
+        {experienceTransitions((style, exp) => (
+          <animated.div style={style}>
+            <Card className="bg-card/60 backdrop-blur-sm border-white/10">
+                <CardHeader>
+                    <CardTitle className="text-xl">{exp.role}</CardTitle>
+                    <p className="text-md text-primary font-medium pt-1">{exp.company}</p>
+                    <p className="text-sm font-normal text-muted-foreground pt-1">{exp.period}</p>
+                </CardHeader>
+                <CardContent>
+                    <p className="text-muted-foreground">{exp.description}</p>
+                </CardContent>
+            </Card>
+          </animated.div>
+        ))}
+      </div>
     </div>
   );
 }
