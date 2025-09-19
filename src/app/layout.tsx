@@ -4,6 +4,7 @@ import { SideNav } from '@/components/layout/side-nav';
 import { Toaster } from '@/components/ui/toaster';
 import { SiteHeader } from '@/components/layout/site-header';
 import { PageTransition } from '@/components/layout/page-transition';
+import { FluidBackground } from '@/components/layout/fluid-background';
 
 export const metadata: Metadata = {
   title: 'Livio Macaj',
@@ -23,6 +24,7 @@ export default function RootLayout({
         <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet" />
       </head>
       <body className="font-body antialiased bg-background">
+        <FluidBackground />
         <div className="relative flex min-h-screen overflow-x-hidden">
           <div className="md:hidden">
             <SideNav />
