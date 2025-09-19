@@ -3,13 +3,9 @@
 import Image from 'next/image';
 import { Card, CardContent } from '@/components/ui/card';
 import { useTransition, animated } from '@react-spring/web';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 
-type Hobby = {
-  id: string;
-  description: string;
-  imageUrl: string;
-  imageHint: string;
-}
+type Hobby = (typeof PlaceHolderImages)[0];
 
 interface HobbiesContentProps {
   hobbies: Hobby[];
