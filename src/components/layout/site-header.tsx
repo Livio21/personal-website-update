@@ -17,7 +17,7 @@ export function SiteHeader() {
     const pathname = usePathname();
 
     return (
-        <header className="hidden md:block fixed top-4 left-1/2 -translate-x-1/2 z-50">
+        <header className="hidden md:block fixed top-2 left-1/2 -translate-x-1/2 z-50">
             <nav className="flex items-center gap-2 p-2 rounded-full bg-zinc-900/50 backdrop-blur-lg border border-white/10 shadow-lg">
                 {navItems.map((item) => {
                     const isActive = pathname === item.href;
