@@ -64,7 +64,7 @@ export function PhotographySection() {
         </div>
         <div className="flex-grow w-full">
             <motion.div 
-              className="grid grid-cols-2 md:grid-cols-5 auto-rows-[180px] gap-2 w-full"
+              className="grid grid-cols-2 md:grid-cols-5 auto-rows-[120px] md:auto-rows-[180px] gap-2 w-full"
               variants={containerVariants}
               initial="hidden"
               animate="visible"

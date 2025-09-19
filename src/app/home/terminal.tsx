@@ -20,6 +20,7 @@ export function Terminal() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState<{ type: 'input' | 'output'; content: string }[]>([]);
   const endOfTerminalRef = useRef<HTMLDivElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
     endOfTerminalRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -53,14 +54,14 @@ export function Terminal() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="w-full max-w-2xl h-[450px] bg-card/40 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl flex flex-col font-code"
+      className="w-full max-w-2xl h-[350px] md:h-[450px] bg-card/40 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl flex flex-col font-code"
     >
       <div className="flex items-center gap-2 p-3 bg-secondary/30 rounded-t-xl border-b border-white/10">
         <div className="w-3 h-3 rounded-full bg-red-500"></div>
         <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
         <div className="w-3 h-3 rounded-full bg-green-500"></div>
       </div>
-      <div className="flex-1 p-4 overflow-y-auto no-scrollbar" onClick={() => document.getElementById('terminal-input')?.focus()}>
+      <div className="flex-1 p-4 overflow-y-auto no-scrollbar" onClick={() => inputRef.current?.focus()}>
         <div className='pb-2 text-muted-foreground'>
           <p>Welcome to my interactive terminal!</p>
           <p>Type `help` to see the list of available commands.</p>
@@ -81,6 +82,7 @@ export function Terminal() {
         <div className="flex items-center gap-2">
           <span className="text-primary font-bold">~ $</span>
           <input
+            ref={inputRef}
             id="terminal-input"
             type="text"
             value={input}

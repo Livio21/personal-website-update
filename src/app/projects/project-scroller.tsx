@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
+import { ArrowUp, ArrowDown } from 'lucide-react';
 
 export function ProjectScroller() {
   const projects = PlaceHolderImages.filter(p => p.id.startsWith('project-'));
@@ -96,25 +97,25 @@ export function ProjectScroller() {
         <Button 
           size="icon" 
           variant="outline" 
-          className="rounded-full bg-card/50 backdrop-blur-sm fixed top-6 left-1/2 -translate-x-1/2 z-20" 
+          className="rounded-full bg-card/50 backdrop-blur-sm fixed top-6 left-1/2 -translate-x-1/2 z-20 md:hidden" 
           onClick={handlePrev}
         >
-          {'^'}
+          <ArrowUp />
         </Button>
 
         <Button 
             size="icon" 
             variant="outline" 
-            className="rounded-full bg-card/50 backdrop-blur-sm fixed bottom-6 left-1/2 -translate-x-1/2 z-20" 
+            className="rounded-full bg-card/50 backdrop-blur-sm fixed bottom-6 left-1/2 -translate-x-1/2 z-20 md:hidden" 
             onClick={handleNext}
         >
-            {'v'}
+            <ArrowDown />
         </Button>
 
         {projects.map((project, index) => (
           <section
             key={project.id}
-            className="h-screen w-full snap-start flex flex-1 items-center justify-center relative p-8 md:p-16"
+            className="h-screen w-full snap-start flex flex-1 items-center justify-center relative p-8 md:p-16 pt-24 md:pt-16"
           >
             <div className="absolute inset-0 z-0">
                <Image
@@ -128,11 +129,11 @@ export function ProjectScroller() {
                 />
                 <div className="absolute inset-0 bg-black/50" />
             </div>
-            <div className="relative pl-4 z-10 w-full max-w-6xl h-full flex items-center">
+            <div className="relative z-10 w-full max-w-6xl h-full flex items-center">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div className="p-8 rounded-xl bg-card/40 backdrop-blur-lg border border-white/10">
-                  <h2 className="text-4xl font-headline font-light text-primary mb-4">{project.description.split('.')[0]}</h2>
-                  <p className="text-lg text-muted-foreground mb-6 font-body">{project.description}</p>
+                  <h2 className="text-3xl md:text-4xl font-headline font-light text-primary mb-4">{project.description.split('.')[0]}</h2>
+                  <p className="text-base md:text-lg text-muted-foreground mb-6 font-body">{project.description}</p>
                   <Button variant="outline" asChild>
                     <a href={project.url} target="_blank" rel="noopener noreferrer">
                       View Project

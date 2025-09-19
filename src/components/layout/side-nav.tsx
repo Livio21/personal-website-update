@@ -46,7 +46,7 @@ export function SideNav() {
       <div 
         ref={navRef}
         className={cn(
-            "fixed top-4 left-4 z-50 transition-all duration-300 ease-in-out",
+            "fixed top-4 left-4 z-[60] transition-all duration-300 ease-in-out",
             isOpen ? 'w-56 h-auto p-4 bg-card/50 backdrop-blur-lg border border-white/10 rounded-2xl' : 'w-14 h-14'
         )}
       >

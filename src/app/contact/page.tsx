@@ -4,7 +4,7 @@ import { ContactForm } from './contact-form';
 
 export default function ContactPage() {
   return (
-    <div className="w-full min-h-screen flex flex-col items-center justify-center p-4">
+    <div className="w-full min-h-screen flex flex-col items-center justify-center p-4 pt-24 md:pt-4">
       <div className="grid md:grid-cols-2 gap-10 bg-card/40 backdrop-blur-lg border border-white/10 rounded-lg p-8 w-full max-w-5xl">
         <div className="space-y-6 flex flex-col justify-center">
             <header className="text-left mb-4">
