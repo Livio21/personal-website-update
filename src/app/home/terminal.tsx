@@ -1,11 +1,10 @@
 "use client"
 
 import { useState, useEffect, useRef } from 'react';
-import { cn } from '@/lib/utils';
 import { motion } from 'framer-motion';
 
 const commands: { [key: string]: string | (() => string) } = {
-  help: "Available commands: 'about', 'skills', 'contact', 'clear'",
+  help: "Available commands: 'about', 'skills', 'contact', 'clear' and more to discover...",
   about: "I'm a Software Engineer specializing in building robust web applications.",
   skills: "My skills include: Python, Odoo, Vue.js, React, and more. Check out the 'About' page for a full list!",
   contact: "You can reach me via the contact page or at iamlivio@gmail.com.",
@@ -13,7 +12,7 @@ const commands: { [key: string]: string | (() => string) } = {
   whoami: "A very cool person, obviously.",
   matrix: "Wake up, Neo... The Matrix has you.",
   "open the pod bay doors": "I'm sorry, Dave. I'm afraid I can't do that.",
-  love: "is a battlefield.",
+  ping: "pong",
   cat: "meow.",
 };
 
