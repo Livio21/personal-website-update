@@ -12,15 +12,22 @@ export function ProjectScroller() {
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const isScrollingRef = useRef(false);
 
   const scrollToProject = (index: number) => {
-    if (containerRef.current) {
+    if (containerRef.current && !isScrollingRef.current) {
+        isScrollingRef.current = true;
         const sectionHeight = containerRef.current.clientHeight;
         containerRef.current.scrollTo({
             top: index * sectionHeight,
             behavior: 'smooth',
         });
         setCurrentProjectIndex(index);
+        
+        // Use a timeout to reset the scrolling flag
+        setTimeout(() => {
+            isScrollingRef.current = false;
+        }, 1000); // 1s should be enough for smooth scroll to finish
     }
   };
 
@@ -34,12 +41,10 @@ export function ProjectScroller() {
       scrollToProject(prevIndex);
   };
 
-  // Auto-scroll and manual scroll handling
   useEffect(() => {
     const handleScroll = () => {
-        if (containerRef.current) {
-            // Clear the timeout when the user scrolls manually
-            if (scrollTimeoutRef.current) {
+        if (containerRef.current && !isScrollingRef.current) {
+             if (scrollTimeoutRef.current) {
                 clearTimeout(scrollTimeoutRef.current);
             }
             const index = Math.round(containerRef.current.scrollTop / containerRef.current.clientHeight);
@@ -59,7 +64,7 @@ export function ProjectScroller() {
     const currentContainer = containerRef.current;
     currentContainer?.addEventListener('scroll', handleScroll, { passive: true });
     
-    resetAutoScroll(); // Start auto-scroll on mount
+    resetAutoScroll(); 
 
     return () => {
         currentContainer?.removeEventListener('scroll', handleScroll);
@@ -67,9 +72,8 @@ export function ProjectScroller() {
           clearTimeout(scrollTimeoutRef.current);
         }
     };
-  }, [currentProjectIndex, projects.length]); // Rerun when index changes to reset timer
+  }, [currentProjectIndex, projects.length]);
 
-  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'ArrowDown') {
@@ -85,13 +89,12 @@ export function ProjectScroller() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [currentProjectIndex, projects.length]); // Re-add listener if projects/index change
+  }, [currentProjectIndex, projects.length]);
 
 
   return (
     <div className="flex h-screen w-full">
       <div ref={containerRef} className="relative h-full flex-1 snap-y snap-mandatory overflow-y-scroll no-scrollbar">
-        {/* Top and Bottom Nav Buttons */}
         <Button 
           size="icon" 
           variant="outline" 
@@ -110,7 +113,6 @@ export function ProjectScroller() {
             <ArrowDown />
         </Button>
 
-        {/* Project Sections */}
         {projects.map((project, index) => (
           <section
             key={project.id}
@@ -145,7 +147,6 @@ export function ProjectScroller() {
         ))}
       </div>
       
-      {/* Compact vertical project indicator */}
       <div className="hidden md:flex flex-col justify-center p-2 pr-4">
         <div className="flex flex-col gap-4 w-full">
           {projects.map((project, index) => {
