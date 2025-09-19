@@ -27,7 +27,7 @@ export function SiteHeader() {
                             href={item.href}
                             className={cn(
                                 "relative px-4 py-2 rounded-full text-sm font-medium transition-colors hover:text-primary",
-                                isActive ? "text-primary-foreground" : "text-gray-300"
+                                isActive ? "text-primary" : "text-gray-300"
                             )}
                         >
                             {isActive && (
@@ -35,10 +35,10 @@ export function SiteHeader() {
                                     layoutId="desktop-nav-active-pill"
                                     className="absolute inset-0 bg-primary"
                                     style={{ borderRadius: 9999 }}
-                                    transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
                                 />
                             )}
-                            <span className="relative z-10">{item.label}</span>
+                            <span className={cn("relative z-10", isActive && "mix-blend-exclusion")}>{item.label}</span>
                         </Link>
                     );
                 })}

@@ -74,25 +74,28 @@ export function SideNav() {
                 </button>
             </div>
             <nav className="flex flex-col gap-3">
-                {navItems.map((item) => (
+                {navItems.map((item) => {
+                  const isActive = pathname === item.href;
+                  return (
                     <Link
                         key={item.href}
                         href={item.href}
-                        className={cn(`relative px-3 py-2 rounded-full text-center text-lg font-medium transition-colors border border-transparent`,
-                         "text-gray-300 hover:text-primary"
+                        className={cn(
+                          "relative px-3 py-2 rounded-full text-center text-lg font-medium transition-colors hover:text-primary",
+                          isActive ? "text-primary" : "text-gray-300"
                         )}
                     >
-                         {item.href === pathname && (
+                         {isActive && (
                             <motion.div
                                 layoutId="mobile-nav-active-pill"
                                 className="absolute inset-0 bg-primary"
                                 style={{ borderRadius: 9999 }}
-                                transition={{ type: "spring", stiffness: 300, damping: 30 }}
+                                transition={{ type: "spring", stiffness: 350, damping: 30 }}
                             />
                         )}
-                        <span className="relative z-10 mix-blend-exclusion">{item.label}</span>
+                        <span className={cn("relative z-10", isActive && "mix-blend-exclusion")}>{item.label}</span>
                     </Link>
-                ))}
+                )})}
             </nav>
         </div>
       </div>
