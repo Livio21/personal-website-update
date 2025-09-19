@@ -10,6 +10,11 @@ const commands: { [key: string]: string | (() => string) } = {
   skills: "My skills include: Python, Odoo, Vue.js, React, and more. Check out the 'About' page for a full list!",
   contact: "You can reach me via the contact page or at iamlivio@gmail.com.",
   sudo: "User is not in the sudoers file. This incident will be reported.",
+  whoami: "A very cool person, obviously.",
+  matrix: "Wake up, Neo... The Matrix has you.",
+  "open the pod bay doors": "I'm sorry, Dave. I'm afraid I can't do that.",
+  love: "is a battlefield.",
+  cat: "meow.",
 };
 
 export function Terminal() {
