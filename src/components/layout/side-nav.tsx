@@ -18,6 +18,28 @@ export function SideNav() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const navRef = useRef<HTMLDivElement>(null)
+  const [dragConstraints, setDragConstraints] = useState({
+    left: 16,
+    top: 16,
+    right: 16,
+    bottom: 16,
+  });
+
+  useEffect(() => {
+    // This effect runs only on the client
+    const updateConstraints = () => {
+      setDragConstraints({
+        left: 16,
+        top: 16,
+        right: window.innerWidth - (isOpen ? 224 + 16 : 56 + 16),
+        bottom: window.innerHeight - (isOpen ? 280 + 16 : 56 + 16),
+      });
+    };
+    updateConstraints();
+
+    window.addEventListener('resize', updateConstraints);
+    return () => window.removeEventListener('resize', updateConstraints);
+  }, [isOpen]);
 
   useEffect(() => {
     setIsOpen(false)
@@ -43,11 +65,15 @@ export function SideNav() {
   return (
     <>
       {/* Nav Container */}
-      <div 
+      <motion.div 
         ref={navRef}
+        drag
+        dragConstraints={dragConstraints}
+        dragTransition={{ bounceStiffness: 200, bounceDamping: 20 }}
+        dragMomentum={false}
         className={cn(
-            "fixed top-4 left-4 z-[60] transition-all duration-300 ease-in-out",
-            isOpen ? 'w-56 h-auto p-4 bg-card/50 backdrop-blur-lg border border-white/10 rounded-2xl' : 'w-14 h-14'
+            "fixed top-4 left-4 z-[60] transition-all duration-300 ease-in-out cursor-grab active:cursor-grabbing",
+            isOpen ? 'w-56 h-[280px] p-4 bg-card/50 backdrop-blur-lg border border-white/10 rounded-2xl' : 'w-14 h-14'
         )}
       >
         {/* Button */}
@@ -101,7 +127,7 @@ export function SideNav() {
                 )})}
             </nav>
         </div>
-      </div>
+      </motion.div>
     </>
   )
 }

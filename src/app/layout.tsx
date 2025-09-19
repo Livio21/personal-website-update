@@ -30,7 +30,7 @@ export default function RootLayout({
             <SideNav />
           </div>
           <SiteHeader />
-          <main className="flex-1 h-screen w-full overflow-y-auto overflow-x-hidden">
+          <main className="flex-1 min-h-screen h-auto w-full overflow-y-auto overflow-x-hidden">
             <PageTransition>
               {children}
             </PageTransition>
