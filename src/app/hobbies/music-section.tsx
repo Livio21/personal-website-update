@@ -30,7 +30,7 @@ export function MusicSection({ tracks }: MusicSectionProps) {
                     <p className="text-lg text-muted-foreground font-body">What I'm currently listening to, via Last.fm.</p>
                 </div>
                 <div className='flex-grow flex items-center justify-center text-center text-muted-foreground font-body'>
-                    <p>Could not load tracks from Last.fm. <br/> Please set up your API key or check the console.</p>
+                    <p>Could not load tracks from Last.fm. <br/> Please set up your API key or check the console for errors.</p>
                 </div>
             </section>
         );
@@ -61,6 +61,7 @@ export function MusicSection({ tracks }: MusicSectionProps) {
                     height={600}
                     className="object-cover w-full h-full"
                     data-ai-hint={"album cover"}
+                    priority
                 />
             </Card>
             <div className="mt-4">
