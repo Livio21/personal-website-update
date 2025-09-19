@@ -22,7 +22,7 @@ const generateBlobs = (amount: number, offset: number = 0): Blob[] => {
     const height = inRange(20, 80); // smaller blobs
     return {
       key: i + offset,
-      speed: inRange(50, 100), // Slower speed
+      speed: inRange(100, 140), // Slower speed
       delay: inRange(0, 10) - 10,
       height: height,
       width: inRange(20, 80), // smaller blobs
