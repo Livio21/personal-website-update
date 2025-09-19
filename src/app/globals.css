@@ -13,8 +13,8 @@
     --popover: 224 71.4% 4.1%;
     --popover-foreground: 210 20% 98%;
     
-    --primary: 278 100% 68%; /* Electric Purple */
-    --primary-foreground: 210 20% 98%;
+    --primary: 268 84% 86%; /* Soft Lavender, reverted from purple */
+    --primary-foreground: 224 71.4% 4.1%;
 
     --secondary: 215 27.9% 16.9%;
     --secondary-foreground: 210 20% 98%;
@@ -44,8 +44,8 @@
     --popover: 224 71.4% 4.1%;
     --popover-foreground: 210 20% 98%;
 
-    --primary: 278 100% 68%; /* Electric Purple */
-    --primary-foreground: 210 20% 98%;
+    --primary: 268 84% 86%; /* Soft Lavender, reverted from purple */
+    --primary-foreground: 224 71.4% 4.1%;
 
     --secondary: 215 27.9% 16.9%;
     --secondary-foreground: 210 20% 98%;
@@ -109,7 +109,7 @@
     animation-iteration-count: infinite;
     animation-name: blob-move;
     animation-timing-function: linear;
-    fill: hsl(var(--primary));
+    fill: #8c14fc;
     transform-box: fill-box;
   }
 
@@ -130,7 +130,7 @@
         inset: 0;
         z-index: -1;
         pointer-events: none;
-        background-color: hsla(var(--background) / 0.5);
+        background-color: hsla(var(--background) / 0.7);
         backdrop-filter: blur(80px);
         -webkit-backdrop-filter: blur(80px);
     }
