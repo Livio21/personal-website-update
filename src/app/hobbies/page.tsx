@@ -7,7 +7,7 @@ import { HobbiesNav } from './hobbies-nav';
 
 export default function HobbiesPage() {
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-background/50 backdrop-blur-sm">
+    <div className="relative h-screen w-full overflow-hidden">
       <HobbiesNav />
       <div 
         id="hobbies-scroll-container"

@@ -36,7 +36,7 @@ export function MusicSection() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
-    <section className="h-full w-full snap-start flex-shrink-0 flex flex-col items-center justify-center p-8 md:p-16 bg-transparent">
+    <section className="h-full w-full snap-start flex-shrink-0 flex flex-col items-center justify-center p-8 md:p-16">
       <div className="text-left w-full max-w-6xl mb-8">
         <h2 className="text-4xl md:text-5xl font-headline font-light tracking-tight mb-2">
           Music
