@@ -50,14 +50,14 @@ export function SideNav() {
         ref={navRef}
         className={cn(
             "fixed top-4 left-4 z-50 transition-all duration-300 ease-in-out",
-            isOpen ? 'w-56 h-auto p-4 bg-blue-950/50 backdrop-blur-lg border border-white/10 rounded-2xl' : 'w-14 h-14'
+            isOpen ? 'w-56 h-auto p-4 bg-card/50 backdrop-blur-lg border border-white/10 rounded-2xl' : 'w-14 h-14'
         )}
       >
         {/* Button */}
         <button
             onClick={handleToggle}
             className={cn(
-                "absolute top-0 left-0 flex items-center justify-center w-14 h-14 bg-zinc-900/80 backdrop-blur-lg border border-white/10 rounded-full z-10 transition-transform duration-300",
+                "absolute top-0 left-0 flex items-center justify-center w-14 h-14 bg-card/80 backdrop-blur-lg border border-white/10 rounded-full z-10 transition-transform duration-300",
                 isOpen && 'scale-0'
             )}
             aria-label="Open navigation"
