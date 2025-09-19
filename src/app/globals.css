@@ -4,56 +4,64 @@
 
 @layer base {
   :root {
-    --background: 240 6% 10%;
-    --foreground: 0 0% 98%;
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
 
-    --card: 240 6% 10%;
-    --card-foreground: 0 0% 98%;
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
 
-    --popover: 240 6% 10%;
-    --popover-foreground: 0 0% 98%;
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+    
+    --primary: 278 100% 68%; /* Electric Purple */
+    --primary-foreground: 210 20% 98%;
 
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5% 12%;
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
 
-    --secondary: 240 5% 16%;
-    --secondary-foreground: 0 0% 98%;
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 215 20.2% 65.1%;
 
-    --muted: 240 5% 16%;
-    --muted-foreground: 240 4% 65%;
-
-    --accent: 240 5% 16%;
-    --accent-foreground: 0 0% 98%;
+    --accent: 268 84% 86%; /* Soft Lavender */
+    --accent-foreground: 224 71.4% 4.1%;
 
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
+    --destructive-foreground: 210 20% 98%;
 
-    --border: 240 5% 16%;
-    --input: 240 5% 16%;
-    --ring: 0 0% 98%;
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 268 84% 86%;
 
     --radius: 1rem;
   }
   .dark {
-    --background: 240 6% 10%;
-    --foreground: 0 0% 98%;
-    --card: 240 6% 10%;
-    --card-foreground: 0 0% 98%;
-    --popover: 240 6% 10%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5% 12%;
-    --secondary: 240 5% 16%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 240 5% 16%;
-    --muted-foreground: 240 4% 65%;
-    --accent: 240 5% 16%;
-    --accent-foreground: 0 0% 98%;
+    --background: 224 71.4% 4.1%;
+    --foreground: 210 20% 98%;
+
+    --card: 224 71.4% 4.1%;
+    --card-foreground: 210 20% 98%;
+
+    --popover: 224 71.4% 4.1%;
+    --popover-foreground: 210 20% 98%;
+
+    --primary: 278 100% 68%; /* Electric Purple */
+    --primary-foreground: 210 20% 98%;
+
+    --secondary: 215 27.9% 16.9%;
+    --secondary-foreground: 210 20% 98%;
+
+    --muted: 215 27.9% 16.9%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 268 84% 86%; /* Soft Lavender */
+    --accent-foreground: 224 71.4% 4.1%;
+
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
-    --border: 240 5% 16%;
-    --input: 240 5% 16%;
-    --ring: 240 5% 16%;
+    --destructive-foreground: 210 20% 98%;
+
+    --border: 215 27.9% 16.9%;
+    --input: 215 27.9% 16.9%;
+    --ring: 268 84% 86%;
   }
 }
 
@@ -86,67 +94,44 @@
     background: hsl(var(--muted-foreground));
   }
   
-  @keyframes move {
-    0% { transform: translate(-50%, -50%) rotate(0deg) scale(1.2); }
-    25% { transform: translate(-40%, -60%) rotate(90deg) scale(1.0); }
-    50% { transform: translate(-50%, -50%) rotate(180deg) scale(1.1); }
-    75% { transform: translate(-60%, -40%) rotate(270deg) scale(1.0); }
-    100% { transform: translate(-50%, -50%) rotate(360deg) scale(1.2); }
-  }
-
-  @keyframes move2 {
-    0% { transform: translate(-50%, -50%) rotate(0deg) scale(1.0); }
-    25% { transform: translate(-60%, -40%) rotate(-90deg) scale(1.2); }
-    50% { transform: translate(-50%, -50%) rotate(-180deg) scale(1.0); }
-    75% { transform: translate(-40%, -60%) rotate(-270deg) scale(1.1); }
-    100% { transform: translate(-50%, -50%) rotate(-360deg) scale(1.0); }
-  }
-
-  @keyframes move3 {
-    0% { transform: translate(-50%, -50%) scale(1.1); }
-    33% { transform: translate(-45%, -55%) scale(1.0); }
-    66% { transform: translate(-55%, -45%) scale(1.2); }
-    100% { transform: translate(-50%, -50%) scale(1.1); }
+  .lava-lamp__lava {
+    filter: url('#goo');
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
   }
 
   .blob {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.7;
+    animation-delay: calc(var(--delay) * 1s);
+    animation-direction: var(--direction);
+    animation-duration: calc(var(--speed) * 1s);
+    animation-iteration-count: infinite;
+    animation-name: blob-move;
+    animation-timing-function: linear;
+    fill: hsl(var(--primary));
+    transform-box: fill-box;
   }
-  .blob1 {
-    width: 500px;
-    height: 500px;
-    background-color: #ff00ff;
-    animation: move 30s infinite;
-  }
-  .blob2 {
-    width: 400px;
-    height: 400px;
-    background-color: #00ffff;
-    animation: move2 25s infinite;
-  }
-  .blob3 {
-    width: 300px;
-    height: 300px;
-    background-color: #ffff00;
-    animation: move3 20s infinite;
+
+  @keyframes blob-move {
+    from {
+      transform: skew(calc(var(--skewX) * 1deg), calc(var(--skewY) * 1deg)) translateY(0);
+    }
+    to {
+      transform: skew(calc(var(--skewX) * 1deg), calc(var(--skewY) * 1deg)) translateY(calc(-100vh - (var(--height) * 2px)));
+    }
   }
 }
 
 @layer utilities {
-    .liquid-glass::before {
+    .content-area::before {
         content: '';
         position: fixed;
         inset: 0;
         z-index: -1;
         pointer-events: none;
         background-color: hsla(var(--background) / 0.5);
-        backdrop-filter: url(#liquid-glass-filter);
-        -webkit-backdrop-filter: url(#liquid-glass-filter);
+        backdrop-filter: blur(80px);
+        -webkit-backdrop-filter: blur(80px);
     }
 }
