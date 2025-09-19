@@ -1,3 +1,4 @@
+
 "use client"
 
 import Image from 'next/image';
@@ -35,8 +36,8 @@ export function MusicSection() {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
-    <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-background/90 overflow-y-auto no-scrollbar">
-      <div className="text-left mb-8">
+    <section className="h-full w-full snap-start flex-shrink-0 flex flex-col items-center justify-center p-8 md:p-16 bg-background/90">
+      <div className="text-left w-full max-w-6xl mb-8">
         <h2 className="text-4xl md:text-5xl font-headline font-light tracking-tight mb-2">
           Music
         </h2>
@@ -47,7 +48,7 @@ export function MusicSection() {
         {/* Featured Album */}
         <div className='group flex flex-col items-center text-center'>
             <h3 className="text-2xl font-light mb-4 text-primary font-headline">All-Time Favorite</h3>
-            <Card className="w-full max-w-sm overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 group-hover:scale-105">
+            <Card className="w-full max-w-xs overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 group-hover:scale-105">
                 <Image
                     src={featuredTrack.image}
                     alt={`Album art for ${featuredTrack.name} by ${featuredTrack.artist}`}
@@ -59,9 +60,9 @@ export function MusicSection() {
                 />
             </Card>
             <div className="mt-4">
-                <h4 className="text-3xl font-light font-headline">{featuredTrack.name}</h4>
-                <p className="text-xl text-muted-foreground mb-4 font-body">{featuredTrack.artist}</p>
-                <Button asChild>
+                <h4 className="text-2xl font-light font-headline">{featuredTrack.name}</h4>
+                <p className="text-lg text-muted-foreground mb-4 font-body">{featuredTrack.artist}</p>
+                <Button asChild size="sm">
                     <Link href={featuredTrack.url} target="_blank" rel="noopener noreferrer">
                         Listen on Spotify
                     </Link>
@@ -72,7 +73,7 @@ export function MusicSection() {
         {/* Other Albums */}
         <div className="flex flex-col items-center">
             <h3 className="text-2xl font-light mb-4 font-headline">On Rotation</h3>
-            <div className="relative group w-full max-w-sm aspect-square">
+            <div className="relative group w-full max-w-xs aspect-square">
                 <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
                     {rotationPreview.map((track, index) => (
                         <Card key={track.name + index} className="overflow-hidden bg-card/60 border-none shadow-lg group/item">
