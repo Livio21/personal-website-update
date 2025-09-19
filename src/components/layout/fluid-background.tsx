@@ -18,19 +18,18 @@ class Blobs {
         this.blobs = [];
         this.animationFrameId = null;
 
-        const baseRadius = Math.sqrt(this.w * this.w + this.h * this.h) / 2.5;
+        const baseRadius = Math.sqrt(this.w * this.w + this.h * this.h) / 3;
 
         this.blobs.push(
-            new Blob(this.w * 0.5, this.h * 0.5, baseRadius * 0.4, '#4a4a4a', this.w, this.h), // Muted Gray
-            new Blob(this.w * 0.2, this.h * 0.8, baseRadius * 0.3, '#1a1a1a', this.w, this.h), // Darker Gray
-            new Blob(this.w * 0.8, this.h * 0.2, baseRadius * 0.35, '#333333', this.w, this.h)  // Medium Gray
+            new Blob(this.w * 0.4, this.h * 0.4, baseRadius * 0.5, '#4F46E5', this.w, this.h), // Indigo
+            new Blob(this.w * 0.8, this.h * 0.2, baseRadius * 0.3, '#DB2777', this.w, this.h), // Pink
+            new Blob(this.w * 0.2, this.h * 0.7, baseRadius * 0.4, '#10B981', this.w, this.h)  // Emerald
         );
     }
 
     render() {
         this.ctx.clearRect(0, 0, this.w, this.h);
         
-        // This creates a global composite operation that adds the colors of the blobs together
         this.ctx.globalCompositeOperation = 'lighter'; 
         
         this.blobs.forEach(blob => {
@@ -84,8 +83,8 @@ class Blob {
         this.y = y;
         this.r = r;
         this.c = c;
-        this.vx = (Math.random() - 0.5) * 0.3; // Slower speed
-        this.vy = (Math.random() - 0.5) * 0.3; // Slower speed
+        this.vx = (Math.random() - 0.5) * 0.4; // Slower speed
+        this.vy = (Math.random() - 0.5) * 0.4; // Slower speed
     }
 
     update() {
@@ -135,8 +134,8 @@ export const FluidBackground = () => {
                 left: 0,
                 width: '100%',
                 height: '100%',
-                zIndex: -1,
-                opacity: 0.15,
+                zIndex: -10,
+                opacity: 0.25,
                 filter: 'blur(100px)',
             }}
         />

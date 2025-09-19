@@ -4,7 +4,7 @@ import { Terminal } from './terminal';
 
 export default function Home() {
   return (
-    <div className="w-full h-full flex items-center justify-center p-8 md:p-16">
+    <div className="w-full h-full flex items-center justify-center p-8 md:p-16 bg-background/80 backdrop-blur-sm">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-7xl items-center">
         {/* Left Column: Intro */}
         <div className="flex flex-col gap-8">
