@@ -6,7 +6,7 @@ import { SiteHeader } from '@/components/layout/site-header';
 
 export const metadata: Metadata = {
   title: 'Livio Macaj',
-  description: 'A personal portfolio website.',
+  description: "A personal portfolio for Livio Macaj, a software developer specializing in modern web technologies.",
 };
 
 export default function RootLayout({
@@ -27,7 +27,7 @@ export default function RootLayout({
             <SideNav />
           </div>
           <SiteHeader />
-          <main className="flex-1 p-8 pt-24 md:p-12 md:pt-24 w-full">
+          <main className="flex-1 h-full w-full">
             {children}
           </main>
         </div>

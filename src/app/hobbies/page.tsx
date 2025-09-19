@@ -7,7 +7,7 @@ export default function HobbiesPage() {
   const hobbies = PlaceHolderImages.filter(p => p.id.startsWith('hobby-'));
   
   return (
-    <div className="w-full">
+    <div className="w-full p-24">
       <header className="mb-12">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">Hobbies & Interests</h1>
         <p className="text-lg text-muted-foreground">When I&apos;m not coding, you can find me...</p>

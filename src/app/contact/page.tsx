@@ -3,7 +3,7 @@ import { Mail, Phone, MapPin, Github, Linkedin } from 'lucide-react';
 
 export default function ContactPage() {
   return (
-    <div className="w-full">
+    <div className="w-full p-8 md:p-24 md:pl-32">
       <header className="mb-12">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">Get In Touch</h1>
         <p className="text-lg text-muted-foreground">I'd love to hear from you. Let's build something great together.</p>
@@ -18,20 +18,19 @@ export default function ContactPage() {
           <div className="space-y-4">
             <div className="flex items-center gap-3">
               <Mail className="text-accent" />
-              <a href="mailto:hello@livio.dev" className="hover:text-primary">hello@livio.dev</a>
+              <a href="mailto:iamlivio@gmail.com" className="hover:text-primary">iamlivio@gmail.com</a>
             </div>
             <div className="flex items-center gap-3">
               <Phone className="text-accent" />
-              <span>+1 (123) 456-7890</span>
+              <span>+355 068 511 2709</span>
             </div>
             <div className="flex items-center gap-3">
               <MapPin className="text-accent" />
-              <span>San Francisco, CA</span>
+              <span>Tirana, Albania</span>
             </div>
           </div>
           <div className="flex items-center gap-4 pt-4">
-             <a href="#" className="text-muted-foreground hover:text-primary"><Github size={24}/></a>
-             <a href="#" className="text-muted-foreground hover:text-primary"><Linkedin size={24}/></a>
+             <a href="https://www.linkedin.com/in/livio-macaj" target="_blank" rel="noopener noreferrer" className="text-muted-foreground hover:text-primary"><Linkedin size={24}/></a>
           </div>
         </div>
         <div>
