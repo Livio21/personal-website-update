@@ -81,17 +81,17 @@ export function MusicSection() {
     return (
     <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-background/90 overflow-y-auto no-scrollbar">
       <div className="text-left mb-8">
-        <h2 className="text-4xl md:text-5xl font-light tracking-tight mb-2">
+        <h2 className="text-4xl md:text-5xl font-headline font-light tracking-tight mb-2">
           Music
         </h2>
-        <p className="text-lg text-muted-foreground">A few of the albums I have on repeat.</p>
+        <p className="text-lg text-muted-foreground font-body">A few of the albums I have on repeat.</p>
       </div>
 
       <div className="flex-grow w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {/* Featured Album */}
         {featuredAlbum && (
             <div className='group flex flex-col items-center text-center'>
-                <h3 className="text-2xl font-semibold mb-4 text-primary">Featured Album</h3>
+                <h3 className="text-2xl font-semibold mb-4 text-primary font-headline">Featured Album</h3>
                 <Card className="w-full max-w-sm overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 group-hover:scale-105">
                     <Image
                         src={featuredAlbum.imageUrl}
@@ -103,8 +103,8 @@ export function MusicSection() {
                     />
                 </Card>
                 <div className="mt-4">
-                    <h4 className="text-3xl font-bold">{featuredAlbum.title}</h4>
-                    <p className="text-xl text-muted-foreground mb-4">{featuredAlbum.artist}</p>
+                    <h4 className="text-3xl font-bold font-headline">{featuredAlbum.title}</h4>
+                    <p className="text-xl text-muted-foreground mb-4 font-body">{featuredAlbum.artist}</p>
                     <Button asChild>
                         <Link href={featuredAlbum.spotifyUrl} target="_blank" rel="noopener noreferrer">
                             Listen on Spotify
@@ -116,7 +116,7 @@ export function MusicSection() {
 
         {/* Other Albums */}
         <div className="flex flex-col items-center">
-            <h3 className="text-2xl font-semibold mb-4">On Rotation</h3>
+            <h3 className="text-2xl font-semibold mb-4 font-headline">On Rotation</h3>
             <div className="relative group w-full max-w-sm aspect-square">
                 <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
                     {rotationPreview.map((album) => (
@@ -131,7 +131,7 @@ export function MusicSection() {
                                     data-ai-hint={album.imageHint}
                                 />
                                  <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-2 text-center opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
-                                    <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer" className="text-primary font-bold">
+                                    <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer" className="text-primary font-bold font-body">
                                         Listen
                                     </Link>
                                 </div>
@@ -167,13 +167,13 @@ export function MusicSection() {
                             data-ai-hint={album.imageHint}
                         />
                         <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer" className="text-primary font-bold">
+                            <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer" className="text-primary font-bold font-body">
                                 Listen
                             </Link>
                         </div>
                         <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
-                            <p className="font-semibold text-white truncate">{album.title}</p>
-                            <p className="text-sm text-gray-300 truncate">{album.artist}</p>
+                            <p className="font-semibold text-white truncate font-headline">{album.title}</p>
+                            <p className="text-sm text-gray-300 truncate font-body">{album.artist}</p>
                         </div>
                         </CardContent>
                     </Card>

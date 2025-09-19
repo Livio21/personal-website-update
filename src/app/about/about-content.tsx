@@ -46,12 +46,12 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
           <animated.div style={style}>
             <Card className="bg-card/60 backdrop-blur-sm border-white/10 h-full">
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
+                <CardTitle className="flex items-center gap-3 text-2xl font-semibold font-headline">
                   My Story
                 </CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-lg text-muted-foreground">
+                <p className="text-lg text-muted-foreground font-body">
                   Hello! I'm a passionate developer and designer with a knack for creating engaging and user-friendly digital experiences. My journey into the world of tech began with a fascination for how things work, which quickly evolved into a love for building and designing applications. I thrive on solving complex problems and am constantly learning new technologies to push the boundaries of what's possible on the web.
                 </p>
               </CardContent>
@@ -63,7 +63,7 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
           <animated.div style={style}>
             <Card className="bg-card/60 backdrop-blur-sm border-white/10 h-full">
               <CardHeader>
-                <CardTitle className="flex items-center gap-3 text-2xl font-semibold">
+                <CardTitle className="flex items-center gap-3 text-2xl font-semibold font-headline">
                   Skills
                 </CardTitle>
               </CardHeader>
@@ -71,7 +71,7 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
                 <div className="flex flex-wrap gap-2">
                   {skillsTransitions((style, skill) => (
                     <animated.div style={style}>
-                       <Badge variant="secondary" className="text-md py-1 px-3 rounded-full">
+                       <Badge variant="secondary" className="text-md py-1 px-3 rounded-full font-body">
                         {skill}
                       </Badge>
                     </animated.div>
@@ -87,20 +87,20 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
       <div className="lg:col-span-3">
         {cardTransitions((style, item) => item && (
             <animated.div style={style}>
-                <h2 className="text-3xl font-bold mb-8 flex items-center gap-3">Professional Experience</h2>
+                <h2 className="text-3xl font-bold mb-8 flex items-center gap-3 font-headline">Professional Experience</h2>
                  <div className="space-y-6">
                     {experienceTransitions((style, exp) => (
                         <animated.div style={style}>
                         <Card className="bg-card/60 backdrop-blur-sm border-white/10">
                             <CardHeader>
                                 <div className="flex justify-between items-baseline">
-                                <CardTitle className="text-xl">{exp.role}</CardTitle>
-                                <p className="text-sm font-normal text-muted-foreground">{exp.period}</p>
+                                <CardTitle className="text-xl font-headline">{exp.role}</CardTitle>
+                                <p className="text-sm font-normal text-muted-foreground font-body">{exp.period}</p>
                                 </div>
-                                <p className="text-md text-primary font-medium pt-1">{exp.company}</p>
+                                <p className="text-md text-primary font-medium pt-1 font-body">{exp.company}</p>
                             </CardHeader>
                             <CardContent>
-                                <p className="text-muted-foreground">{exp.description}</p>
+                                <p className="text-muted-foreground font-body">{exp.description}</p>
                             </CardContent>
                         </Card>
                         </animated.div>

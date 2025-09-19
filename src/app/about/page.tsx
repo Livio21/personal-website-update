@@ -37,8 +37,8 @@ export default function AboutPage() {
   return (
     <div className="w-full h-full p-8 md:p-16 lg:p-24 pl-12 md:pl-20 lg:pl-24">
       <header className="mb-12">
-        <h1 className="text-4xl md:text-6xl font-light tracking-tight mb-4">About Me</h1>
-        <p className="text-lg md:text-xl text-muted-foreground">My story, skills, and professional journey.</p>
+        <h1 className="text-4xl md:text-6xl font-headline font-light tracking-tight mb-4">About Me</h1>
+        <p className="text-lg md:text-xl text-muted-foreground font-body">My story, skills, and professional journey.</p>
       </header>
 
       <AboutContent skills={skills} experience={experience} />
