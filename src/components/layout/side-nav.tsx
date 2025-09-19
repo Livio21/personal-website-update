@@ -1,10 +1,11 @@
+
 "use client"
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useState, useEffect, useRef } from "react"
 import { cn } from "@/lib/utils"
-import { motion } from "framer-motion"
+import { motion, useDragControls, AnimatePresence } from "framer-motion"
 
 const navItems = [
   { href: "/", label: "Home" },
@@ -18,28 +19,10 @@ export function SideNav() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
   const navRef = useRef<HTMLDivElement>(null)
-  const [dragConstraints, setDragConstraints] = useState({
-    left: 16,
-    top: 16,
-    right: 16,
-    bottom: 16,
-  });
+  const controls = useDragControls()
+  const [position, setPosition] = useState({ x: 16, y: 16 });
+  const [menuPosition, setMenuPosition] = useState({ top: "auto", bottom: "auto", left: "auto", right: "auto" });
 
-  useEffect(() => {
-    // This effect runs only on the client
-    const updateConstraints = () => {
-      setDragConstraints({
-        left: 16,
-        top: 16,
-        right: window.innerWidth - (isOpen ? 224 + 16 : 56 + 16),
-        bottom: window.innerHeight - (isOpen ? 280 + 16 : 56 + 16),
-      });
-    };
-    updateConstraints();
-
-    window.addEventListener('resize', updateConstraints);
-    return () => window.removeEventListener('resize', updateConstraints);
-  }, [isOpen]);
 
   useEffect(() => {
     setIsOpen(false)
@@ -56,44 +39,77 @@ export function SideNav() {
       document.removeEventListener("mousedown", handleClickOutside)
     }
   }, [isOpen, navRef])
-  
-  const handleToggle = () => {
+
+  const handleToggle = (e: React.MouseEvent) => {
+    e.stopPropagation();
     setIsOpen(!isOpen);
   };
+  
+  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: any) => {
+      const newPos = { x: info.point.x, y: info.point.y };
+      const viewportWidth = window.innerWidth;
+      const viewportHeight = window.innerHeight;
 
+      const menuWidth = 224; // w-56
+      const menuHeight = 280; // h-[280px]
+
+      const newMenuPosition: any = {};
+
+      // Horizontal positioning
+      if (newPos.x > viewportWidth / 2) {
+          newMenuPosition.right = viewportWidth - newPos.x - 28;
+      } else {
+          newMenuPosition.left = newPos.x - 28;
+      }
+
+      // Vertical positioning
+      if (newPos.y > viewportHeight / 2) {
+          newMenuPosition.bottom = viewportHeight - newPos.y - 28;
+      } else {
+          newMenuPosition.top = newPos.y - 28;
+      }
+      
+      setMenuPosition(newMenuPosition);
+      setPosition(newPos);
+  };
 
   return (
-    <>
-      {/* Nav Container */}
+    <div ref={navRef}>
       <motion.div 
-        ref={navRef}
         drag
-        dragConstraints={dragConstraints}
-        dragTransition={{ bounceStiffness: 200, bounceDamping: 20 }}
+        dragListener={false}
+        onPointerDown={(e) => controls.start(e)}
+        dragControls={controls}
         dragMomentum={false}
-        className={cn(
-            "fixed top-4 left-4 z-[60] transition-all duration-300 ease-in-out cursor-grab active:cursor-grabbing",
-            isOpen ? 'w-56 h-[280px] p-4 bg-card/50 backdrop-blur-lg border border-white/10 rounded-2xl' : 'w-14 h-14'
-        )}
+        onDragEnd={handleDragEnd}
+        dragConstraints={{
+          left: 16,
+          top: 16,
+          right: typeof window !== 'undefined' ? window.innerWidth - (56 + 16) : 0,
+          bottom: typeof window !== 'undefined' ? window.innerHeight - (56 + 16) : 0,
+        }}
+        dragTransition={{ bounceStiffness: 300, bounceDamping: 20 }}
+        className="fixed top-4 left-4 z-[60] w-14 h-14 cursor-grab active:cursor-grabbing bg-card/80 backdrop-blur-lg border border-white/10 rounded-full flex items-center justify-center"
+        onClick={handleToggle}
+        aria-label="Toggle navigation"
       >
-        {/* Button */}
-        <button
-            onClick={handleToggle}
-            className={cn(
-                "absolute top-0 left-0 flex items-center justify-center w-14 h-14 bg-card/80 backdrop-blur-lg border border-white/10 rounded-full z-10 transition-transform duration-300",
-                isOpen && 'scale-0'
-            )}
-            aria-label="Open navigation"
-        >
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M3 12H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M3 6H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-              <path d="M3 18H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-        </button>
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M3 12H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M3 6H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+          <path d="M3 18H21" stroke="white" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"/>
+        </svg>
+      </motion.div>
 
-        {/* Modal content */}
-        <div className={cn("transition-opacity duration-200", isOpen ? 'opacity-100' : 'opacity-0 pointer-events-none')}>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.95 }}
+            transition={{ duration: 0.15, ease: "easeOut" }}
+            style={menuPosition}
+            className="fixed z-50 w-56 h-[280px] p-4 bg-card/50 backdrop-blur-lg border border-white/10 rounded-2xl"
+          >
             <div className="flex items-center justify-end mb-4">
                 <button onClick={() => setIsOpen(false)} className="p-1 rounded-md hover:bg-secondary" aria-label="Close navigation">
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -126,8 +142,9 @@ export function SideNav() {
                     </Link>
                 )})}
             </nav>
-        </div>
-      </motion.div>
-    </>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </div>
   )
 }
