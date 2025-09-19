@@ -2,6 +2,7 @@
 
 import { motion, AnimatePresence } from "framer-motion";
 import { usePathname } from "next/navigation";
+import { useState, useEffect } from "react";
 
 const variants = {
   initial: { opacity: 0, y: 15 },
@@ -11,6 +12,11 @@ const variants = {
 
 export function PageTransition({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
+  const [isMounted, setIsMounted] = useState(false);
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   return (
     <AnimatePresence mode="wait" initial={false}>
@@ -18,7 +24,7 @@ export function PageTransition({ children }: { children: React.ReactNode }) {
         key={pathname}
         variants={variants}
         initial="initial"
-        animate="animate"
+        animate={isMounted ? "animate" : "initial"}
         exit="exit"
         transition={{ duration: 0.3, ease: "easeInOut" }}
         className="h-full w-full"

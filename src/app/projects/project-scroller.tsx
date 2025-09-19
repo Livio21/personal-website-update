@@ -124,6 +124,7 @@ export function ProjectScroller() {
                   className="object-cover"
                   data-ai-hint={project.imageHint}
                   sizes="100vw"
+                  priority={index === 0}
                 />
                 <div className="absolute inset-0 bg-black/60" />
             </div>
