@@ -1,19 +1,13 @@
-import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Card, CardContent } from '@/components/ui/card';
-import { HobbiesContent } from './hobbies-content';
+import { PhotographySection } from './photography-section';
+import { MusicSection } from './music-section';
+import { BlogSection } from './blog-section';
 
 export default function HobbiesPage() {
-  const hobbies = PlaceHolderImages.filter(p => p.id.startsWith('hobby-'));
-  
   return (
-    <div className="w-full p-24">
-      <header className="mb-12">
-        <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-2">Hobbies & Interests</h1>
-        <p className="text-lg text-muted-foreground">When I&apos;m not coding, you can find me...</p>
-      </header>
-      
-      <HobbiesContent hobbies={hobbies} />
+    <div className="h-screen w-full snap-y snap-mandatory overflow-y-scroll no-scrollbar">
+      <PhotographySection />
+      <MusicSection />
+      <BlogSection />
     </div>
   );
 }

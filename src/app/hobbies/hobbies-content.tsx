@@ -16,10 +16,10 @@ interface HobbiesContentProps {
 }
 
 export function HobbiesContent({ hobbies }: HobbiesContentProps) {
-  // A more dynamic masonry-like layout
   const spans = [
     'col-span-2 row-span-2', 'col-span-1 row-span-1', 'col-span-1 row-span-2', 'col-span-1 row-span-1', 
     'col-span-1 row-span-1', 'col-span-2 row-span-1', 'col-span-1 row-span-1', 'col-span-1 row-span-2',
+    'col-span-1 row-span-1', 'col-span-1 row-span-1',
   ];
 
   const transitions = useTransition(hobbies, {
@@ -30,10 +30,10 @@ export function HobbiesContent({ hobbies }: HobbiesContentProps) {
   });
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 auto-rows-[150px] gap-4 pl-8">
+    <div className="grid grid-cols-2 md:grid-cols-5 auto-rows-[150px] gap-4 w-full px-8 md:px-16">
       {transitions((style, hobby, t, index) => (
         <animated.div style={style} className={spans[index % spans.length]}>
-          <Card key={hobby.id} className="overflow-hidden group relative bg-card/60 border-none h-full">
+          <Card key={hobby.id} className="overflow-hidden group relative bg-card/60 border-none h-full shadow-lg">
             <CardContent className="p-0 w-full h-full">
               <Image
                 src={hobby.imageUrl}
@@ -43,7 +43,7 @@ export function HobbiesContent({ hobbies }: HobbiesContentProps) {
                 data-ai-hint={hobby.imageHint}
                 sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
               />
-              <div className="absolute inset-0 bg-black/50 flex items-end p-4 transition-opacity opacity-0 group-hover:opacity-100">
+              <div className="absolute inset-0 bg-black/60 flex items-end p-4 transition-opacity opacity-0 group-hover:opacity-100">
                 <h3 className="text-lg font-semibold text-white">{hobby.description}</h3>
               </div>
             </CardContent>
