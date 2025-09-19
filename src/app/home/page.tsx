@@ -11,7 +11,7 @@ export default function Home() {
           Livio Macaj
         </h1>
         <p className="max-w-2xl text-lg text-muted-foreground">
-          I'm a Software Developer with nearly two years of experience building web apps. I hold a Bachelor's and Master's in Software Engineering from the Canadian Institute of Technology, and I've shipped projects using React (Remix, Router), Vue.js, and Python/Odoo. I thrive on turning complex requirements into clean, maintainable solutions and love collaborating across teams. Let's connect to discuss opportunities or your next big idea!
+          I'm a Software Engineer with a Bachelor's and Master's from the Canadian Institute of Technology. I specialize in building robust web applications with technologies like Python, Odoo, Vue.js, and React. I enjoy solving complex problems and collaborating with teams to deliver clean, efficient solutions. Let's connect to discuss new opportunities or bring your next idea to life!
         </p>
       </header>
       

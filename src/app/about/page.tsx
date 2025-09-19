@@ -1,34 +1,35 @@
 import { AboutContent } from "./about-content"
 
 const skills = [
-  "Vue.js", "React", "Odoo", "Python", "Remix", "React Router",
-  "Sanity CMS", "Firebase", "Front-End Development", "English", "Italian"
+  "Python", "JavaScript", "HTML/CSS", "Kotlin", "Odoo", "VueJS", "ReactJS", 
+  "TailwindCSS", "Jetpack Compose", "ReportLab", "NoSQL (Firebase)", 
+  "SQL (PostgreSQL, MySQL)", "GraphQL", "GIT", "Figma", "Docker", "Vercel"
 ]
 
 const experience = [
     {
-        role: "Web Developer",
+        role: "Freelance Web Developer",
         company: "Freelance",
-        period: "March 2025 - Present",
-        description: "Continuing to build modern web solutions for various clients."
+        period: "May 2025 - Present",
+        description: "Creating customized web pages using technologies such as React.js, TailwindCSS and Sanity.io, ensuring pages are responsive and optimized for SEO, and collaborating closely with clients."
     },
     {
-        role: "Python Developer",
+        role: "Python/Odoo Developer",
         company: "Communication Progress",
-        period: "April 2024 - February 2025",
-        description: "Developed and maintained Python-based applications, contributing to backend systems and services."
+        period: "April 2024 - Feb 2025",
+        description: "Developed and optimized back-end services in Odoo using Python. Assisted in implementing ERP functions, improved security, and created document templates using ReportLab."
     },
     {
-        role: "Information Technology Intern",
-        company: "Ministry of Justice of Albania",
-        period: "April 2024 - September 2024",
-        description: "Assisted the IT department with various tasks, gaining exposure to governmental technology infrastructure."
+        role: "IT Intern",
+        company: "Ministry of Justice",
+        period: "April 2024 - Sep 2024",
+        description: "Provided IT support and maintenance for internal systems, assisted in diagnosing software and hardware problems, and managed computer equipment."
     },
     {
-        role: "Web Developer",
+        role: "Web Developer Intern",
         company: "AKKSHI (NASRI)",
-        period: "March 2022 - August 2022",
-        description: "Contributed to the development of web applications, focusing on front-end features and user experience."
+        period: "April 2022 - Sep 2022",
+        description: "Assisted in designing responsive components for the company website and updated the frontend with a different navigation structure."
     }
 ]
 

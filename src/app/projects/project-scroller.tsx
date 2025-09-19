@@ -24,10 +24,9 @@ export function ProjectScroller() {
         });
         setCurrentProjectIndex(index);
         
-        // Use a timeout to reset the scrolling flag
         setTimeout(() => {
             isScrollingRef.current = false;
-        }, 1000); // 1s should be enough for smooth scroll to finish
+        }, 1000); 
     }
   };
 
@@ -121,7 +120,7 @@ export function ProjectScroller() {
             <div className="absolute inset-0 z-0">
                <Image
                   src={project.imageUrl}
-                  alt={project.description}
+                  alt={project.description.split('.')[0]}
                   fill
                   className="object-cover"
                   data-ai-hint={project.imageHint}
@@ -132,11 +131,10 @@ export function ProjectScroller() {
             <div className="relative pl-4 z-10 w-full max-w-6xl h-full flex items-center">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div className="p-8 rounded-xl bg-blue-950/50 backdrop-blur-lg border border-white/10">
-                  <h2 className="text-4xl font-bold text-primary mb-4">Project {index + 1}</h2>
+                  <h2 className="text-4xl font-bold text-primary mb-4">{project.description.split('.')[0]}</h2>
                   <p className="text-lg text-muted-foreground mb-6">{project.description}</p>
-                   <p className="text-muted-foreground mb-6">This is where more detailed information about the project would go. You can describe the technologies used, the problems that were solved, and your role in the project.</p>
                   <Button variant="outline" asChild>
-                    <a href="#" target="_blank" rel="noopener noreferrer">
+                    <a href={project.url} target="_blank" rel="noopener noreferrer">
                       View Project <ExternalLink className="ml-2" />
                     </a>
                   </Button>

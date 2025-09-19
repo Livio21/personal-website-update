@@ -22,7 +22,7 @@ export default function ContactPage() {
             </div>
             <div className="flex items-center gap-3">
               <Phone className="text-accent" />
-              <span>+355 068 511 2709</span>
+              <span>+355 685 11 2709</span>
             </div>
             <div className="flex items-center gap-3">
               <MapPin className="text-accent" />
