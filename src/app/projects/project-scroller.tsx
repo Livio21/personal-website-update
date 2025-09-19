@@ -126,11 +126,11 @@ export function ProjectScroller() {
                   sizes="100vw"
                   priority={index === 0}
                 />
-                <div className="absolute inset-0 bg-black/60" />
+                <div className="absolute inset-0 bg-black/50" />
             </div>
             <div className="relative pl-4 z-10 w-full max-w-6xl h-full flex items-center">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div className="p-8 rounded-xl bg-card/50 backdrop-blur-lg border border-white/10">
+                <div className="p-8 rounded-xl bg-card/40 backdrop-blur-lg border border-white/10">
                   <h2 className="text-4xl font-headline font-light text-primary mb-4">{project.description.split('.')[0]}</h2>
                   <p className="text-lg text-muted-foreground mb-6 font-body">{project.description}</p>
                   <Button variant="outline" asChild>

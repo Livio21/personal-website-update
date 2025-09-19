@@ -29,7 +29,7 @@ export function HobbiesContent({ hobbies }: HobbiesContentProps) {
     <div className="grid grid-cols-2 md:grid-cols-5 auto-rows-[150px] gap-4 w-full px-8 md:px-16">
       {transitions((style, hobby, t, index) => (
         <animated.div style={style} className={spans[index % spans.length]}>
-          <Card key={hobby.id} className="overflow-hidden group relative bg-card/60 border-none h-full shadow-lg">
+          <Card key={hobby.id} className="overflow-hidden group relative bg-card/40 border-none h-full shadow-lg">
             <CardContent className="p-0 w-full h-full">
               <Image
                 src={hobby.imageUrl}

@@ -48,7 +48,7 @@ export function MusicSection() {
         {/* Featured Album */}
         <div className='group flex flex-col items-center text-center'>
             <h3 className="text-2xl font-light mb-4 text-primary font-headline">All-Time Favorite</h3>
-            <Card className="w-full max-w-xs overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 ">
+            <Card className="w-full max-w-xs overflow-hidden bg-card/40 border-none aspect-square shadow-lg transition-transform duration-300 ">
                 <Image
                     src={featuredTrack.image}
                     alt={`Album art for ${featuredTrack.name} by ${featuredTrack.artist}`}
@@ -76,7 +76,7 @@ export function MusicSection() {
             <div className="relative group w-full max-w-xs aspect-square">
                 <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
                     {rotationPreview.map((track, index) => (
-                        <Card key={track.name + index} className="overflow-hidden bg-card/60 border-none shadow-lg group/item">
+                        <Card key={track.name + index} className="overflow-hidden bg-card/40 border-none shadow-lg group/item">
                             <CardContent className="p-0 w-full h-full relative">
                                 <Image
                                     src={track.image}
@@ -116,7 +116,7 @@ export function MusicSection() {
           <ScrollArea className="h-full pr-4 -mr-2">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 py-4">
                 {otherTracks.map((track, index) => (
-                    <Card key={track.name+index} className="group overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 rounded-md">
+                    <Card key={track.name+index} className="group overflow-hidden bg-card/40 border-none aspect-square shadow-lg transition-transform duration-300 rounded-md">
                         <CardContent className="p-0 w-full h-full relative">
                         <Image
                             src={track.image}

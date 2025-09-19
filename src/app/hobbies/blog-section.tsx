@@ -54,7 +54,7 @@ export function BlogSection() {
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
         {blogPosts.map((post) => (
-          <Card key={post.title} className="bg-card/60 backdrop-blur-sm border-white/10 flex flex-col">
+          <Card key={post.title} className="bg-card/40 backdrop-blur-sm border-white/10 flex flex-col">
             <CardHeader>
               <CardTitle className="font-light font-headline">{post.title}</CardTitle>
               <CardDescription className="font-code">{post.date}</CardDescription>

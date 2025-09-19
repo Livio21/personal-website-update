@@ -44,7 +44,7 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
       <div className="lg:col-span-2 space-y-8">
         {cardTransitions((style, item) => item && (
           <animated.div style={style}>
-            <Card className="bg-card/60 backdrop-blur-sm border-white/10 h-full">
+            <Card className="bg-card/40 backdrop-blur-sm border-white/10 h-full">
               <CardHeader>
                 <CardTitle className="text-2xl font-light font-headline">
                   My Story
@@ -61,7 +61,7 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
 
         {cardTransitions((style, item) => item && (
           <animated.div style={style}>
-            <Card className="bg-card/60 backdrop-blur-sm border-white/10 h-full">
+            <Card className="bg-card/40 backdrop-blur-sm border-white/10 h-full">
               <CardHeader>
                 <CardTitle className="text-2xl font-light font-headline">
                   Skills
@@ -91,7 +91,7 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
                  <div className="space-y-6">
                     {experienceTransitions((style, exp) => (
                         <animated.div style={style}>
-                        <Card className="bg-card/60 backdrop-blur-sm border-white/10">
+                        <Card className="bg-card/40 backdrop-blur-sm border-white/10">
                             <CardHeader>
                                 <div className="flex justify-between items-baseline">
                                 <CardTitle className="text-xl font-light font-headline">{exp.role}</CardTitle>

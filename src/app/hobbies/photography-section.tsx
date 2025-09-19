@@ -54,7 +54,7 @@ export function PhotographySection() {
             <div className="grid grid-cols-2 md:grid-cols-5 auto-rows-[180px] gap-2 w-full">
                 {transitions((style, hobby, t, index) => (
                     <animated.div style={style} className={cn(spans[index % spans.length], "cursor-pointer")}>
-                    <Card key={hobby.id} className="overflow-hidden group relative bg-card/60 border-none h-full shadow-lg" onClick={() => handleImageClick(hobby)}>
+                    <Card key={hobby.id} className="overflow-hidden group relative bg-card/40 border-none h-full shadow-lg" onClick={() => handleImageClick(hobby)}>
                         <CardContent className="p-0 w-full h-full">
                         <Image
                             src={hobby.imageUrl}
