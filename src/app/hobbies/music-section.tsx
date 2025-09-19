@@ -9,7 +9,7 @@ export function MusicSection() {
     const pianoImage = musicImages.find(p => p.id === 'hobby-music-2');
 
     return (
-    <section className="h-screen w-full snap-start flex flex-col items-center justify-center relative p-8 md:p-16 bg-background/90">
+    <section className="h-screen w-full snap-start flex flex-col items-center justify-center relative p-8 md:p-16 pt-24 bg-background/90">
       <div className="text-center mb-8">
         <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 flex items-center gap-4 justify-center">
           <Music className="text-primary size-10" />
