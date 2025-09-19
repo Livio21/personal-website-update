@@ -19,8 +19,13 @@ export default function HobbiesPage() {
 
   useEffect(() => {
     async function fetchTracks() {
-      const recentTracks = await getRecentTracks();
-      setTracks(recentTracks);
+      try {
+        const recentTracks = await getRecentTracks();
+        setTracks(recentTracks);
+      } catch (error) {
+        console.error("Failed to fetch Last.fm tracks:", error);
+        setTracks([]);
+      }
     }
     fetchTracks();
   }, []);

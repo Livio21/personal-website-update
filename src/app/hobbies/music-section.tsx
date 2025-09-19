@@ -2,9 +2,8 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
+import { Card, CardContent } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
-import { cn } from '@/lib/utils';
 import { useState } from 'react';
 import {
   Dialog,
@@ -13,8 +12,6 @@ import {
 import { ScrollArea } from '@/components/ui/scroll-area';
 import type { LastFmTrack } from './actions';
 
-// This is now an async component that can fetch data.
-// We are passing tracks as a prop for now.
 interface MusicSectionProps {
     tracks: LastFmTrack[];
 }
@@ -22,7 +19,6 @@ interface MusicSectionProps {
 export function MusicSection({ tracks }: MusicSectionProps) {
     const [isModalOpen, setIsModalOpen] = useState(false);
 
-    // TODO: Adapt this logic for featured tracks vs. others once API is live
     const featuredTrack = tracks[0];
     const otherTracks = tracks.slice(1);
     const rotationPreview = otherTracks.slice(0, 4);
@@ -68,44 +64,46 @@ export function MusicSection({ tracks }: MusicSectionProps) {
         )}
 
         {/* Other Albums */}
-        <div className="flex flex-col items-center">
-            <h3 className="text-2xl font-light mb-4 font-headline">On Rotation</h3>
-            <div className="relative group w-full max-w-sm aspect-square">
-                <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
-                    {rotationPreview.map((track, index) => (
-                        <Card key={track.name + index} className="overflow-hidden bg-card/60 border-none shadow-lg group/item">
-                            <CardContent className="p-0 w-full h-full relative">
-                                <Image
-                                    src={track.image.find(i => i.size === 'large')?.['#text'] || "https://picsum.photos/seed/album1/300/300"}
-                                    alt={`Album art for ${track.name} by ${track.artist['#text']}`}
-                                    width={300}
-                                    height={300}
-                                    className="object-cover w-full h-full"
-                                    data-ai-hint="album art"
-                                />
-                                 <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-2 text-center opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
-                                    <Button asChild variant="link" className="text-primary font-bold font-body">
-                                        <Link href={track.url} target="_blank" rel="noopener noreferrer">
-                                            Listen
-                                        </Link>
-                                    </Button>
-                                </div>
-                            </CardContent>
-                        </Card>
-                    ))}
+        {tracks.length > 1 && (
+            <div className="flex flex-col items-center">
+                <h3 className="text-2xl font-light mb-4 font-headline">On Rotation</h3>
+                <div className="relative group w-full max-w-sm aspect-square">
+                    <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
+                        {rotationPreview.map((track, index) => (
+                            <Card key={track.name + index} className="overflow-hidden bg-card/60 border-none shadow-lg group/item">
+                                <CardContent className="p-0 w-full h-full relative">
+                                    <Image
+                                        src={track.image.find(i => i.size === 'large')?.['#text'] || "https://picsum.photos/seed/album1/300/300"}
+                                        alt={`Album art for ${track.name} by ${track.artist['#text']}`}
+                                        width={300}
+                                        height={300}
+                                        className="object-cover w-full h-full"
+                                        data-ai-hint="album art"
+                                    />
+                                    <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-2 text-center opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
+                                        <Button asChild variant="link" className="text-primary font-bold font-body">
+                                            <Link href={track.url} target="_blank" rel="noopener noreferrer">
+                                                Listen
+                                            </Link>
+                                        </Button>
+                                    </div>
+                                </CardContent>
+                            </Card>
+                        ))}
+                    </div>
+                    {otherTracks.length > 0 && (
+                        <Button 
+                            variant="outline" 
+                            size="sm" 
+                            className="absolute top-2 right-2 z-10 bg-card/50 backdrop-blur-sm"
+                            onClick={() => setIsModalOpen(true)}
+                        >
+                            View All
+                        </Button>
+                    )}
                 </div>
-                {otherTracks.length > 0 && (
-                    <Button 
-                        variant="outline" 
-                        size="sm" 
-                        className="absolute top-2 right-2 z-10 bg-card/50 backdrop-blur-sm"
-                        onClick={() => setIsModalOpen(true)}
-                    >
-                        View All
-                    </Button>
-                )}
             </div>
-        </div>
+        )}
       </div>
 
        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
