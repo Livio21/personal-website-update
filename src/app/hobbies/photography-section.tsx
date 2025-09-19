@@ -16,19 +16,19 @@ export function PhotographySection() {
   const canExpand = photographyHobbies.length > INITIAL_VISIBLE_IMAGES;
 
   return (
-    <section className="h-screen w-full snap-start flex flex-col items-center justify-center relative p-8 md:p-16 pt-24 bg-background/80">
-      <div className="text-center mb-8">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 flex items-center gap-4 justify-center">
+    <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-background/80 overflow-y-auto no-scrollbar">
+      <div className="text-left mb-8">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 flex items-center gap-4">
           <Camera className="text-primary size-10" />
           Photography
         </h2>
         <p className="text-lg text-muted-foreground">Capturing moments and perspectives.</p>
       </div>
-      <div className="flex-grow w-full overflow-y-auto no-scrollbar">
+      <div className="flex-grow w-full">
         <HobbiesContent hobbies={visibleHobbies} />
       </div>
       {canExpand && (
-        <div className="mt-4">
+        <div className="mt-4 text-center">
           <Button onClick={() => setIsExpanded(!isExpanded)} variant="outline" className="bg-card/50 backdrop-blur-sm">
             {isExpanded ? <Minus className="mr-2" /> : <Plus className="mr-2" />}
             {isExpanded ? 'Show Less' : 'Show More'}

@@ -9,16 +9,16 @@ export function MusicSection() {
     const pianoImage = musicImages.find(p => p.id === 'hobby-music-2');
 
     return (
-    <section className="h-screen w-full snap-start flex flex-col items-center justify-center relative p-8 md:p-16 pt-24 bg-background/90">
-      <div className="text-center mb-8">
-        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 flex items-center gap-4 justify-center">
+    <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-background/90 overflow-y-auto no-scrollbar">
+      <div className="text-left mb-8">
+        <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-2 flex items-center gap-4">
           <Music className="text-primary size-10" />
           Music
         </h2>
         <p className="text-lg text-muted-foreground">Creating melodies and exploring sounds.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl flex-grow">
         <Card className="md:col-span-1 bg-card/60 backdrop-blur-sm border-white/10 flex flex-col">
             <CardHeader>
                 <CardTitle className="flex items-center gap-3">
@@ -33,7 +33,7 @@ export function MusicSection() {
             </CardContent>
         </Card>
 
-        <div className="md:col-span-2 grid grid-cols-1 grid-rows-2 gap-8 h-[400px] md:h-auto">
+        <div className="md:col-span-2 grid grid-cols-1 grid-rows-2 gap-8 h-[400px] md:h-[calc(100vh-250px)]">
           {guitarImage && (
             <div className="relative rounded-lg overflow-hidden shadow-lg">
               <Image
