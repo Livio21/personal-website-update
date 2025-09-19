@@ -10,11 +10,30 @@ import {
 } from "@/components/ui/dialog"
 import { Card, CardContent } from '@/components/ui/card';
 import { cn } from '@/lib/utils';
-import { useTransition, animated } from '@react-spring/web';
+import { motion } from 'framer-motion';
 
 const INITIAL_VISIBLE_IMAGES = 5;
 
 type Hobby = (typeof PlaceHolderImages)[0];
+
+const containerVariants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.05,
+    },
+  },
+};
+
+const itemVariants = {
+  hidden: { scale: 0.9, opacity: 0 },
+  visible: {
+    scale: 1,
+    opacity: 1,
+  },
+};
+
 
 export function PhotographySection() {
   const photographyHobbies = PlaceHolderImages.filter(p => p.id.startsWith('hobby-photo-'));
@@ -34,13 +53,6 @@ export function PhotographySection() {
     'col-span-1 row-span-1', 'col-span-1 row-span-1',
   ];
 
-  const transitions = useTransition(visibleHobbies, {
-    from: { opacity: 0, transform: 'scale(0.9)' },
-    enter: { opacity: 1, transform: 'scale(1)' },
-    trail: 100,
-    keys: item => item.id
-  });
-
   return (
     <>
       <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-transparent overflow-y-auto no-scrollbar">
@@ -51,24 +63,35 @@ export function PhotographySection() {
           <p className="text-lg text-muted-foreground font-body">Capturing moments and perspectives.</p>
         </div>
         <div className="flex-grow w-full">
-            <div className="grid grid-cols-2 md:grid-cols-5 auto-rows-[180px] gap-2 w-full">
-                {transitions((style, hobby, t, index) => (
-                    <animated.div style={style} className={cn(spans[index % spans.length], "cursor-pointer")}>
-                    <Card key={hobby.id} className="overflow-hidden group relative bg-card/40 backdrop-blur-sm border-none h-full shadow-lg" onClick={() => handleImageClick(hobby)}>
-                        <CardContent className="p-0 w-full h-full">
-                        <Image
-                            src={hobby.imageUrl}
-                            alt={hobby.description}
-                            fill
-                            className="object-cover transition-transform duration-300 group-hover:brightness-105"
-                            data-ai-hint={hobby.imageHint}
-                            sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
-                        />
-                        </CardContent>
-                    </Card>
-                    </animated.div>
+            <motion.div 
+              className="grid grid-cols-2 md:grid-cols-5 auto-rows-[180px] gap-2 w-full"
+              variants={containerVariants}
+              initial="hidden"
+              animate="visible"
+              key={isExpanded ? 'expanded' : 'collapsed'}
+            >
+                {visibleHobbies.map((hobby, index) => (
+                    <motion.div 
+                      key={hobby.id}
+                      variants={itemVariants} 
+                      className={cn(spans[index % spans.length], "cursor-pointer")}
+                      layout
+                    >
+                      <Card className="overflow-hidden group relative bg-card/40 backdrop-blur-sm border-none h-full shadow-lg" onClick={() => handleImageClick(hobby)}>
+                          <CardContent className="p-0 w-full h-full">
+                          <Image
+                              src={hobby.imageUrl}
+                              alt={hobby.description}
+                              fill
+                              className="object-cover transition-transform duration-300 group-hover:brightness-105"
+                              data-ai-hint={hobby.imageHint}
+                              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
+                          />
+                          </CardContent>
+                      </Card>
+                    </motion.div>
                 ))}
-            </div>
+            </motion.div>
         </div>
         {canExpand && (
           <div className="mt-4 text-center">
