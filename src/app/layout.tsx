@@ -3,6 +3,7 @@ import './globals.css';
 import { SideNav } from '@/components/layout/side-nav';
 import { Toaster } from '@/components/ui/toaster';
 import { SiteHeader } from '@/components/layout/site-header';
+import { PageTransition } from '@/components/layout/page-transition';
 
 export const metadata: Metadata = {
   title: 'Livio Macaj',
@@ -28,7 +29,9 @@ export default function RootLayout({
           </div>
           <SiteHeader />
           <main className="flex-1 h-full w-full">
-            {children}
+            <PageTransition>
+              {children}
+            </PageTransition>
           </main>
         </div>
         <Toaster />
