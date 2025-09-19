@@ -1,13 +1,63 @@
+"use client"
+
 import Image from 'next/image';
-import { Music, GitBranch } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import Link from 'next/link';
+import { Music, Mic, Headset } from 'lucide-react';
+import { Card, CardContent } from '@/components/ui/card';
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
+
+
+const albums = [
+    {
+        title: "Currents",
+        artist: "Tame Impala",
+        imageUrl: "https://picsum.photos/seed/album1/300/300",
+        imageHint: "psychedelic rock",
+        spotifyUrl: "https://open.spotify.com/album/79dL7FLiJFOO0EoehUHQBv",
+    },
+    {
+        title: "Blonde",
+        artist: "Frank Ocean",
+        imageUrl: "https://picsum.photos/seed/album2/300/300",
+        imageHint: "abstract album",
+        spotifyUrl: "https://open.spotify.com/album/3mH6qwIy9crq0I9YQbOuDf",
+    },
+    {
+        title: "Random Access Memories",
+        artist: "Daft Punk",
+        imageUrl: "https://picsum.photos/seed/album3/300/300",
+        imageHint: "disco music",
+        spotifyUrl: "https://open.spotify.com/album/4m2880jivSbbyEGAKfITCa",
+    },
+    {
+        title: "The Dark Side of the Moon",
+        artist: "Pink Floyd",
+        imageUrl: "https://picsum.photos/seed/album4/300/300",
+        imageHint: "prism light",
+        spotifyUrl: "https://open.spotify.com/album/4LH4d3cOWNNsVw41Gqt2kv",
+    },
+    {
+        title: "AM",
+        artist: "Arctic Monkeys",
+        imageUrl: "https://picsum.photos/seed/album5/300/300",
+        imageHint: "soundwave line",
+        spotifyUrl: "https://open.spotify.com/album/78bpIziExqiI9qztvNFlQu",
+    },
+    {
+        title: "Discovery",
+        artist: "Daft Punk",
+        imageUrl: "https://picsum.photos/seed/album6/300/300",
+        imageHint: "futuristic chrome",
+        spotifyUrl: "https://open.spotify.com/album/2noRn2Aes5aoNVsU6iWThc"
+    }
+];
 
 export function MusicSection() {
-    const musicImages = PlaceHolderImages.filter(p => p.id.startsWith('hobby-music-'));
-    const guitarImage = musicImages.find(p => p.id === 'hobby-music-1');
-    const pianoImage = musicImages.find(p => p.id === 'hobby-music-2');
-
     return (
     <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-background/90 overflow-y-auto no-scrollbar">
       <div className="text-left mb-8">
@@ -15,55 +65,41 @@ export function MusicSection() {
           <Music className="text-primary size-10" />
           Music
         </h2>
-        <p className="text-lg text-muted-foreground">Creating melodies and exploring sounds.</p>
+        <p className="text-lg text-muted-foreground">A few of the albums I have on repeat.</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl flex-grow">
-        <Card className="md:col-span-1 bg-card/60 backdrop-blur-sm border-white/10 flex flex-col">
-            <CardHeader>
-                <CardTitle className="flex items-center gap-3">
-                    <GitBranch className="text-accent" />
-                    My Instruments
-                </CardTitle>
-            </CardHeader>
-            <CardContent className="flex-grow">
-                <p className="text-muted-foreground">
-                    I find joy in expressing myself through music. The guitar is my primary instrument, where I love to explore everything from intricate fingerstyle patterns to powerful rock riffs. I also play the piano, which offers a different creative outlet and a deeper understanding of music theory.
-                </p>
-            </CardContent>
-        </Card>
-
-        <div className="md:col-span-2 grid grid-cols-1 grid-rows-2 gap-8 h-[400px] md:h-[calc(100vh-250px)]">
-          {guitarImage && (
-            <div className="relative rounded-lg overflow-hidden shadow-lg">
-              <Image
-                src={guitarImage.imageUrl}
-                alt={guitarImage.description}
-                fill
-                className="object-cover"
-                data-ai-hint={guitarImage.imageHint}
-                sizes="(max-width: 768px) 100vw, 50vw"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-              <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white">{guitarImage.description}</h3>
-            </div>
-          )}
-          {pianoImage && (
-             <div className="relative rounded-lg overflow-hidden shadow-lg">
-                <Image
-                    src={pianoImage.imageUrl}
-                    alt={pianoImage.description}
-                    fill
-                    className="object-cover"
-                    data-ai-hint={pianoImage.imageHint}
-                    sizes="(max-width: 768px) 100vw, 50vw"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <h3 className="absolute bottom-4 left-4 text-2xl font-bold text-white">{pianoImage.description}</h3>
-            </div>
-          )}
+      <TooltipProvider>
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-6 w-full max-w-6xl">
+            {albums.map((album) => (
+                <Tooltip key={album.title} delayDuration={150}>
+                    <TooltipTrigger asChild>
+                        <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer">
+                            <Card className="overflow-hidden group relative bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 hover:scale-105">
+                                <CardContent className="p-0 w-full h-full">
+                                <Image
+                                    src={album.imageUrl}
+                                    alt={`Album art for ${album.title} by ${album.artist}`}
+                                    fill
+                                    className="object-cover"
+                                    data-ai-hint={album.imageHint}
+                                    sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
+                                />
+                                <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <h3 className="text-lg font-bold text-white">{album.title}</h3>
+                                    <p className="text-sm text-muted-foreground">{album.artist}</p>
+                                    <Headset className="w-8 h-8 text-primary mt-3" />
+                                </div>
+                                </CardContent>
+                            </Card>
+                        </Link>
+                    </TooltipTrigger>
+                    <TooltipContent>
+                        <p>{album.title} by {album.artist}</p>
+                    </TooltipContent>
+                </Tooltip>
+            ))}
         </div>
-      </div>
+      </TooltipProvider>
     </section>
   );
 }

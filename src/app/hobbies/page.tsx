@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { PhotographySection } from './photography-section';
 import { MusicSection } from './music-section';
 import { BlogSection } from './blog-section';
@@ -14,6 +14,7 @@ export default function HobbiesPage() {
   const [currentSection, setCurrentSection] = useState(0);
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const scrollToSection = (index: number) => {
     if (scrollContainerRef.current && !isScrollingRef.current) {
@@ -25,9 +26,10 @@ export default function HobbiesPage() {
       });
       setCurrentSection(index);
 
+      // Allow manual scroll to update section after smooth scroll finishes
       setTimeout(() => {
         isScrollingRef.current = false;
-      }, 700);
+      }, 700); 
     }
   };
 
@@ -40,6 +42,33 @@ export default function HobbiesPage() {
     const prevIndex = (currentSection - 1 + sections.length) % sections.length;
     scrollToSection(prevIndex);
   };
+
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    
+    const handleScroll = () => {
+      if (container && !isScrollingRef.current) {
+        if (scrollTimeoutRef.current) {
+          clearTimeout(scrollTimeoutRef.current);
+        }
+        scrollTimeoutRef.current = setTimeout(() => {
+          const newIndex = Math.round(container.scrollLeft / container.clientWidth);
+          if (newIndex !== currentSection) {
+            setCurrentSection(newIndex);
+          }
+        }, 150);
+      }
+    };
+
+    container?.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      container?.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, [currentSection]);
   
   return (
     <div className="relative h-screen w-full overflow-hidden">
