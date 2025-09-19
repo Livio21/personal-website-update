@@ -2,11 +2,19 @@
 
 import Image from 'next/image';
 import Link from 'next/link';
-import { Music, PlayCircle, Headset } from 'lucide-react';
+import { Music, PlayCircle, Headset, Maximize } from 'lucide-react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-
+import { useState } from 'react';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
+import { ScrollArea } from '@/components/ui/scroll-area';
 
 const albums = [
     {
@@ -51,12 +59,28 @@ const albums = [
         imageUrl: "https://picsum.photos/seed/album6/300/300",
         imageHint: "futuristic chrome",
         spotifyUrl: "https://open.spotify.com/album/2noRn2Aes5aoNVsU6iWThc"
+    },
+    {
+        title: "Because the Internet",
+        artist: "Childish Gambino",
+        imageUrl: "https://picsum.photos/seed/album7/300/300",
+        imageHint: "holographic",
+        spotifyUrl: "https://open.spotify.com/album/4GNIhgEGXzWGAefgN5qjdU"
+    },
+    {
+        title: "IGOR",
+        artist: "Tyler, The Creator",
+        imageUrl: "https://picsum.photos/seed/album8/300/300",
+        imageHint: "pink suit",
+        spotifyUrl: "https://open.spotify.com/album/5zi7WsKlIiUXv09ltAlcaK"
     }
 ];
 
 export function MusicSection() {
     const featuredAlbum = albums.find(a => a.featured);
     const otherAlbums = albums.filter(a => !a.featured);
+    const rotationPreview = otherAlbums.slice(0, 4);
+    const [isModalOpen, setIsModalOpen] = useState(false);
 
     return (
     <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-background/90 overflow-y-auto no-scrollbar">
@@ -68,69 +92,107 @@ export function MusicSection() {
         <p className="text-lg text-muted-foreground">A few of the albums I have on repeat.</p>
       </div>
 
-      <div className="w-full max-w-6xl space-y-8">
+      <div className="flex-grow w-full max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
         {/* Featured Album */}
         {featuredAlbum && (
-            <div className='group'>
+            <div className='group flex flex-col items-center text-center'>
                 <h3 className="text-2xl font-semibold mb-4 text-primary">Featured Album</h3>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-center">
-                    <div className="md:col-span-1">
-                        <Card className="overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 group-hover:scale-105">
-                            <Image
-                                src={featuredAlbum.imageUrl}
-                                alt={`Album art for ${featuredAlbum.title} by ${featuredAlbum.artist}`}
-                                width={600}
-                                height={600}
-                                className="object-cover w-full h-full"
-                                data-ai-hint={featuredAlbum.imageHint}
-                            />
-                        </Card>
-                    </div>
-                    <div className="md:col-span-2">
-                        <h4 className="text-3xl font-bold">{featuredAlbum.title}</h4>
-                        <p className="text-xl text-muted-foreground mb-4">{featuredAlbum.artist}</p>
-                        <Button asChild>
-                            <Link href={featuredAlbum.spotifyUrl} target="_blank" rel="noopener noreferrer">
-                                <PlayCircle className="mr-2"/> Listen on Spotify
-                            </Link>
-                        </Button>
-                    </div>
+                <Card className="w-full max-w-sm overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 group-hover:scale-105">
+                    <Image
+                        src={featuredAlbum.imageUrl}
+                        alt={`Album art for ${featuredAlbum.title} by ${featuredAlbum.artist}`}
+                        width={600}
+                        height={600}
+                        className="object-cover w-full h-full"
+                        data-ai-hint={featuredAlbum.imageHint}
+                    />
+                </Card>
+                <div className="mt-4">
+                    <h4 className="text-3xl font-bold">{featuredAlbum.title}</h4>
+                    <p className="text-xl text-muted-foreground mb-4">{featuredAlbum.artist}</p>
+                    <Button asChild>
+                        <Link href={featuredAlbum.spotifyUrl} target="_blank" rel="noopener noreferrer">
+                            <PlayCircle className="mr-2"/> Listen on Spotify
+                        </Link>
+                    </Button>
                 </div>
             </div>
         )}
 
         {/* Other Albums */}
-        <div>
-             <h3 className="text-2xl font-semibold my-4">On Rotation</h3>
-            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        <div className="flex flex-col items-center">
+            <h3 className="text-2xl font-semibold mb-4">On Rotation</h3>
+            <div className="relative group w-full max-w-sm aspect-square">
+                <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
+                    {rotationPreview.map((album) => (
+                        <Card key={album.title} className="overflow-hidden bg-card/60 border-none shadow-lg group/item">
+                            <CardContent className="p-0 w-full h-full relative">
+                                <Image
+                                    src={album.imageUrl}
+                                    alt={`Album art for ${album.title} by ${album.artist}`}
+                                    width={300}
+                                    height={300}
+                                    className="object-cover w-full h-full"
+                                    data-ai-hint={album.imageHint}
+                                />
+                                 <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-2 text-center opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
+                                    <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer">
+                                        <Headset className="w-8 h-8 text-primary" />
+                                    </Link>
+                                </div>
+                            </CardContent>
+                        </Card>
+                    ))}
+                </div>
+                <Button 
+                    variant="outline" 
+                    size="icon" 
+                    className="absolute top-2 right-2 z-10 bg-card/50 backdrop-blur-sm"
+                    onClick={() => setIsModalOpen(true)}
+                >
+                    <Maximize />
+                </Button>
+            </div>
+        </div>
+      </div>
+
+       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
+        <DialogContent className="bg-card/60 backdrop-blur-lg border-white/10 sm:max-w-3xl h-[80vh]">
+          <DialogHeader>
+            <DialogTitle className="text-3xl font-bold">On Rotation</DialogTitle>
+            <DialogDescription>All the albums currently on my playlist.</DialogDescription>
+          </DialogHeader>
+          <ScrollArea className="h-full pr-4">
+            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4">
                 {otherAlbums.map((album) => (
                     <div key={album.title} className="group">
                         <Card className="overflow-hidden bg-card/60 border-none aspect-square shadow-lg transition-transform duration-300 group-hover:scale-105 mb-2">
-                            <CardContent className="p-0 w-full h-full relative">
-                            <Image
-                                src={album.imageUrl}
-                                alt={`Album art for ${album.title} by ${album.artist}`}
-                                width={300}
-                                height={300}
-                                className="object-cover w-full h-full"
-                                data-ai-hint={album.imageHint}
-                            />
-                             <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                                <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer">
-                                    <Headset className="w-10 h-10 text-primary" />
-                                </Link>
-                            </div>
-                            </CardContent>
+                             <CardContent className="p-0 w-full h-full relative">
+                                <Image
+                                    src={album.imageUrl}
+                                    alt={`Album art for ${album.title} by ${album.artist}`}
+                                    width={300}
+                                    height={300}
+                                    className="object-cover w-full h-full"
+                                    data-ai-hint={album.imageHint}
+                                />
+                                <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <Link href={album.spotifyUrl} target="_blank" rel="noopener noreferrer">
+                                        <Headset className="w-10 h-10 text-primary" />
+                                    </Link>
+                                </div>
+                             </CardContent>
                         </Card>
-                        <div className="text-left">
-                           <p className="font-semibold truncate">{album.title}</p>
-                           <p className="text-sm text-muted-foreground truncate">{album.artist}</p>
+                        <div className="text-left p-2 absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/80 to-transparent pointer-events-none">
+                            <p className="font-semibold text-white truncate">{album.title}</p>
+                            <p className="text-sm text-gray-300 truncate">{album.artist}</p>
                         </div>
                     </div>
                 ))}
             </div>
-        </div>
-      </div>
+          </ScrollArea>
+        </DialogContent>
+      </Dialog>
     </section>
   );
 }
