@@ -106,23 +106,23 @@ export function PhotographySection() {
       </section>
 
       <Dialog open={!!selectedImage} onOpenChange={(open) => !open && handleCloseDialog()}>
-        <DialogContent className="p-0 border-none bg-transparent w-full max-w-5xl max-h-[80vh] shadow-none">
+        <DialogContent className="p-0 border-none bg-transparent w-full max-w-5xl h-[90vh] shadow-none">
           {selectedImage && (
             <div className='relative w-full h-full group'>
               <Image
                 src={selectedImage.imageUrl}
                 alt={selectedImage.description}
                 fill
-                className="object-contain rounded-xl"
+                className="object-cover rounded-xl"
                 sizes="100vw"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-4 sm:p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end rounded-b-xl">
-                <h3 className="text-base sm:text-lg font-bold text-white font-headline max-w-[75%]">{selectedImage.description}</h3>
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end rounded-b-xl">
+                <h3 className="text-lg font-bold text-white font-headline max-w-[75%]">{selectedImage.description}</h3>
                 {selectedImage.unsplashUrl && (
-                  <Button asChild variant="outline" size="sm" className="bg-card/20 backdrop-blur-sm border-white/20 text-white hover:bg-card/50 hover:text-white text-xs sm:text-sm">
+                  <Button asChild variant="outline" size="sm" className="bg-card/20 backdrop-blur-sm border-white/20 text-white hover:bg-card/50 hover:text-white">
                     <Link href={selectedImage.unsplashUrl} target="_blank" rel="noopener noreferrer">
                       View Full Quality
-                      <ArrowRight className="ml-2 h-3 w-3 sm:h-4 sm:w-4" />
+                      <ArrowRight className="ml-2 h-4 w-4" />
                     </Link>
                   </Button>
                 )}
@@ -131,18 +131,18 @@ export function PhotographySection() {
               <Button
                 variant="outline"
                 size="icon"
-                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 rounded-full h-8 w-8 sm:h-10 sm:w-10 bg-card/20 backdrop-blur-sm border-white/20 text-white hover:bg-card/50 hover:text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute left-2 sm:left-4 top-1/2 -translate-y-1/2 rounded-full h-10 w-10 bg-card/20 backdrop-blur-sm border-white/20 text-white hover:bg-card/50 hover:text-white opacity-0 group-hover:opacity-100 transition-opacity"
                 onClick={handlePrevImage}
               >
-                <ArrowLeft className="h-4 w-4 sm:h-5 sm:w-5" />
+                <ArrowLeft className="h-5 w-5" />
               </Button>
               <Button
                 variant="outline"
                 size="icon"
-                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 rounded-full h-8 w-8 sm:h-10 sm:w-10 bg-card/20 backdrop-blur-sm border-white/20 text-white hover:bg-card/50 hover:text-white opacity-0 group-hover:opacity-100 transition-opacity"
+                className="absolute right-2 sm:right-4 top-1/2 -translate-y-1/2 rounded-full h-10 w-10 bg-card/20 backdrop-blur-sm border-white/20 text-white hover:bg-card/50 hover:text-white opacity-0 group-hover:opacity-100 transition-opacity"
                 onClick={handleNextImage}
               >
-                <ArrowRight className="h-4 w-4 sm:h-5 sm:w-5" />
+                <ArrowRight className="h-5 w-5" />
               </Button>
             </div>
           )}

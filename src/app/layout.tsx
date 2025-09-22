@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import './globals.css';
 import { MobileNav } from '@/components/layout/mobile-nav';
 import { Toaster } from '@/components/ui/toaster';
@@ -29,7 +30,7 @@ export default function RootLayout({
         <LoadingGate>
           <div className="relative flex flex-col min-h-screen overflow-x-hidden content-area">
             <SiteHeader />
-            <main className="flex-1 w-full h-auto min-h-screen overflow-y-auto overflow-x-hidden">
+            <main className="flex-1 w-full h-full">
               {children}
             </main>
             <Footer />
