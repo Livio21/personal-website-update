@@ -1,105 +1,56 @@
 "use client"
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
 } from "@/components/ui/dialog"
-import { Card, CardContent } from '@/components/ui/card';
-import { cn } from '@/lib/utils';
-import { motion } from 'framer-motion';
-
-const INITIAL_VISIBLE_IMAGES = 5;
+import { MasonryGallery, MasonrySkeleton } from './masonry-gallery';
 
 type Hobby = (typeof PlaceHolderImages)[0];
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.05,
-    },
-  },
-};
-
-const itemVariants = {
-  hidden: { scale: 0.9, opacity: 0 },
-  visible: {
-    scale: 1,
-    opacity: 1,
-  },
-};
-
-
 export function PhotographySection() {
-  const photographyHobbies = PlaceHolderImages.filter(p => p.id.startsWith('hobby-photo-'));
-  const [isExpanded, setIsExpanded] = useState(false);
+  const [photos, setPhotos] = useState<Hobby[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<Hobby | null>(null);
 
-  const visibleHobbies = isExpanded ? photographyHobbies : photographyHobbies.slice(0, INITIAL_VISIBLE_IMAGES);
-  const canExpand = photographyHobbies.length > INITIAL_VISIBLE_IMAGES;
+  useEffect(() => {
+    // Simulate fetching data from an API (like Unsplash)
+    const fetchPhotos = async () => {
+      setIsLoading(true);
+      // In the future, you'll replace this with your Unsplash API call
+      await new Promise(resolve => setTimeout(resolve, 1500)); 
+      const photographyHobbies = PlaceHolderImages.filter(p => p.id.startsWith('hobby-photo-'));
+      setPhotos(photographyHobbies);
+      setIsLoading(false);
+    };
+
+    fetchPhotos();
+  }, []);
 
   const handleImageClick = (hobby: Hobby) => {
     setSelectedImage(hobby);
   };
   
-  const spans = [
-    'col-span-2 row-span-2', 'col-span-1 row-span-1', 'col-span-1 row-span-2', 'col-span-1 row-span-1', 
-    'col-span-1 row-span-1', 'col-span-2 row-span-1', 'col-span-1 row-span-1', 'col-span-1 row-span-2',
-    'col-span-1 row-span-1', 'col-span-1 row-span-1',
-  ];
-
   return (
     <>
-      <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-transparent overflow-y-auto no-scrollbar">
-        <div className="text-left mb-8">
+      <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-4 md:p-8 pt-24 bg-transparent overflow-y-auto no-scrollbar">
+        <header className="text-left mb-8 px-4 md:px-0">
           <h2 className="text-4xl md:text-5xl font-headline font-light tracking-tight mb-2">
             Photography
           </h2>
           <p className="text-lg text-muted-foreground font-body">Capturing moments and perspectives.</p>
+        </header>
+        
+        <div className="flex-grow w-full px-2 md:px-0">
+            {isLoading ? (
+              <MasonrySkeleton />
+            ) : (
+              <MasonryGallery photos={photos} onImageClick={handleImageClick} />
+            )}
         </div>
-        <div className="flex-grow w-full">
-            <motion.div 
-              className="grid grid-cols-2 md:grid-cols-5 auto-rows-[120px] md:auto-rows-[180px] gap-2 w-full"
-              variants={containerVariants}
-              initial="hidden"
-              animate="visible"
-              key={isExpanded ? 'expanded' : 'collapsed'}
-            >
-                {visibleHobbies.map((hobby, index) => (
-                    <motion.div 
-                      key={hobby.id}
-                      variants={itemVariants} 
-                      className={cn(spans[index % spans.length], "cursor-pointer")}
-                      layout
-                    >
-                      <Card className="overflow-hidden group relative bg-card/40 backdrop-blur-sm border-none h-full shadow-lg" onClick={() => handleImageClick(hobby)}>
-                          <CardContent className="p-0 w-full h-full">
-                          <Image
-                              src={hobby.imageUrl}
-                              alt={hobby.description}
-                              fill
-                              className="object-cover transition-transform duration-300 group-hover:brightness-105"
-                              data-ai-hint={hobby.imageHint}
-                              sizes="(max-width: 768px) 50vw, (max-width: 1200px) 25vw, 20vw"
-                          />
-                          </CardContent>
-                      </Card>
-                    </motion.div>
-                ))}
-            </motion.div>
-        </div>
-        {canExpand && (
-          <div className="mt-4 text-center">
-            <Button onClick={() => setIsExpanded(!isExpanded)} variant="outline" className="bg-card/50 backdrop-blur-sm">
-              {isExpanded ? 'Show Less' : 'Show More'}
-            </Button>
-          </div>
-        )}
       </section>
 
       <Dialog open={!!selectedImage} onOpenChange={(open) => !open && setSelectedImage(null)}>
