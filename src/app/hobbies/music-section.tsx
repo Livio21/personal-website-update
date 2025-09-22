@@ -19,7 +19,7 @@ const username = process.env.NEXT_PUBLIC_LASTFM_USERNAME || 'doresty';
 
 function MusicSkeleton() {
     return (
-        <section className="h-full w-full snap-start flex-shrink-0 flex flex-col items-center justify-center p-8 md:p-16">
+        <section className="h-full w-full flex-shrink-0 flex flex-col items-center justify-center">
             <div className="text-left w-full max-w-6xl mb-8">
                 <Skeleton className="h-12 w-48 mb-2" />
                 <Skeleton className="h-6 w-96" />
@@ -83,7 +83,7 @@ export function MusicSection() {
     }
 
     return (
-    <section className="h-full w-full snap-start flex-shrink-0 flex flex-col items-center justify-center ">
+    <section className="h-full w-full flex-shrink-0 flex flex-col items-center justify-center">
       <div className="text-left w-full  mb-8">
         <h2 className="text-4xl md:text-5xl font-headline font-light tracking-tight mb-2">
           Music

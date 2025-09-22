@@ -44,7 +44,7 @@ type BlogPost = (typeof blogPosts)[0];
 
 function BlogSkeleton() {
     return (
-        <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-transparent overflow-y-auto no-scrollbar">
+        <section className="h-full w-full flex-shrink-0 flex flex-col bg-transparent overflow-y-auto no-scrollbar">
             <div className="text-left mb-8">
                 <Skeleton className="h-12 w-48 mb-2" />
                 <Skeleton className="h-6 w-80" />
@@ -91,7 +91,7 @@ export function BlogSection() {
   }
 
   return (
-    <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-transparent overflow-y-auto no-scrollbar">
+    <section className="h-full w-full flex-shrink-0 flex flex-col bg-transparent overflow-y-auto no-scrollbar">
       <div className="text-left mb-8">
         <h2 className="text-4xl md:text-5xl font-headline font-light tracking-tight mb-2">
           Mini Blogs
