@@ -3,7 +3,6 @@ import './globals.css';
 import { SideNav } from '@/components/layout/side-nav';
 import { Toaster } from '@/components/ui/toaster';
 import { SiteHeader } from '@/components/layout/site-header';
-import { PageTransition } from '@/components/layout/page-transition';
 import { LavaLamp } from '@/components/layout/lava-lamp';
 import { LoadingGate } from './loading-gate';
 
@@ -33,9 +32,7 @@ export default function RootLayout({
             </div>
             <SiteHeader />
             <main className="flex-1 min-h-screen h-auto w-full overflow-y-auto overflow-x-hidden">
-              <PageTransition>
-                {children}
-              </PageTransition>
+              {children}
             </main>
           </div>
         </LoadingGate>
