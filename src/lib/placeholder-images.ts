@@ -8,6 +8,7 @@ export type ImagePlaceholder = {
   unsplashUrl?: string;
   imageHint: string;
   url?: string;
+  videoUrl?: string;
   width?: number;
   height?: number;
 };

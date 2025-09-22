@@ -1,8 +1,7 @@
 "use client"
 
 import { useState, useEffect, useRef } from 'react';
-import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { ArrowUp, ArrowDown } from 'lucide-react';
@@ -111,15 +110,16 @@ export function ProjectScroller() {
             className="h-screen w-full snap-start flex flex-1 items-center justify-center relative p-8 md:p-16 pt-24 md:pt-16"
           >
             <div className="absolute inset-0 z-0">
-               <Image
-                  src={project.imageUrl}
-                  alt={project.description.split('.')[0]}
-                  fill
-                  className="object-cover"
-                  data-ai-hint={project.imageHint}
-                  sizes="100vw"
-                  priority={index === 0}
+               {project.videoUrl ? (
+                <video
+                  src={project.videoUrl}
+                  className="w-full h-full object-cover"
+                  autoPlay
+                  loop
+                  muted
+                  playsInline
                 />
+              ) : null}
                 <div className="absolute inset-0 bg-black/50" />
             </div>
             <div className="relative z-10 w-full max-w-6xl h-full flex items-center">
