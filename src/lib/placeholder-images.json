@@ -1,12 +1,6 @@
 {
   "placeholderImages": [
     {
-      "id": "project-1",
-      "description": "Notary page. A professional personal page for a Notary office.",
-      "videoUrl": "/project-1.webm",
-      "url": "#"
-    },
-    {
       "id": "project-2",
       "description": "Permakinat.al. A website for a car sales company, built with React.js, Sanity.io, and TailwindCSS.",
       "videoUrl": "/project-2.webm",

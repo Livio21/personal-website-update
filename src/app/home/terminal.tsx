@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
-import { useIsMobile } from '@/hooks/use-mobile';
 
 const commands: { [key: string]: string | (() => string) } = {
   help: "Available commands: 'about', 'skills', 'contact', 'socials', 'projects', 'hobbies', 'date', 'ls', 'pwd', 'clear', and more to discover...",
@@ -28,17 +27,10 @@ export function Terminal() {
   const [output, setOutput] = useState<{ type: 'input' | 'output'; content: string }[]>([]);
   const endOfTerminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
-  const isMobile = useIsMobile();
 
   useEffect(() => {
     endOfTerminalRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [output]);
-
-  useEffect(() => {
-    if (isMobile === false) {
-      inputRef.current?.focus();
-    }
-  }, [isMobile]);
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -62,6 +54,11 @@ export function Terminal() {
       setInput('');
     }
   };
+
+  const handleClick = () => {
+    inputRef.current?.focus();
+    endOfTerminalRef.current?.scrollIntoView({ behavior: 'smooth' });
+  };
   
   return (
     <motion.div 
@@ -75,7 +72,7 @@ export function Terminal() {
         <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
         <div className="w-3 h-3 rounded-full bg-green-500"></div>
       </div>
-      <div className="flex-1 p-4 overflow-y-auto no-scrollbar" onClick={() => inputRef.current?.focus()}>
+      <div className="flex-1 p-4 overflow-y-auto no-scrollbar" onClick={handleClick}>
         <div className='pb-2 text-muted-foreground'>
           <p>Welcome to my interactive terminal!</p>
           <p>Type `help` to see the list of available commands.</p>
