@@ -126,7 +126,7 @@ export function ProjectScroller() {
             <div className="relative z-10 w-full max-w-6xl h-full flex items-center">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
                 <div className="p-6 rounded-xl bg-card/40 backdrop-blur-lg border border-white/10">
-                  <h2 className="text-2xl md:text-4xl font-headline font-light text-primary mb-3">{project.description.split('.')[0]}</h2>
+                  <h2 className="text-xl sm:text-2xl md:text-4xl font-headline font-light text-primary mb-3">{project.description.split('.')[0]}</h2>
                   <p className="text-base text-muted-foreground mb-5 font-body">{project.description}</p>
                   <Button variant="outline" asChild>
                     <a href={project.url} target="_blank" rel="noopener noreferrer">

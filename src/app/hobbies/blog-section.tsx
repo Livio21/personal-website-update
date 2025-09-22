@@ -124,7 +124,7 @@ export function BlogSection() {
       </div>
 
       <Dialog open={!!selectedPost} onOpenChange={(open) => !open && setSelectedPost(null)}>
-        <DialogContent className="bg-card/60 backdrop-blur-lg border-white/10 sm:max-w-3xl h-[80vh]">
+        <DialogContent className="bg-card/60 backdrop-blur-lg border-white/10 sm:max-w-3xl max-h-[80vh]">
           {selectedPost && (
             <>
               <DialogHeader>

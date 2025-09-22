@@ -37,7 +37,7 @@ const experience = [
 
 export default function AboutPage() {
   return (
-    <div className="w-full min-h-screen p-8 md:p-16 pt-24">
+    <div className="w-full min-h-screen p-4 sm:p-8 md:p-16 pt-24">
       <header className="mb-12">
         <h1 className="text-4xl md:text-6xl font-headline font-light tracking-tight mb-4">About Me</h1>
         <p className="text-lg md:text-xl text-muted-foreground font-body">My story, skills, and professional journey.</p>

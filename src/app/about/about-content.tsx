@@ -60,7 +60,7 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
         </motion.div>
 
         <motion.div variants={itemVariants}>
-          <Card className="bg-card/40 backdrop-blur-sm border-white/10 h-full">
+          <Card className="bg-card/40 backdrop-blur-sm border-white/10">
             <CardHeader>
               <CardTitle className="text-2xl font-light font-headline">
                 Skills
@@ -102,7 +102,7 @@ export function AboutContent({ skills, experience }: AboutContentProps) {
                 <motion.div key={exp.company + exp.role} variants={itemVariants}>
                   <Card className="bg-card/40 backdrop-blur-sm border-white/10">
                       <CardHeader>
-                          <div className="flex justify-between items-baseline">
+                          <div className="flex flex-col sm:flex-row justify-between items-baseline">
                           <CardTitle className="text-xl font-light font-headline">{exp.role}</CardTitle>
                           <p className="text-sm font-normal text-muted-foreground font-code">{exp.period}</p>
                           </div>
