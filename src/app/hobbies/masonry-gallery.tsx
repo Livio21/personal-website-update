@@ -1,7 +1,7 @@
 "use client"
 
 import Image from 'next/image';
-import { type ImagePlaceholder } from '@/lib/placeholder-images';
+import { type ImagePlaceholder, getImageDimensions } from '@/lib/placeholder-images';
 import { Skeleton } from '@/components/ui/skeleton';
 import { motion } from 'framer-motion';
 
@@ -36,30 +36,33 @@ export function MasonryGallery({ photos, onImageClick }: MasonryGalleryProps) {
       initial="hidden"
       animate="visible"
     >
-      {photos.map((photo) => (
-        <motion.div 
-          key={photo.id}
-          className="mb-2 break-inside-avoid"
-          variants={itemVariants}
-          layout
-        >
-          <div
-            className="relative overflow-hidden rounded-lg cursor-pointer group"
-            onClick={() => onImageClick(photo)}
+      {photos.map((photo) => {
+        const { width, height } = getImageDimensions(photo.imageUrl);
+        return (
+          <motion.div 
+            key={photo.id}
+            className="mb-2 break-inside-avoid"
+            variants={itemVariants}
+            layout
           >
-            <Image
-              src={photo.imageUrl}
-              alt={photo.description}
-              width={500}
-              height={Math.random() * (800 - 400) + 400} // Random height for masonry effect
-              className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
-              data-ai-hint={photo.imageHint}
-              sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
-            />
-             <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
-          </div>
-        </motion.div>
-      ))}
+            <div
+              className="relative overflow-hidden rounded-lg cursor-pointer group"
+              onClick={() => onImageClick(photo)}
+            >
+              <Image
+                src={photo.imageUrl}
+                alt={photo.description}
+                width={width}
+                height={height}
+                className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                data-ai-hint={photo.imageHint}
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+              />
+               <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
+            </div>
+          </motion.div>
+        )
+      })}
     </motion.div>
   );
 }
