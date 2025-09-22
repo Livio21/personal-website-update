@@ -46,7 +46,7 @@ export function HobbiesNav({ currentSection, scrollToSection }: HobbiesNavProps)
         <span className="sr-only">Next Section</span>
       </Button>
 
-      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
+      <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2 bg-black/10 backdrop-blur-sm border border-white/10 p-4 rounded-full ">
         {sections.map((section, index) => (
           <button
             key={section}

@@ -69,7 +69,7 @@ export default function HobbiesPage() {
         className="flex h-full w-full snap-x snap-mandatory overflow-x-auto no-scrollbar"
       >
         {sections.map((section) => (
-          <div key={section.id} className="h-full w-full flex-shrink-0 snap-start p-8 md:p-16 pt-24">
+          <div key={section.id} className="h-full w-full flex-shrink-0 snap-start px-8 pt-24">
             {section.component}
           </div>
         ))}

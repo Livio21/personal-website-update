@@ -46,7 +46,7 @@ export function MasonryGallery({ photos, onImageClick }: MasonryGalleryProps) {
             layout
           >
             <div
-              className="relative overflow-hidden rounded-lg cursor-pointer group"
+              className="relative overflow-hidden rounded-lg cursor-pointer group opacity-80 hover:opacity-100 border border-white/30 "
               onClick={() => onImageClick(photo)}
             >
               <Image
@@ -54,12 +54,11 @@ export function MasonryGallery({ photos, onImageClick }: MasonryGalleryProps) {
                 alt={photo.description}
                 width={width}
                 height={height}
-                className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
+                className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105 "
                 data-ai-hint={photo.imageHint}
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
                 priority={index < 10}
               />
-               <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>
           </motion.div>
         )

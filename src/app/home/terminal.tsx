@@ -1,13 +1,20 @@
+
 "use client"
 
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
 
 const commands: { [key: string]: string | (() => string) } = {
-  help: "Available commands: 'about', 'skills', 'contact', 'clear' and more to discover...",
+  help: "Available commands: 'about', 'skills', 'contact', 'socials', 'projects', 'hobbies', 'date', 'ls', 'pwd', 'clear', and more to discover...",
   about: "I'm a Software Engineer specializing in building robust web applications.",
   skills: "My skills include: Python, Odoo, Vue.js, React, and more. Check out the 'About' page for a full list!",
   contact: "You can reach me via the contact page or at iamlivio@gmail.com.",
+  socials: "You can find me on LinkedIn: https://www.linkedin.com/in/livio-macaj",
+  projects: "Just navigate to the 'Projects' page to see my work. This terminal isn't *that* powerful... yet.",
+  hobbies: "Head over to the 'Hobbies' page to see what I do for fun.",
+  date: () => new Date().toLocaleString(),
+  ls: "home.js  about.js  projects.js  hobbies.js  contact.js",
+  pwd: "/Users/Livio/Portfolio",
   sudo: "User is not in the sudoers file. This incident will be reported.",
   whoami: "A very cool person, obviously.",
   matrix: "Wake up, Neo... The Matrix has you.",
