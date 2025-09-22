@@ -1,4 +1,3 @@
-
 "use client"
 
 import Link from "next/link"
@@ -18,7 +17,9 @@ const navItems = [
 export function SideNav() {
   const pathname = usePathname()
   const [isOpen, setIsOpen] = useState(false)
-  const navRef = useRef<HTMLDivElement>(null)
+  const menuRef = useRef<HTMLDivElement>(null)
+  const buttonRef = useRef<HTMLButtonElement>(null)
+
 
   useEffect(() => {
     setIsOpen(false)
@@ -26,7 +27,13 @@ export function SideNav() {
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
-      if (isOpen && navRef.current && !navRef.current.contains(event.target as Node)) {
+      if (
+        isOpen &&
+        menuRef.current &&
+        !menuRef.current.contains(event.target as Node) &&
+        buttonRef.current &&
+        !buttonRef.current.contains(event.target as Node)
+      ) {
         setIsOpen(false)
       }
     }
@@ -34,18 +41,13 @@ export function SideNav() {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside)
     }
-  }, [isOpen, navRef])
+  }, [isOpen])
 
   return (
-    <div
-      ref={navRef}
-      className={cn(
-        "md:hidden fixed inset-0 z-40",
-        !isOpen && "pointer-events-none"
-      )}
-    >
+    <div className="md:hidden">
       <motion.button
-        className="fixed bottom-4 right-4 z-[60] w-14 h-14 bg-card/80 backdrop-blur-lg border border-white/10 rounded-full flex items-center justify-center pointer-events-auto"
+        ref={buttonRef}
+        className="fixed bottom-4 right-4 z-[60] w-14 h-14 bg-card/80 backdrop-blur-lg border border-white/10 rounded-full flex items-center justify-center"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle navigation"
         whileHover={{ scale: 1.1 }}
@@ -78,13 +80,14 @@ export function SideNav() {
       <AnimatePresence>
         {isOpen && (
           <motion.div
+            ref={menuRef}
             initial={{ opacity: 0, scale: 0.95, y: 10 }}
             animate={{ opacity: 1, scale: 1, y: 0 }}
             exit={{ opacity: 0, scale: 0.95, y: 10 }}
             transition={{ duration: 0.15, ease: "easeOut" }}
-            className={`fixed bottom-20 right-4  ${isOpen ? ' w-56 z-50 ':' hidden w-0 h-0 z-0 '}  p-4 bg-card/50 backdrop-blur-lg border border-white/10 rounded-2xl pointer-events-auto`}
+            className="fixed bottom-20 right-4 z-50 w-56 p-4 bg-card/50 backdrop-blur-lg border border-white/10 rounded-2xl"
           >
-            <nav className="flex flex-col gap-3" >
+            <nav className="flex flex-col gap-3">
               {navItems.map((item) => {
                 const isActive = pathname === item.href;
                 return (
@@ -93,7 +96,7 @@ export function SideNav() {
                     href={item.href}
                     className={cn(
                       "relative px-3 py-2 rounded-md text-left text-lg font-medium transition-colors hover:text-primary",
-                      isActive ? " text-primary " : " text-gray-300 ", isOpen ? " " : " hidden w-0 h-0 z-0"
+                      isActive ? "text-primary" : "text-gray-300"
                     )}
                   >
                     {isActive && (
