@@ -5,6 +5,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { SiteHeader } from '@/components/layout/site-header';
 import { LavaLamp } from '@/components/layout/lava-lamp';
 import { LoadingGate } from './loading-gate';
+import { Footer } from '@/components/layout/footer';
 
 export const metadata: Metadata = {
   title: 'Livio Macaj',
@@ -26,14 +27,15 @@ export default function RootLayout({
       <body className="font-body antialiased">
         <LavaLamp />
         <LoadingGate>
-          <div className="relative flex min-h-screen overflow-x-hidden content-area">
+          <div className="relative flex flex-col min-h-screen overflow-x-hidden content-area">
             <div className="md:hidden">
               <SideNav />
             </div>
             <SiteHeader />
-            <main className="flex-1 min-h-screen h-auto w-full overflow-y-auto overflow-x-hidden">
+            <main className="flex-1 w-full h-auto min-h-screen overflow-y-auto overflow-x-hidden">
               {children}
             </main>
+            <Footer />
           </div>
         </LoadingGate>
         <Toaster />
