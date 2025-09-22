@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
+import Link from 'next/link';
 import { getPhotosByUsername, UnsplashPhoto } from '@/lib/unsplash';
 import { type ImagePlaceholder } from '@/lib/placeholder-images';
 import {
@@ -9,6 +10,8 @@ import {
   DialogContent,
 } from "@/components/ui/dialog"
 import { MasonryGallery, MasonrySkeleton } from './masonry-gallery';
+import { Button } from '@/components/ui/button';
+import { ArrowRight } from 'lucide-react';
 
 export function PhotographySection() {
   const [photos, setPhotos] = useState<ImagePlaceholder[]>([]);
@@ -24,12 +27,14 @@ export function PhotographySection() {
           id: p.id,
           description: p.description || p.alt_description || 'Unsplash Photo',
           imageUrl: p.urls.regular,
+          smallImageUrl: p.urls.small,
+          unsplashUrl: p.links.html,
           imageHint: p.alt_description || 'photo',
           width: p.width,
           height: p.height
         }));
         setPhotos(formattedPhotos);
-      } catch (error) {
+      } catch (error) => {
         console.error("Failed to fetch photos from Unsplash:", error);
       } finally {
         setIsLoading(false);
@@ -73,8 +78,16 @@ export function PhotographySection() {
                 className="object-contain"
                 sizes="100vw"
               />
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent">
-                <h3 className="text-2xl font-bold text-white font-headline">{selectedImage.description}</h3>
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end">
+                <h3 className="text-xl font-bold text-white font-headline max-w-[75%]">{selectedImage.description}</h3>
+                {selectedImage.unsplashUrl && (
+                  <Button asChild variant="outline" size="sm" className="bg-card/20 backdrop-blur-sm border-white/20 text-white hover:bg-card/50 hover:text-white">
+                    <Link href={selectedImage.unsplashUrl} target="_blank" rel="noopener noreferrer">
+                      View Full Quality
+                      <ArrowRight className="ml-2 h-4 w-4" />
+                    </Link>
+                  </Button>
+                )}
               </div>
             </div>
           )}

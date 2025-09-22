@@ -36,7 +36,7 @@ export function MasonryGallery({ photos, onImageClick }: MasonryGalleryProps) {
       initial="hidden"
       animate="visible"
     >
-      {photos.map((photo) => {
+      {photos.map((photo, index) => {
         const { width, height } = getImageDimensions(photo);
         return (
           <motion.div 
@@ -50,13 +50,14 @@ export function MasonryGallery({ photos, onImageClick }: MasonryGalleryProps) {
               onClick={() => onImageClick(photo)}
             >
               <Image
-                src={photo.imageUrl}
+                src={photo.smallImageUrl || photo.imageUrl}
                 alt={photo.description}
                 width={width}
                 height={height}
                 className="w-full h-auto object-cover transition-transform duration-300 group-hover:scale-105"
                 data-ai-hint={photo.imageHint}
                 sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 20vw"
+                priority={index < 10}
               />
                <div className="absolute inset-0 bg-black/20 opacity-0 group-hover:opacity-100 transition-opacity" />
             </div>

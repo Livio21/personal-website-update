@@ -4,6 +4,8 @@ export type ImagePlaceholder = {
   id: string;
   description: string;
   imageUrl: string;
+  smallImageUrl?: string;
+  unsplashUrl?: string;
   imageHint: string;
   url?: string;
   width?: number;
