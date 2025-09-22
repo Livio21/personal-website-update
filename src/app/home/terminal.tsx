@@ -3,6 +3,7 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { motion } from 'framer-motion';
+import { useIsMobile } from '@/hooks/use-mobile';
 
 const commands: { [key: string]: string | (() => string) } = {
   help: "Available commands: 'about', 'skills', 'contact', 'socials', 'projects', 'hobbies', 'date', 'ls', 'pwd', 'clear', and more to discover...",
@@ -28,6 +29,7 @@ export function Terminal() {
   const [output, setOutput] = useState<{ type: 'input' | 'output'; content: string }[]>([]);
   const endOfTerminalRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const isMobile = useIsMobile();
 
   useEffect(() => {
     endOfTerminalRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -96,7 +98,7 @@ export function Terminal() {
             onChange={handleInputChange}
             onKeyDown={handleCommand}
             className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground/50"
-            autoFocus
+            autoFocus={!isMobile}
             autoComplete="off"
           />
         </div>
