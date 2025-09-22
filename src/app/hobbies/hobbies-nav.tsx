@@ -27,6 +27,25 @@ export function HobbiesNav({ currentSection, scrollToSection }: HobbiesNavProps)
   
   return (
     <>
+      <Button
+        variant="outline"
+        size="icon"
+        className="fixed left-4 top-1/2 -translate-y-1/2 z-20 rounded-full bg-card/50 backdrop-blur-sm hidden md:flex"
+        onClick={handlePrev}
+      >
+        <ArrowLeft className="h-5 w-5" />
+        <span className="sr-only">Previous Section</span>
+      </Button>
+      <Button
+        variant="outline"
+        size="icon"
+        className="fixed right-4 top-1/2 -translate-y-1/2 z-20 rounded-full bg-card/50 backdrop-blur-sm hidden md:flex"
+        onClick={handleNext}
+      >
+        <ArrowRight className="h-5 w-5" />
+        <span className="sr-only">Next Section</span>
+      </Button>
+
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         {sections.map((section, index) => (
           <button
