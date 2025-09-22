@@ -1,63 +1,23 @@
 
 "use client"
 
-import { useState, useEffect, useRef } from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
+import type { Dispatch, SetStateAction } from 'react';
 
 const sections = ['Photography', 'Music', 'Blog'];
 
-export function HobbiesNav() {
-  const [currentSection, setCurrentSection] = useState(0);
-  const scrollContainerRef = useRef<HTMLElement | null>(null);
-  const isScrollingRef = useRef(false);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+interface HobbiesNavProps {
+    currentSection: number;
+    setCurrentSection: Dispatch<SetStateAction<number>>;
+}
 
-  useEffect(() => {
-    // We need to find the scroll container in the parent component
-    scrollContainerRef.current = document.getElementById('hobbies-scroll-container');
-    const container = scrollContainerRef.current;
-
-    const handleScroll = () => {
-      if (container && !isScrollingRef.current) {
-        if (scrollTimeoutRef.current) {
-          clearTimeout(scrollTimeoutRef.current);
-        }
-        scrollTimeoutRef.current = setTimeout(() => {
-          const newIndex = Math.round(container.scrollLeft / container.clientWidth);
-          if (newIndex !== currentSection) {
-            setCurrentSection(newIndex);
-          }
-        }, 150);
-      }
-    };
-
-    container?.addEventListener('scroll', handleScroll, { passive: true });
-
-    return () => {
-      container?.removeEventListener('scroll', handleScroll);
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-    };
-  }, [currentSection]);
-
+export function HobbiesNav({ currentSection, setCurrentSection }: HobbiesNavProps) {
+  
   const scrollToSection = (index: number) => {
-    const container = scrollContainerRef.current;
-    if (container && !isScrollingRef.current) {
-      isScrollingRef.current = true;
-      const sectionWidth = container.clientWidth;
-      container.scrollTo({
-        left: index * sectionWidth,
-        behavior: 'smooth',
-      });
-      setCurrentSection(index);
-
-      // Allow manual scroll to update section after smooth scroll finishes
-      setTimeout(() => {
-        isScrollingRef.current = false;
-      }, 700);
+    if (index >= 0 && index < sections.length) {
+        setCurrentSection(index);
     }
   };
 
