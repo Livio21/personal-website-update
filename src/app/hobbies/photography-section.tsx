@@ -113,7 +113,7 @@ export function PhotographySection() {
                 src={selectedImage.imageUrl}
                 alt={selectedImage.description}
                 fill
-                className="object-contain rounded-xl"
+                className="object-cover rounded-xl"
                 sizes="100vw"
               />
               <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end rounded-b-xl">

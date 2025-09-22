@@ -1,3 +1,4 @@
+
 "use client"
 
 import { useState } from 'react';
@@ -12,6 +13,7 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog"
 import { ScrollArea } from '@/components/ui/scroll-area';
+import { Skeleton } from '@/components/ui/skeleton';
 
 
 const blogPosts = [
@@ -40,8 +42,53 @@ const blogPosts = [
 
 type BlogPost = (typeof blogPosts)[0];
 
+function BlogSkeleton() {
+    return (
+        <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-transparent overflow-y-auto no-scrollbar">
+            <div className="text-left mb-8">
+                <Skeleton className="h-12 w-48 mb-2" />
+                <Skeleton className="h-6 w-80" />
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8 w-full max-w-6xl">
+                {[...Array(3)].map((_, i) => (
+                    <Card key={i} className="bg-card/40 backdrop-blur-sm border-white/10 flex flex-col">
+                        <CardHeader>
+                            <Skeleton className="h-6 w-3/4" />
+                            <Skeleton className="h-4 w-1/4 mt-2" />
+                        </CardHeader>
+                        <CardContent className="flex-grow space-y-2">
+                            <Skeleton className="h-4 w-full" />
+                            <Skeleton className="h-4 w-full" />
+                            <Skeleton className="h-4 w-2/3" />
+                        </CardContent>
+                        <CardFooter className="flex-col items-start gap-4">
+                            <div className="flex flex-wrap gap-2">
+                                <Skeleton className="h-6 w-16 rounded-full" />
+                                <Skeleton className="h-6 w-20 rounded-full" />
+                            </div>
+                            <Skeleton className="h-5 w-24" />
+                        </CardFooter>
+                    </Card>
+                ))}
+            </div>
+        </section>
+    );
+}
+
 export function BlogSection() {
   const [selectedPost, setSelectedPost] = useState<BlogPost | null>(null);
+  
+  // NOTE: This is here to simulate a loading state for static data.
+  // In a real app, this would be `true` while fetching from a CMS.
+  const [isLoading, setIsLoading] = useState(true);
+  useState(() => {
+    const timer = setTimeout(() => setIsLoading(false), 750);
+    return () => clearTimeout(timer);
+  });
+  
+  if (isLoading) {
+    return <BlogSkeleton />;
+  }
 
   return (
     <section className="h-screen w-full snap-start flex-shrink-0 flex flex-col p-8 md:p-16 pt-24 bg-transparent overflow-y-auto no-scrollbar">
