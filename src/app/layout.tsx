@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import './globals.css';
-import { SideNav } from '@/components/layout/side-nav';
+import { MobileNav } from '@/components/layout/mobile-nav';
 import { Toaster } from '@/components/ui/toaster';
 import { SiteHeader } from '@/components/layout/site-header';
 import { LavaLamp } from '@/components/layout/lava-lamp';
@@ -28,14 +28,12 @@ export default function RootLayout({
         <LavaLamp />
         <LoadingGate>
           <div className="relative flex flex-col min-h-screen overflow-x-hidden content-area">
-            <div className="md:hidden">
-              <SideNav />
-            </div>
             <SiteHeader />
             <main className="flex-1 w-full h-auto min-h-screen overflow-y-auto overflow-x-hidden">
               {children}
             </main>
             <Footer />
+            <MobileNav />
           </div>
         </LoadingGate>
         <Toaster />
