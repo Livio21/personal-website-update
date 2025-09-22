@@ -37,7 +37,7 @@ export function MasonryGallery({ photos, onImageClick }: MasonryGalleryProps) {
       animate="visible"
     >
       {photos.map((photo) => {
-        const { width, height } = getImageDimensions(photo.imageUrl);
+        const { width, height } = getImageDimensions(photo);
         return (
           <motion.div 
             key={photo.id}

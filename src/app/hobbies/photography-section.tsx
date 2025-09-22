@@ -2,35 +2,44 @@
 
 import { useState, useEffect } from 'react';
 import Image from 'next/image';
-import { PlaceHolderImages } from '@/lib/placeholder-images';
+import { getPhotosByUsername, UnsplashPhoto } from '@/lib/unsplash';
+import { type ImagePlaceholder } from '@/lib/placeholder-images';
 import {
   Dialog,
   DialogContent,
 } from "@/components/ui/dialog"
 import { MasonryGallery, MasonrySkeleton } from './masonry-gallery';
 
-type Hobby = (typeof PlaceHolderImages)[0];
-
 export function PhotographySection() {
-  const [photos, setPhotos] = useState<Hobby[]>([]);
+  const [photos, setPhotos] = useState<ImagePlaceholder[]>([]);
   const [isLoading, setIsLoading] = useState(true);
-  const [selectedImage, setSelectedImage] = useState<Hobby | null>(null);
+  const [selectedImage, setSelectedImage] = useState<ImagePlaceholder | null>(null);
 
   useEffect(() => {
-    // Simulate fetching data from an API (like Unsplash)
     const fetchPhotos = async () => {
       setIsLoading(true);
-      // In the future, you'll replace this with your Unsplash API call
-      await new Promise(resolve => setTimeout(resolve, 1500)); 
-      const photographyHobbies = PlaceHolderImages.filter(p => p.id.startsWith('hobby-photo-'));
-      setPhotos(photographyHobbies);
-      setIsLoading(false);
+      try {
+        const unsplashPhotos = await getPhotosByUsername(process.env.NEXT_PUBLIC_UNSPLASH_USERNAME || "l1v1o");
+        const formattedPhotos: ImagePlaceholder[] = unsplashPhotos.map((p: UnsplashPhoto) => ({
+          id: p.id,
+          description: p.description || p.alt_description || 'Unsplash Photo',
+          imageUrl: p.urls.regular,
+          imageHint: p.alt_description || 'photo',
+          width: p.width,
+          height: p.height
+        }));
+        setPhotos(formattedPhotos);
+      } catch (error) {
+        console.error("Failed to fetch photos from Unsplash:", error);
+      } finally {
+        setIsLoading(false);
+      }
     };
 
     fetchPhotos();
   }, []);
 
-  const handleImageClick = (hobby: Hobby) => {
+  const handleImageClick = (hobby: ImagePlaceholder) => {
     setSelectedImage(hobby);
   };
   

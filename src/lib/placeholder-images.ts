@@ -6,17 +6,23 @@ export type ImagePlaceholder = {
   imageUrl: string;
   imageHint: string;
   url?: string;
+  width?: number;
+  height?: number;
 };
 
 export const PlaceHolderImages: ImagePlaceholder[] = data.placeholderImages;
 
-export function getImageDimensions(url: string): { width: number; height: number } {
+export function getImageDimensions(photo: ImagePlaceholder): { width: number; height: number } {
+  if (photo.width && photo.height) {
+    return { width: photo.width, height: photo.height };
+  }
+  
   try {
-    const urlParts = url.split('/');
-    const height = parseInt(urlParts.pop() || '400');
-    const width = parseInt(urlParts.pop() || '600');
-    if (!isNaN(width) && !isNaN(height)) {
-      return { width, height };
+    const urlParts = photo.imageUrl.split('/');
+    const h = parseInt(urlParts.pop() || '400');
+    const w = parseInt(urlParts.pop() || '600');
+    if (!isNaN(w) && !isNaN(h)) {
+      return { width: w, height: h };
     }
   } catch (e) {
     // ignore

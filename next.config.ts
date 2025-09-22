@@ -30,6 +30,10 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  env: {
+    UNSPLASH_ACCESS_KEY: process.env.UNSPLASH_ACCESS_KEY,
+    NEXT_PUBLIC_UNSPLASH_USERNAME: process.env.UNSPLASH_USERNAME,
+  }
 };
 
 export default nextConfig;
