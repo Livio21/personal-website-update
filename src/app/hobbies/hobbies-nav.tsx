@@ -10,17 +10,11 @@ const sections = ['Photography', 'Music', 'Blog'];
 
 interface HobbiesNavProps {
     currentSection: number;
-    setCurrentSection: Dispatch<SetStateAction<number>>;
+    scrollToSection: (index: number) => void;
 }
 
-export function HobbiesNav({ currentSection, setCurrentSection }: HobbiesNavProps) {
+export function HobbiesNav({ currentSection, scrollToSection }: HobbiesNavProps) {
   
-  const scrollToSection = (index: number) => {
-    if (index >= 0 && index < sections.length) {
-        setCurrentSection(index);
-    }
-  };
-
   const handleNext = () => {
     const nextIndex = (currentSection + 1) % sections.length;
     scrollToSection(nextIndex);
@@ -33,30 +27,6 @@ export function HobbiesNav({ currentSection, setCurrentSection }: HobbiesNavProp
   
   return (
     <>
-      <Button 
-        size="icon" 
-        variant="outline" 
-        className={cn(
-          "rounded-full bg-card/50 backdrop-blur-sm fixed top-1/2 left-4 -translate-y-1/2 z-20 transition-opacity",
-          currentSection === 0 && "opacity-0 pointer-events-none"
-        )} 
-        onClick={handlePrev}
-      >
-        <ArrowLeft className="h-4 w-4" />
-      </Button>
-
-      <Button 
-        size="icon" 
-        variant="outline" 
-        className={cn(
-            "rounded-full bg-card/50 backdrop-blur-sm fixed top-1/2 right-4 -translate-y-1/2 z-20 transition-opacity",
-            currentSection === sections.length - 1 && "opacity-0 pointer-events-none"
-        )} 
-        onClick={handleNext}
-      >
-        <ArrowRight className="h-4 w-4" />
-      </Button>
-
       <div className="fixed bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2">
         {sections.map((section, index) => (
           <button
