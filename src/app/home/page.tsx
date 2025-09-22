@@ -4,8 +4,8 @@ import { Terminal } from './terminal';
 
 export default function Home() {
   return (
-    <div className="w-full min-h-screen snap-start flex items-center justify-center p-4 sm:p-8 md:p-16">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-7xl items-center pt-20 md:pt-0">
+    <div className="w-full min-h-screen snap-y flex items-center justify-center p-4 sm:p-8 md:p-16">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-7xl items-center pt-20 md:pt-0 snap-start">
         {/* Left Column: Intro */}
         <div className="flex flex-col gap-8 md:text-left">
           <header className="mb-4">

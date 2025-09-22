@@ -107,7 +107,7 @@ export function ProjectScroller() {
         {projects.map((project, index) => (
           <section
             key={project.id}
-            className="h-screen w-full snap-start flex flex-1 items-center justify-center relative p-4 md:p-8 pt-16 md:pt-16 border-4"
+            className="h-screen w-full snap-start flex flex-1 items-center justify-center relative p-4 md:p-8 pt-16 md:pt-16 border-b-4"
           >
             <div className="absolute inset-0 z-0">
                {project.videoUrl ? (

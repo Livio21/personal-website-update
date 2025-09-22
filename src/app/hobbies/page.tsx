@@ -66,10 +66,10 @@ export default function HobbiesPage() {
       <HobbiesNav currentSection={currentSection} scrollToSection={scrollToSection} />
       <div 
         ref={containerRef}
-        className="flex h-full w-full snap-x snap-proximity overflow-x-auto no-scrollbar scroll-smooth"
+        className="flex h-full w-full snap-x snap-mandatory overflow-x-auto no-scrollbar scroll-smooth"
       >
         {sections.map((section) => (
-          <div key={section.id} className="h-full w-full flex-shrink-0 snap-start px-4 md:px-8 pt-24 pb-16 md:pb-0 overflow-y-auto no-scrollbar">
+          <div key={section.id} className="h-full w-full flex-shrink-0 snap-center px-4 md:px-8 pt-24 pb-16 md:pb-0 overflow-y-auto no-scrollbar">
             {section.component}
           </div>
         ))}
