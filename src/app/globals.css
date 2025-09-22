@@ -122,6 +122,29 @@
       transform: skew(calc(var(--skewX) * 1deg), calc(var(--skewY) * 1deg)) translateY(calc(-100vh - (var(--height) * 2px)));
     }
   }
+
+  @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(360deg);
+    }
+  }
+
+  .record {
+    animation: spin 20s linear infinite;
+    animation-play-state: paused;
+  }
+
+  .record-container:hover .record {
+    animation-play-state: running;
+  }
+
+  .record-container:hover .play-icon {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 @layer utilities {

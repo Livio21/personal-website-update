@@ -28,11 +28,19 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+       {
+        protocol: 'https',
+        hostname: 'lastfm.freetls.fastly.net',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
   env: {
     UNSPLASH_ACCESS_KEY: process.env.UNSPLASH_ACCESS_KEY,
-    NEXT_PUBLIC_UNSPLASH_USERNAME: process.env.UNSPLASH_USERNAME,
+    NEXT_PUBLIC_UNSPLASH_USERNAME: process.env.NEXT_PUBLIC_UNSPLASH_USERNAME,
+    LASTFM_API_KEY: process.env.LASTFM_API_KEY,
+    NEXT_PUBLIC_LASTFM_USERNAME: process.env.LASTFM_USERNAME,
   }
 };
 
