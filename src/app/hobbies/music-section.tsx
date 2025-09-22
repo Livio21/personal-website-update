@@ -85,13 +85,13 @@ export function MusicSection() {
     }
 
     return (
-    <section className="h-full w-full flex-shrink-0 flex flex-col items-center justify-center">
-      <div className="text-left w-full mb-8">
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-headline font-light tracking-tight mb-2">
-          Music
-        </h2>
-        <p className="text-lg text-muted-foreground font-body">A glimpse into what I'm listening to, powered by Last.fm.</p>
-      </div>
+        <section className="h-full w-full flex-shrink-0 flex flex-col bg-transparent ">
+      <header className="text-left mb-8 ">
+          <h2 className="text-4xl md:text-5xl font-headline font-light tracking-tight mb-2">
+            Music
+          </h2>
+          <p className="text-lg text-muted-foreground font-body">What I like to listen to as of late.</p>
+        </header>
 
       <div className="flex-grow w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
         {/* Top Track of the Week */}
