@@ -11,8 +11,8 @@ export function ProjectScroller() {
   const projects = PlaceHolderImages.filter(p => p.id.startsWith('project-'));
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
-  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   const scrollToProject = (index: number) => {
     if (containerRef.current && !isScrollingRef.current) {
@@ -46,32 +46,25 @@ export function ProjectScroller() {
              if (scrollTimeoutRef.current) {
                 clearTimeout(scrollTimeoutRef.current);
             }
-            const index = Math.round(containerRef.current.scrollTop / containerRef.current.clientHeight);
-            if (index !== currentProjectIndex) {
-              setCurrentProjectIndex(index);
-            }
+            scrollTimeoutRef.current = setTimeout(() => {
+              const index = Math.round(containerRef.current.scrollTop / containerRef.current.clientHeight);
+              if (index !== currentProjectIndex) {
+                setCurrentProjectIndex(index);
+              }
+            }, 150)
         }
-    };
-    
-    const resetAutoScroll = () => {
-      if (scrollTimeoutRef.current) {
-        clearTimeout(scrollTimeoutRef.current);
-      }
-      scrollTimeoutRef.current = setTimeout(handleNext, 8000);
     };
 
     const currentContainer = containerRef.current;
     currentContainer?.addEventListener('scroll', handleScroll, { passive: true });
     
-    resetAutoScroll(); 
-
     return () => {
         currentContainer?.removeEventListener('scroll', handleScroll);
         if (scrollTimeoutRef.current) {
           clearTimeout(scrollTimeoutRef.current);
         }
     };
-  }, [currentProjectIndex, projects.length]);
+  }, [currentProjectIndex]);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
