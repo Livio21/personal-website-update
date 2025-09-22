@@ -9,8 +9,6 @@ import { useState, useEffect } from 'react';
 import {
   Dialog,
   DialogContent,
-  DialogHeader,
-  DialogTitle,
 } from "@/components/ui/dialog"
 import { getWeeklyTopAlbums, getWeeklyTopTracks, LastfmAlbum, LastfmTrack } from '@/lib/lastfm';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -153,8 +151,7 @@ export function MusicSection() {
                                     </div>
                                 </CardContent>
                             </Card>
-                        ))
-                        }
+                        ))}
                     </div>
                 ) : (
                     <p className='text-muted-foreground'>No albums to display.</p>
@@ -174,39 +171,37 @@ export function MusicSection() {
       </div>
 
        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="bg-card/80 backdrop-blur-lg border-white/10 sm:max-w-4xl max-h-[80vh]">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-light font-headline text-primary mt-2">All Top Albums</DialogTitle>
-          </DialogHeader>
-          <ScrollArea className="h-[60vh]">
-            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
-                {topAlbums.map((album, index) => (
-                    <Card key={album.name+index} className="group overflow-hidden bg-card/40 backdrop-blur-sm border-none aspect-square shadow-lg transition-transform duration-300 rounded-md">
-                        <CardContent className="p-0 w-full h-full relative">
-                        <Image
-                            src={album.image || 'https://picsum.photos/seed/album/300/300'}
-                            alt={`Album art for ${album.name} by ${album.artist}`}
-                            width={300}
-                            height={300}
-                            className="object-cover w-full h-full"
-                            data-ai-hint="album art"
-                        />
-                        <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                            <Button asChild variant="link" className="text-primary font-bold font-body">
-                                <Link href={album.url} target="_blank" rel="noopener noreferrer">
-                                    Listen
-                                </Link>
-                            </Button>
-                        </div>
-                        <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none group-hover:opacity-0 transition-opacity">
-                            <p className="font-semibold text-white truncate font-headline">{album.name}</p>
-                            <p className="text-sm text-gray-300 truncate font-body">{album.artist}</p>
-                        </div>
-                        </CardContent>
-                    </Card>
-                ))}
-            </div>
-          </ScrollArea>
+        <DialogContent className="bg-card/80 backdrop-blur-lg border-white/10 sm:max-w-4xl max-h-[80vh] flex flex-col">
+          <h3 className="text-2xl font-light font-headline text-primary mt-2">All Top Albums</h3>
+            <ScrollArea className="flex-1">
+              <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 p-4">
+                  {topAlbums.map((album, index) => (
+                      <Card key={album.name+index} className="group overflow-hidden bg-card/40 backdrop-blur-sm border-none aspect-square shadow-lg transition-transform duration-300 rounded-md">
+                          <CardContent className="p-0 w-full h-full relative">
+                          <Image
+                              src={album.image || 'https://picsum.photos/seed/album/300/300'}
+                              alt={`Album art for ${album.name} by ${album.artist}`}
+                              width={300}
+                              height={300}
+                              className="object-cover w-full h-full"
+                              data-ai-hint="album art"
+                          />
+                          <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-4 text-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                              <Button asChild variant="link" className="text-primary font-bold font-body">
+                                  <Link href={album.url} target="_blank" rel="noopener noreferrer">
+                                      Listen
+                                  </Link>
+                              </Button>
+                          </div>
+                          <div className="absolute bottom-0 left-0 right-0 p-3 bg-gradient-to-t from-black/80 to-transparent pointer-events-none group-hover:opacity-0 transition-opacity">
+                              <p className="font-semibold text-white truncate font-headline">{album.name}</p>
+                              <p className="text-sm text-gray-300 truncate font-body">{album.artist}</p>
+                          </div>
+                          </CardContent>
+                      </Card>
+                  ))}
+              </div>
+            </ScrollArea>
         </DialogContent>
       </Dialog>
     </section>
