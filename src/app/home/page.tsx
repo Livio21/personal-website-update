@@ -29,7 +29,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Right Column: Terminal */}
         <div className="w-full h-full flex items-center justify-center">
           <Terminal />
         </div>
