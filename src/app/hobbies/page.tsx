@@ -62,18 +62,18 @@ export default function HobbiesPage() {
   }, [currentSection]);
 
   return (
-    <div className="relative h-screen w-full overflow-hidden">
+    <main className="relative h-screen w-full overflow-hidden">
       <HobbiesNav currentSection={currentSection} scrollToSection={scrollToSection} />
       <div 
         ref={containerRef}
         className="flex h-full w-full snap-x snap-mandatory overflow-x-auto no-scrollbar"
       >
         {sections.map((section) => (
-          <div key={section.id} className="h-full w-full flex-shrink-0 snap-start px-8 pt-24">
+          <div key={section.id} className="h-full w-full flex-shrink-0 snap-start px-4 md:px-8 pt-24">
             {section.component}
           </div>
         ))}
       </div>
-    </div>
+    </main>
   );
 }

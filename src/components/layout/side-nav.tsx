@@ -37,9 +37,15 @@ export function SideNav() {
   }, [isOpen, navRef])
 
   return (
-    <div ref={navRef}>
+    <div
+      ref={navRef}
+      className={cn(
+        "md:hidden fixed inset-0 z-40",
+        !isOpen && "pointer-events-none"
+      )}
+    >
       <motion.button
-        className="fixed bottom-4 right-4 z-[60] w-14 h-14 bg-card/80 backdrop-blur-lg border border-white/10 rounded-full flex items-center justify-center"
+        className="fixed bottom-4 right-4 z-[60] w-14 h-14 bg-card/80 backdrop-blur-lg border border-white/10 rounded-full flex items-center justify-center pointer-events-auto"
         onClick={() => setIsOpen(!isOpen)}
         aria-label="Toggle navigation"
         whileHover={{ scale: 1.1 }}

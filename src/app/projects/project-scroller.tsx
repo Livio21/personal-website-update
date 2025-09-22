@@ -89,7 +89,7 @@ export function ProjectScroller() {
         <Button 
           size="icon" 
           variant="outline" 
-          className="rounded-full bg-card/50 backdrop-blur-sm fixed top-6 left-1/2 -translate-x-1/2 z-20 md:hidden" 
+          className="rounded-full bg-card/50 backdrop-blur-sm fixed top-4 left-1/2 -translate-x-1/2 z-20 md:hidden" 
           onClick={handlePrev}
         >
           <ArrowUp />
@@ -98,7 +98,7 @@ export function ProjectScroller() {
         <Button 
             size="icon" 
             variant="outline" 
-            className="rounded-full bg-card/50 backdrop-blur-sm fixed bottom-6 left-1/2 -translate-x-1/2 z-20 md:hidden" 
+            className="rounded-full bg-card/50 backdrop-blur-sm fixed bottom-4 left-1/2 -translate-x-1/2 z-20 md:hidden" 
             onClick={handleNext}
         >
             <ArrowDown />
@@ -107,7 +107,7 @@ export function ProjectScroller() {
         {projects.map((project, index) => (
           <section
             key={project.id}
-            className="h-screen w-full snap-start flex flex-1 items-center justify-center relative p-8 md:p-16 pt-24 md:pt-16"
+            className="h-screen w-full snap-start flex flex-1 items-center justify-center relative p-4 md:p-8 pt-16 md:pt-16"
           >
             <div className="absolute inset-0 z-0">
                {project.videoUrl ? (
@@ -125,9 +125,9 @@ export function ProjectScroller() {
             </div>
             <div className="relative z-10 w-full max-w-6xl h-full flex items-center">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div className="p-8 rounded-xl bg-card/40 backdrop-blur-lg border border-white/10">
-                  <h2 className="text-3xl md:text-4xl font-headline font-light text-primary mb-4">{project.description.split('.')[0]}</h2>
-                  <p className="text-base md:text-lg text-muted-foreground mb-6 font-body">{project.description}</p>
+                <div className="p-6 rounded-xl bg-card/40 backdrop-blur-lg border border-white/10">
+                  <h2 className="text-2xl md:text-4xl font-headline font-light text-primary mb-3">{project.description.split('.')[0]}</h2>
+                  <p className="text-base text-muted-foreground mb-5 font-body">{project.description}</p>
                   <Button variant="outline" asChild>
                     <a href={project.url} target="_blank" rel="noopener noreferrer">
                       View Project
