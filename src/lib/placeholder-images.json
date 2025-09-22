@@ -3,33 +3,25 @@
     {
       "id": "project-1",
       "description": "Albanian Content Safety Checker. A Chrome extension that checks a web page's content for unsafe text in the Albanian language.",
-      "imageUrl": "https://picsum.photos/seed/p1/600/400",
-      "videoUrl": "/project-1.mp4",
-      "imageHint": "abstract tech",
+      "videoUrl": "/project-1.webm",
       "url": "#"
     },
     {
       "id": "project-2",
       "description": "Permakinat.al. A website for a car sales company, built with React.js, Sanity.io, and TailwindCSS.",
-      "imageUrl": "https://picsum.photos/seed/p2/600/400",
-      "videoUrl": "/project-2.mp4",
-      "imageHint": "modern design",
+      "videoUrl": "/project-2.webm",
       "url": "https://permakinat-al.vercel.app/"
     },
     {
       "id": "project-3",
       "description": "ITSA System. A lesson and student management system using VueJS, TailwindCSS, Firebase, and Vuex.",
-      "imageUrl": "https://picsum.photos/seed/p3/600/400",
-      "videoUrl": "/project-3.mp4",
-      "imageHint": "data charts",
+      "videoUrl": "/project-3.webm",
       "url": "https://itsa-vue.web.app/about"
     },
     {
       "id": "project-4",
       "description": "VueCovidApp. A VueJS-based web application for COVID data, using TailwindCSS and Contentful CMS.",
-      "imageUrl": "https://picsum.photos/seed/p4/600/400",
-      "videoUrl": "/project-4.mp4",
-      "imageHint": "user interface",
+      "videoUrl": "/project-4.webm",
       "url": "https://vue-covidapp.vercel.app"
     },
     {

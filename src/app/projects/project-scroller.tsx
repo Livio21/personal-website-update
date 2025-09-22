@@ -112,6 +112,7 @@ export function ProjectScroller() {
             <div className="absolute inset-0 z-0">
                {project.videoUrl ? (
                 <video
+                  key={project.videoUrl}
                   src={project.videoUrl}
                   className="w-full h-full object-cover"
                   autoPlay
