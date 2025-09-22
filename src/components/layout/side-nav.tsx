@@ -93,7 +93,7 @@ export function SideNav() {
                     href={item.href}
                     className={cn(
                       "relative px-3 py-2 rounded-md text-left text-lg font-medium transition-colors hover:text-primary",
-                      isActive ? "text-primary" : "text-gray-300"
+                      isActive ? " text-primary " : " text-gray-300 ", isOpen ? " " : " w-0 h-0 z-0"
                     )}
                   >
                     {isActive && (
