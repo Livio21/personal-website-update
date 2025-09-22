@@ -34,7 +34,7 @@ export function PhotographySection() {
           height: p.height
         }));
         setPhotos(formattedPhotos);
-      } catch (error) => {
+      } catch (error) {
         console.error("Failed to fetch photos from Unsplash:", error);
       } finally {
         setIsLoading(false);
