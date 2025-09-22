@@ -2,7 +2,7 @@
   "placeholderImages": [
     {
       "id": "project-1",
-      "description": "Albanian Content Safety Checker. A Chrome extension that checks a web page's content for unsafe text in the Albanian language.",
+      "description": "Notary page. A professional personal page for a Notary office.",
       "videoUrl": "/project-1.webm",
       "url": "#"
     },
@@ -14,14 +14,8 @@
     },
     {
       "id": "project-3",
-      "description": "ITSA System. A lesson and student management system using VueJS, TailwindCSS, Firebase, and Vuex.",
-      "videoUrl": "/project-3.webm",
-      "url": "https://itsa-vue.web.app/about"
-    },
-    {
-      "id": "project-4",
       "description": "VueCovidApp. A VueJS-based web application for COVID data, using TailwindCSS and Contentful CMS.",
-      "videoUrl": "/project-4.webm",
+      "videoUrl": "/project-3.webm",
       "url": "https://vue-covidapp.vercel.app"
     },
     {
