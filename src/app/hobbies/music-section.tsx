@@ -149,8 +149,9 @@ export function MusicSection() {
       </div>
 
        <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
-        <DialogContent className="bg-card/80 backdrop-blur-lg border-white/10 sm:max-w-4xl max-h-[85vh]">
-          <ScrollArea className="h-full pr-4 -mr-2">
+        <DialogContent className="bg-card/80 backdrop-blur-lg border-white/10 sm:max-w-4xl max-h-[85vh] flex flex-col">
+          <h3 className="text-2xl font-light font-headline text-primary mt-2">All Top Albums</h3>
+          <ScrollArea className="h-full pr-4 -mr-4">
             <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 py-4">
                 {topAlbums.map((album, index) => (
                     <Card key={album.name+index} className="group overflow-hidden bg-card/40 backdrop-blur-sm border-none aspect-square shadow-lg transition-transform duration-300 rounded-md">
