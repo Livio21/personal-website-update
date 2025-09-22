@@ -38,6 +38,7 @@ export default function RootLayout({
           </div>
         </LoadingGate>
         <Toaster />
+        <SpeedInsights />
       </body>
     </html>
   );
