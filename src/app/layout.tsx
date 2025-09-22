@@ -6,7 +6,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { SiteHeader } from '@/components/layout/site-header';
 import { LavaLamp } from '@/components/layout/lava-lamp';
 import { LoadingGate } from './loading-gate';
-import { Footer } from '@/components/layout/footer';
+import { ConditionalFooter } from '@/components/layout/conditional-footer';
 
 export const metadata: Metadata = {
   title: 'Livio Macaj',
@@ -33,7 +33,7 @@ export default function RootLayout({
             <main className="flex-1 w-full h-full">
               {children}
             </main>
-            <Footer />
+            <ConditionalFooter />
             <MobileNav />
           </div>
         </LoadingGate>

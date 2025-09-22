@@ -33,6 +33,12 @@ export function Terminal() {
   useEffect(() => {
     endOfTerminalRef.current?.scrollIntoView({ behavior: 'smooth' });
   }, [output]);
+
+  useEffect(() => {
+    if (isMobile === false) {
+      inputRef.current?.focus();
+    }
+  }, [isMobile]);
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInput(e.target.value);
@@ -97,7 +103,6 @@ export function Terminal() {
             onChange={handleInputChange}
             onKeyDown={handleCommand}
             className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground/50"
-            autoFocus={!isMobile}
             autoComplete="off"
           />
         </div>
