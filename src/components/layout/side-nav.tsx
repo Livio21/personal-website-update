@@ -84,7 +84,7 @@ export function SideNav() {
             transition={{ duration: 0.15, ease: "easeOut" }}
             className={`fixed bottom-20 right-4  ${isOpen ? ' w-56 z-50':'w-0 h-0 z-0'}  p-4 bg-card/50 backdrop-blur-lg border border-white/10 rounded-2xl pointer-events-auto`}
           >
-            <nav className={`flex flex-col gap-3 >
+            <nav className="flex flex-col gap-3" >
               {navItems.map((item) => {
                 const isActive = pathname === item.href;
                 return (
