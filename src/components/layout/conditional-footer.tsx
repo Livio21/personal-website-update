@@ -5,7 +5,7 @@ import { Footer } from '@/components/layout/footer';
 
 export function ConditionalFooter() {
   const pathname = usePathname();
-  const hiddenPaths = ['/projects', '/hobbies', '/about'];
+  const hiddenPaths = ['/projects', '/hobbies'];
 
   if (hiddenPaths.includes(pathname)) {
     return null;

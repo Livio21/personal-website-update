@@ -24,7 +24,7 @@ const socialLinks = [
 
 export function Footer() {
   return (
-    <footer className="w-full mt-auto bg-card/40 backdrop-blur-sm border-t border-white/10 p-6">
+    <footer className="w-full mt-auto bg-transparent p-6">
       <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
         <div className="font-body text-sm text-muted-foreground">
             <p>&copy; {new Date().getFullYear()} Livio Macaj. All Rights Reserved.</p>
