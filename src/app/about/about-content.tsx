@@ -9,7 +9,6 @@ import { ArrowRight } from "lucide-react"
 import { Section } from "./section"
 import { experience, education, skills, certifications } from "./data.tsx"
 import { Badge } from "@/components/ui/badge"
-import { AnimatedTitle } from "./animated-title"
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -63,10 +62,12 @@ export function AboutContent() {
             </motion.div>
 
             <motion.div className="flex flex-col gap-6 md:col-span-2" variants={containerVariants}>
-                <AnimatedTitle 
-                    text="About Me" 
+                <motion.h1 
                     className="text-4xl md:text-6xl font-headline font-light tracking-tight text-primary" 
-                />
+                    variants={itemVariants}
+                >
+                    About Me
+                </motion.h1>
                 <motion.p 
                     className="text-lg text-muted-foreground font-body"
                     variants={itemVariants}

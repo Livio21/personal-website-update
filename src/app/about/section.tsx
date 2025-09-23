@@ -1,7 +1,6 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { AnimatedTitle } from "./animated-title";
 
 interface SectionProps {
     title: string;
@@ -29,11 +28,7 @@ export function Section({ title, children }: SectionProps) {
           viewport={{ once: true, amount: 0.2 }}
         >
             <div className="flex items-center gap-4 mb-8">
-                <AnimatedTitle 
-                  text={title} 
-                  className="text-2xl md:text-3xl font-headline font-light tracking-tight text-primary" 
-                  wordSpacing="0.2em"
-                />
+                <h2 className="text-2xl md:text-3xl font-headline font-light tracking-tight text-primary">{title}</h2>
                 <div className="h-px flex-grow bg-gradient-to-r from-primary/50 to-transparent"></div>
             </div>
             {children}
