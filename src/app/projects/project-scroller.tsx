@@ -177,8 +177,11 @@ function ProjectScrollerContent() {
         onMouseEnter={() => setIsNavHovered(true)}
         onMouseLeave={() => setIsNavHovered(false)}
       >
-        <div className="relative flex flex-col justify-center items-end h-full w-12 transition-all duration-300 ease-in-out">
-            <div className="flex flex-col gap-4 w-full items-center">
+        <motion.div
+            className="relative flex h-full items-center bg-card/10 backdrop-blur-sm border-l border-white/10 transition-all duration-300 ease-in-out"
+            animate={{ width: isNavHovered ? '12rem' : '3rem' }}
+          >
+            <div className="flex flex-col justify-center gap-4 w-12 items-center absolute left-0 top-0 bottom-0">
               {projects.map((_, index) => {
                   const isActive = currentProjectIndex === index;
                   return (
@@ -195,41 +198,41 @@ function ProjectScrollerContent() {
                   );
               })}
             </div>
-        </div>
-         <AnimatePresence>
-          {isNavHovered && (
-            <motion.div
-              initial={{ x: "100%" }}
-              animate={{ x: 0 }}
-              exit={{ x: "100%" }}
-              transition={{ duration: 0.3, ease: 'easeOut' }}
-              className="absolute right-0 top-0 h-full w-48 bg-card/10 backdrop-blur-sm border-l border-white/10"
-            >
-              <div className="flex flex-col justify-center h-full p-4">
-                {projects.map((project, index) => {
-                  const isActive = currentProjectIndex === index;
-                  return (
-                    <button
-                      key={project.id}
-                      onClick={() => scrollToProject(index)}
-                      className="text-right py-2 transition-colors duration-300"
-                      aria-label={`Go to ${project.description.split('.')[0]}`}
-                    >
-                      <span
-                        className={cn(
-                          "font-medium transition-all duration-300 font-headline",
-                          isActive ? "text-primary font-bold" : "text-muted-foreground hover:text-white"
-                        )}
-                      >
-                        {project.description.split('.')[0]}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-            </motion.div>
-          )}
-        </AnimatePresence>
+            
+            <AnimatePresence>
+            {isNavHovered && (
+                <motion.div
+                    className="absolute right-0 top-0 h-full w-full pl-12"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1, transition: { delay: 0.2, duration: 0.3 } }}
+                    exit={{ opacity: 0, transition: { duration: 0.1 } }}
+                >
+                    <div className="flex flex-col justify-center h-full p-4">
+                        {projects.map((project, index) => {
+                        const isActive = currentProjectIndex === index;
+                        return (
+                            <button
+                                key={project.id}
+                                onClick={() => scrollToProject(index)}
+                                className="text-left py-2 transition-colors duration-300"
+                                aria-label={`Go to ${project.description.split('.')[0]}`}
+                            >
+                                <span
+                                className={cn(
+                                    "font-medium transition-all duration-300 font-headline",
+                                    isActive ? "text-primary font-bold" : "text-muted-foreground hover:text-white"
+                                )}
+                                >
+                                {project.description.split('.')[0]}
+                                </span>
+                            </button>
+                        );
+                        })}
+                    </div>
+                </motion.div>
+            )}
+            </AnimatePresence>
+        </motion.div>
       </div>
     </div>
   );
@@ -242,3 +245,5 @@ export function ProjectScroller() {
     </Suspense>
   )
 }
+
+    
