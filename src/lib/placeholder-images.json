@@ -19,6 +19,12 @@
       "url": "https://vue-covidapp.vercel.app"
     },
     {
+      "id": "about-main",
+      "description": "Portrait of the developer",
+      "imageUrl": "https://picsum.photos/seed/portrait1/600/800",
+      "imageHint": "man portrait"
+    },
+    {
       "id": "hobby-photo-1",
       "description": "Cityscape",
       "imageUrl": "https://picsum.photos/seed/h1/400/400",
