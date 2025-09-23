@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { motion } from "framer-motion"
-import { Code, Database, Wind, GitBranch, Figma, Docker, Component } from "lucide-react"
+import { Code, Database, Wind, GitBranch, Figma, Component } from "lucide-react"
 
 const skills = [
     { name: "Python", icon: <Code /> },
@@ -17,7 +17,7 @@ const skills = [
     { name: "PostgreSQL", icon: <Database /> },
     { name: "GraphQL", icon: <GitBranch /> },
     { name: "Figma", icon: <Figma /> },
-    { name: "Docker", icon: <Docker /> },
+    { name: "Docker", icon: <DockerIcon /> },
 ];
 
 const containerVariants = {
@@ -100,6 +100,14 @@ function ReactIcon() {
                 <ellipse rx="11" ry="4.2" transform="rotate(60)"/>
                 <ellipse rx="11" ry="4.2" transform="rotate(120)"/>
             </g>
+        </svg>
+    )
+}
+
+function DockerIcon() {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M21.99 9.01992C21.99 8.36992 21.62 7.78992 21.05 7.49992L17.84 5.92992C17.59 5.80992 17.3 5.75992 17 5.75992H7.21C6.18 5.75992 5.34 6.53992 5.23 7.55992L4.02 17.5299C3.95 18.2399 4.41 18.8999 5.12 18.9999C5.2 19.0099 5.28 19.0099 5.36 19.0099H17.23C18.15 19.0099 18.93 18.3199 19.02 17.4099L19.23 15.4899C19.23 15.4899 21.32 14.5499 21.35 14.5299C21.78 14.2499 22 13.7599 22 13.2599V11.2899C22 10.5199 21.48 9.94992 20.72 9.83992C20.94 9.68992 21.11 9.50992 21.25 9.29992C21.32 9.18992 21.72 9.07992 21.99 9.01992ZM8 10.0001H6V11.0001H8V10.0001ZM8 12.0001H6V13.0001H8V12.0001ZM8 14.0001H6V15.0001H8V14.0001ZM10 10.0001H9V11.0001H10V10.0001ZM10 12.0001H9V13.0001H10V12.0001ZM10 14.0001H9V15.0001H10V14.0001ZM12 10.0001H11V11.0001H12V10.0001ZM12 12.0001H11V13.0001H12V12.0001ZM12 14.0001H11V15.0001H12V14.0001ZM14 10.0001H13V11.0001H14V10.0001ZM14 12.0001H13V13.0001H14V12.0001ZM14 14.0001H13V15.0001H14V14.0001ZM16 10.0001H15V11.0001H16V10.0001ZM16 12.0001H15V13.0001H16V12.0001Z" fill="currentColor"/>
         </svg>
     )
 }
