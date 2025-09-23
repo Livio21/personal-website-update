@@ -1,7 +1,8 @@
 
 "use client"
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Suspense } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { PhotographySection } from './photography-section';
 import { MusicSection } from './music-section';
 import { BlogSection } from './blog-section';
@@ -13,27 +14,42 @@ const sections = [
   { id: 'Blog', component: <BlogSection /> },
 ];
 
-export default function HobbiesPage() {
+function HobbiesPageContent() {
   const [currentSection, setCurrentSection] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const isScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  const scrollToSection = (index: number) => {
-    if (containerRef.current && !isScrollingRef.current) {
+  const searchParams = useSearchParams();
+
+  const scrollToSection = (index: number, behavior: 'smooth' | 'auto' = 'smooth') => {
+    if (containerRef.current) {
         isScrollingRef.current = true;
         const sectionWidth = containerRef.current.clientWidth;
         containerRef.current.scrollTo({
             left: index * sectionWidth,
-            behavior: 'smooth',
+            behavior: behavior,
         });
         setCurrentSection(index);
         
+        // Use a longer timeout for smooth scrolling to prevent scroll handler from firing mid-animation
+        const timeoutDuration = behavior === 'smooth' ? 1000 : 50;
         setTimeout(() => {
             isScrollingRef.current = false;
-        }, 1000); 
+        }, timeoutDuration); 
     }
   };
+  
+  useEffect(() => {
+    const sectionParam = searchParams.get('section');
+    if (sectionParam) {
+      const sectionIndex = sections.findIndex(s => s.id.toLowerCase() === sectionParam.toLowerCase());
+      if (sectionIndex !== -1) {
+        // Use a timeout to ensure the layout is stable before scrolling
+        setTimeout(() => scrollToSection(sectionIndex, 'auto'), 100);
+      }
+    }
+  }, [searchParams]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -69,11 +85,20 @@ export default function HobbiesPage() {
         className="flex h-full w-full snap-x snap-mandatory overflow-x-auto no-scrollbar scroll-smooth"
       >
         {sections.map((section) => (
-          <div key={section.id} className="h-full w-full flex-shrink-0 snap-center px-4 md:px-8 pt-24 pb-16 md:pb-0 overflow-y-auto no-scrollbar">
+          <div key={section.id} className="h-full w-full flex-shrink-0 snap-center px-4 md:px-8 pt-24 pb-16 md:pb-24 overflow-y-auto no-scrollbar">
             {section.component}
           </div>
         ))}
       </div>
     </main>
   );
+}
+
+
+export default function HobbiesPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <HobbiesPageContent />
+    </Suspense>
+  )
 }
