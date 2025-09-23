@@ -1,4 +1,5 @@
 
+
 "use client"
 
 import { useState, useEffect, useRef } from 'react';
@@ -9,6 +10,7 @@ import { cn } from '@/lib/utils';
 import { ArrowUp, ArrowDown } from 'lucide-react';
 import { ProjectCard } from './project-card';
 import { Suspense } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 function ProjectScrollerContent() {
   const projects = PlaceHolderImages.filter(p => p.id.startsWith('project-'));
@@ -17,6 +19,7 @@ function ProjectScrollerContent() {
   const isScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const searchParams = useSearchParams();
+  const [isNavHovered, setIsNavHovered] = useState(false);
 
   const scrollToProject = (index: number, behavior: 'smooth' | 'auto' = 'smooth') => {
     if (containerRef.current && !isScrollingRef.current) {
@@ -169,32 +172,64 @@ function ProjectScrollerContent() {
         ))}
       </div>
       
-      <div className="group hidden md:flex fixed right-0 top-0 h-full items-center justify-end z-30">
-          <div className="relative flex flex-col justify-center items-end h-full w-48 bg-card/10 backdrop-blur-sm border-l border-white/10 p-4 transition-transform duration-300 ease-in-out transform translate-x-[calc(100%-2rem)] group-hover:translate-x-0">
-              <div className="flex flex-col gap-4 w-full">
-                  {projects.map((project, index) => {
-                      const isActive = currentProjectIndex === index;
-                      return (
-                          <button
-                              key={project.id}
-                              onClick={() => scrollToProject(index)}
-                              className="relative flex items-center justify-end gap-4 transition-all duration-300 w-full text-right"
-                              aria-label={`Go to ${project.description.split('.')[0]}`}
-                          >
-                              <span
-                                  className={cn(
-                                      "font-medium truncate transition-all duration-300 font-headline opacity-0 group-hover:opacity-100",
-                                      isActive ? "text-primary text-base font-bold" : "text-muted-foreground hover:text-white text-sm"
-                                  )}
-                              >
-                                  {project.description.split('.')[0]}
-                              </span>
-                              <div className={cn("w-2 h-2 rounded-full transition-all duration-300", isActive ? "bg-primary scale-125" : "bg-muted-foreground group-hover:bg-white")}></div>
-                          </button>
-                      );
-                  })}
+      <div 
+        className="hidden md:flex fixed right-0 top-0 h-full items-center justify-end z-30"
+        onMouseEnter={() => setIsNavHovered(true)}
+        onMouseLeave={() => setIsNavHovered(false)}
+      >
+        <div className="relative flex flex-col justify-center items-end h-full w-12 transition-all duration-300 ease-in-out">
+            <div className="flex flex-col gap-4 w-full items-center">
+              {projects.map((_, index) => {
+                  const isActive = currentProjectIndex === index;
+                  return (
+                      <button
+                          key={`dot-${index}`}
+                          onClick={() => scrollToProject(index)}
+                          className="w-2 h-2 rounded-full transition-all duration-300"
+                          style={{
+                            backgroundColor: isActive ? 'hsl(var(--primary))' : 'hsl(var(--muted-foreground))',
+                            transform: isActive ? 'scale(1.5)' : 'scale(1)',
+                          }}
+                          aria-label={`Go to project ${index + 1}`}
+                      />
+                  );
+              })}
+            </div>
+        </div>
+         <AnimatePresence>
+          {isNavHovered && (
+            <motion.div
+              initial={{ x: "100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "100%" }}
+              transition={{ duration: 0.3, ease: 'easeOut' }}
+              className="absolute right-0 top-0 h-full w-48 bg-card/10 backdrop-blur-sm border-l border-white/10"
+            >
+              <div className="flex flex-col justify-center h-full p-4">
+                {projects.map((project, index) => {
+                  const isActive = currentProjectIndex === index;
+                  return (
+                    <button
+                      key={project.id}
+                      onClick={() => scrollToProject(index)}
+                      className="text-right py-2 transition-colors duration-300"
+                      aria-label={`Go to ${project.description.split('.')[0]}`}
+                    >
+                      <span
+                        className={cn(
+                          "font-medium transition-all duration-300 font-headline",
+                          isActive ? "text-primary font-bold" : "text-muted-foreground hover:text-white"
+                        )}
+                      >
+                        {project.description.split('.')[0]}
+                      </span>
+                    </button>
+                  );
+                })}
               </div>
-          </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
       </div>
     </div>
   );
