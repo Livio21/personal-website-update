@@ -97,6 +97,7 @@ function ProjectScrollerContent() {
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentProjectIndex, projects.length]);
 
 
@@ -140,7 +141,7 @@ function ProjectScrollerContent() {
               ) : null}
                 <div className="absolute inset-0 bg-background/50 backdrop-blur-lg" />
             </div>
-            <div className="relative z-10 w-full max-w-7xl h-full flex items-center">
+            <div className="relative z-10 w-full max-w-7xl h-full flex items-center pr-12">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 w-full items-center">
                 <div 
                     className="relative w-full aspect-video rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-black/30"
@@ -168,8 +169,8 @@ function ProjectScrollerContent() {
         ))}
       </div>
       
-       <div className="group hidden md:flex fixed right-0 top-0 h-full items-center justify-end z-30">
-          <div className="relative flex flex-col justify-center items-end h-full w-48 bg-card/10 backdrop-blur-sm border-l border-white/10 p-2 pr-4 transition-transform duration-300 ease-in-out transform translate-x-[calc(100%-1.5rem)] group-hover:translate-x-0">
+      <div className="group hidden md:flex fixed right-0 top-0 h-full items-center justify-end z-30">
+          <div className="relative flex flex-col justify-center items-end h-full w-48 bg-card/10 backdrop-blur-sm border-l border-white/10 p-4 transition-transform duration-300 ease-in-out transform translate-x-[calc(100%-2rem)] group-hover:translate-x-0">
               <div className="flex flex-col gap-4 w-full">
                   {projects.map((project, index) => {
                       const isActive = currentProjectIndex === index;
@@ -177,7 +178,7 @@ function ProjectScrollerContent() {
                           <button
                               key={project.id}
                               onClick={() => scrollToProject(index)}
-                              className="relative flex flex-col gap-4 transition-all duration-300 w-full text-right"
+                              className="relative flex items-center justify-end gap-4 transition-all duration-300 w-full text-right"
                               aria-label={`Go to ${project.description.split('.')[0]}`}
                           >
                               <span
@@ -188,6 +189,7 @@ function ProjectScrollerContent() {
                               >
                                   {project.description.split('.')[0]}
                               </span>
+                              <div className={cn("w-2 h-2 rounded-full transition-all duration-300", isActive ? "bg-primary scale-125" : "bg-muted-foreground group-hover:bg-white")}></div>
                           </button>
                       );
                   })}
