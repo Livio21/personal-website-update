@@ -1,34 +1,49 @@
+
 "use client"
 
 import { useState, useEffect, useRef } from 'react';
+import { useSearchParams } from 'next/navigation';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { ArrowUp, ArrowDown } from 'lucide-react';
 import { ProjectCard } from './project-card';
+import { Suspense } from 'react';
 
-export function ProjectScroller() {
+function ProjectScrollerContent() {
   const projects = PlaceHolderImages.filter(p => p.id.startsWith('project-'));
   const [currentProjectIndex, setCurrentProjectIndex] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const isScrollingRef = useRef(false);
   const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const searchParams = useSearchParams();
 
-  const scrollToProject = (index: number) => {
+  const scrollToProject = (index: number, behavior: 'smooth' | 'auto' = 'smooth') => {
     if (containerRef.current && !isScrollingRef.current) {
         isScrollingRef.current = true;
         const sectionHeight = containerRef.current.clientHeight;
         containerRef.current.scrollTo({
             top: index * sectionHeight,
-            behavior: 'smooth',
+            behavior: behavior,
         });
         setCurrentProjectIndex(index);
         
+        const timeoutDuration = behavior === 'smooth' ? 1000 : 50;
         setTimeout(() => {
             isScrollingRef.current = false;
-        }, 1000); 
+        }, timeoutDuration); 
     }
   };
+
+  useEffect(() => {
+    const projectParam = searchParams.get('project');
+    if (projectParam) {
+      const projectIndex = projects.findIndex(p => p.id === projectParam);
+      if (projectIndex !== -1) {
+        setTimeout(() => scrollToProject(projectIndex, 'auto'), 100);
+      }
+    }
+  }, [searchParams, projects]);
 
   const handleNext = () => {
     const nextIndex = (currentProjectIndex + 1) % projects.length;
@@ -159,4 +174,12 @@ export function ProjectScroller() {
       </div>
     </div>
   );
+}
+
+export function ProjectScroller() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <ProjectScrollerContent />
+    </Suspense>
+  )
 }

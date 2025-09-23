@@ -12,11 +12,19 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { ChevronDown } from "lucide-react";
+import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 const navItems = [
     { href: "/", label: "Home" },
     { href: "/about", label: "About" },
-    { href: "/projects", label: "Projects" },
+    { 
+      href: "/projects", 
+      label: "Projects",
+      sublinks: PlaceHolderImages.filter(p => p.id.startsWith('project-')).map((project) => ({
+        href: `/projects?project=${project.id}`,
+        label: project.description.split('.')[0]
+      }))
+    },
     { 
       href: "/hobbies", 
       label: "Hobbies",
