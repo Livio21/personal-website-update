@@ -1,8 +1,6 @@
 "use client"
 
-import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
-import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 interface AboutNavProps {
     sections: string[];
@@ -11,51 +9,31 @@ interface AboutNavProps {
 }
 
 export function AboutNav({ sections, currentSection, scrollToSection }: AboutNavProps) {
-  
-  const handleNext = () => {
-    const nextIndex = (currentSection + 1) % sections.length;
-    scrollToSection(nextIndex);
-  };
-
-  const handlePrev = () => {
-    const prevIndex = (currentSection - 1 + sections.length) % sections.length;
-    scrollToSection(prevIndex);
-  };
-  
   return (
-    <>
-      <Button
-        variant="outline"
-        size="icon"
-        className="fixed left-4 top-1/2 -translate-y-1/2 z-20 rounded-full bg-card/50 backdrop-blur-sm hidden md:flex"
-        onClick={handlePrev}
-      >
-        <ArrowLeft className="h-5 w-5" />
-        <span className="sr-only">Previous Section</span>
-      </Button>
-      <Button
-        variant="outline"
-        size="icon"
-        className="fixed right-4 top-1/2 -translate-y-1/2 z-20 rounded-full bg-card/50 backdrop-blur-sm hidden md:flex"
-        onClick={handleNext}
-      >
-        <ArrowRight className="h-5 w-5" />
-        <span className="sr-only">Next Section</span>
-      </Button>
-
-      <div className="fixed top-8 md:top-auto md:bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2 bg-black/10 backdrop-blur-sm border border-white/10 p-4 rounded-full ">
-        {sections.map((section, index) => (
-          <button
-            key={section}
-            onClick={() => scrollToSection(index)}
+    <div className="fixed top-1/2 -translate-y-1/2 right-4 md:right-8 z-20 flex flex-col gap-4">
+      {sections.map((section, index) => (
+        <button
+          key={section}
+          onClick={() => scrollToSection(index)}
+          className="group relative flex items-center"
+          aria-label={`Go to ${section} section`}
+        >
+          <span
             className={cn(
-              "h-4 w-4 md:h-2 md:w-2 rounded-full bg-white/40 transition-all duration-300",
-              currentSection === index ? "w-6 md:w-6 bg-white" : "hover:bg-white/70"
+              "h-2 w-2 rounded-full bg-white/40 transition-all duration-300",
+              currentSection === index ? "w-3 h-3 bg-white" : "group-hover:bg-white/70"
             )}
-            aria-label={`Go to ${section} section`}
           />
-        ))}
-      </div>
-    </>
+          <span
+            className={cn(
+              "absolute right-full mr-3 whitespace-nowrap rounded-md bg-card/80 px-2 py-1 text-xs text-foreground opacity-0 transition-opacity duration-300 group-hover:opacity-100",
+               currentSection === index && "opacity-100"
+            )}
+          >
+            {section}
+          </span>
+        </button>
+      ))}
+    </div>
   );
 }
