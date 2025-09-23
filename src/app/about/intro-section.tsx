@@ -29,10 +29,11 @@ const itemVariants = {
 export function IntroSection() {
   return (
     <motion.div 
-        className="grid grid-cols-1 md:grid-cols-5 gap-12 w-full max-w-6xl items-center"
+        className="grid grid-cols-1 md:grid-cols-5 gap-12 w-full max-w-6xl items-center px-8"
         variants={containerVariants}
         initial="hidden"
-        animate="visible"
+        whileInView="visible"
+        viewport={{ once: true, amount: 0.5 }}
     >
         <motion.div className="md:col-span-3" variants={itemVariants}>
             <Card className="bg-transparent border-none">
