@@ -60,7 +60,7 @@ export default function AboutPage() {
       <section 
         ref={el => sectionRefs.current[1] = el}
         data-section-index={1}
-        className="w-full relative snap-center"
+        className="w-full relative"
       >
         <ExperienceSection />
       </section>
