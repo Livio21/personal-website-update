@@ -168,31 +168,31 @@ function ProjectScrollerContent() {
         ))}
       </div>
       
-      <div className="hidden md:flex flex-col justify-center items-end p-2 pr-4">
-        <div className="flex flex-col gap-4 w-full">
-          {projects.map((project, index) => {
-            const isActive = currentProjectIndex === index;
-            return (
-              <button
-                key={project.id}
-                onClick={() => scrollToProject(index)}
-                className={cn(
-                  "relative flex flex-col gap-4 transition-all duration-300 w-full text-right",
-                )}
-                aria-label={`Go to ${project.description.split('.')[0]}`}
-              >
-                <span
-                  className={cn(
-                    "text-xs font-medium truncate transition-all duration-300 font-headline",
-                    isActive ? "text-primary text-base font-bold" : "text-muted-foreground hover:text-white"
-                  )}
-                >
-                  {project.description.split('.')[0]}
-                </span>
-              </button>
-            );
-          })}
-        </div>
+       <div className="group hidden md:flex fixed right-0 top-0 h-full items-center justify-end z-30">
+          <div className="relative flex flex-col justify-center items-end h-full w-48 bg-card/10 backdrop-blur-sm border-l border-white/10 p-2 pr-4 transition-transform duration-300 ease-in-out transform translate-x-[calc(100%-1.5rem)] group-hover:translate-x-0">
+              <div className="flex flex-col gap-4 w-full">
+                  {projects.map((project, index) => {
+                      const isActive = currentProjectIndex === index;
+                      return (
+                          <button
+                              key={project.id}
+                              onClick={() => scrollToProject(index)}
+                              className="relative flex flex-col gap-4 transition-all duration-300 w-full text-right"
+                              aria-label={`Go to ${project.description.split('.')[0]}`}
+                          >
+                              <span
+                                  className={cn(
+                                      "font-medium truncate transition-all duration-300 font-headline opacity-0 group-hover:opacity-100",
+                                      isActive ? "text-primary text-base font-bold" : "text-muted-foreground hover:text-white text-sm"
+                                  )}
+                              >
+                                  {project.description.split('.')[0]}
+                              </span>
+                          </button>
+                      );
+                  })}
+              </div>
+          </div>
       </div>
     </div>
   );
