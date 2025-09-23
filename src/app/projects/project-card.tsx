@@ -1,9 +1,11 @@
 "use client"
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import type { ImagePlaceholder } from "@/lib/placeholder-images";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, ChevronDown } from "lucide-react";
+import { Badge } from "@/components/ui/badge";
 
 interface ProjectCardProps {
     project: ImagePlaceholder;
@@ -29,9 +31,11 @@ const itemVariants = {
 };
 
 export function ProjectCard({ project, isActive }: ProjectCardProps) {
+    const [isExpanded, setIsExpanded] = useState(false);
+
     return (
         <motion.div
-            className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-center"
+            className="w-full"
             variants={cardVariants}
             initial="hidden"
             animate={isActive ? "visible" : "hidden"}
@@ -52,35 +56,55 @@ export function ProjectCard({ project, isActive }: ProjectCardProps) {
                 >
                     {project.description}
                 </motion.p>
-                <motion.div variants={itemVariants}>
-                    <Button variant="default" asChild size="lg">
+                
+                <AnimatePresence>
+                    {isExpanded && (
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: 'auto' }}
+                            exit={{ opacity: 0, height: 0 }}
+                            transition={{ duration: 0.3, ease: "easeInOut" }}
+                            className="overflow-hidden"
+                        >
+                            <div className="mb-6">
+                                {project.technologies && (
+                                    <div className="mb-4">
+                                        <h4 className="font-headline text-lg text-primary mb-2">Technologies Used</h4>
+                                        <div className="flex flex-wrap gap-2">
+                                            {project.technologies.map(tech => (
+                                                <Badge key={tech} variant="secondary" className="font-code">{tech}</Badge>
+                                            ))}
+                                        </div>
+                                    </div>
+                                )}
+                                {project.timeline && (
+                                     <div>
+                                        <h4 className="font-headline text-lg text-primary mb-2">Timeline</h4>
+                                        <p className="font-code text-sm text-muted-foreground">{project.timeline}</p>
+                                    </div>
+                                )}
+                            </div>
+                        </motion.div>
+                    )}
+                </AnimatePresence>
+
+                <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
+                     <Button variant="default" asChild size="lg">
                         <a href={project.url} target="_blank" rel="noopener noreferrer">
                             View Project
                             <ExternalLink className="ml-2" />
                         </a>
                     </Button>
+                    <Button variant="secondary" size="lg" onClick={() => setIsExpanded(!isExpanded)}>
+                        More Info
+                        <motion.div
+                            animate={{ rotate: isExpanded ? 180 : 0 }}
+                            transition={{ duration: 0.3 }}
+                        >
+                            <ChevronDown className="ml-2" />
+                        </motion.div>
+                    </Button>
                 </motion.div>
-            </motion.div>
-            
-            <motion.div 
-                className="relative w-full aspect-video rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-black/30"
-                variants={itemVariants}
-            >
-                {project.videoUrl ? (
-                     <video
-                        key={project.videoUrl}
-                        src={project.videoUrl}
-                        className="w-full h-full object-cover"
-                        autoPlay
-                        loop
-                        muted
-                        playsInline
-                    />
-                ) : (
-                    <div className="w-full h-full bg-card/50 flex items-center justify-center">
-                        <p className="text-muted-foreground">No preview available</p>
-                    </div>
-                )}
             </motion.div>
         </motion.div>
     );

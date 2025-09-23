@@ -4,19 +4,25 @@
       "id": "project-1",
       "description": "Portfolio Website. The very site you are on now, built with Next.js, TailwindCSS, and Framer Motion.",
       "videoUrl": "/project-1.webm",
-      "url": "https://github.com/Livio21/personal-website-update"
+      "url": "https://github.com/Livio21/personal-website-update",
+      "technologies": ["Next.js", "TailwindCSS", "Framer Motion", "TypeScript"],
+      "timeline": "3 Weeks"
     },
     {
       "id": "project-2",
       "description": "Permakinat.al. A website for a car sales company, built with React.js, Sanity.io, and TailwindCSS.",
       "videoUrl": "/project-2.webm",
-      "url": "https://permakinat-al.vercel.app/"
+      "url": "https://permakinat-al.vercel.app/",
+      "technologies": ["React.js", "Sanity.io", "TailwindCSS", "JavaScript"],
+      "timeline": "4 Weeks"
     },
     {
       "id": "project-3",
       "description": "VueCovidApp. A VueJS-based web application for COVID data, using TailwindCSS and Contentful CMS.",
       "videoUrl": "/project-3.webm",
-      "url": "https://vue-covidapp.vercel.app"
+      "url": "https://vue-covidapp.vercel.app",
+      "technologies": ["Vue.js", "Contentful", "TailwindCSS", "JavaScript"],
+      "timeline": "2 Weeks"
     },
     {
       "id": "about-main",

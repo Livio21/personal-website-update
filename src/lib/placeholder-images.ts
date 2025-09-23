@@ -11,6 +11,8 @@ export type ImagePlaceholder = {
   videoUrl?: string;
   width?: number;
   height?: number;
+  technologies?: string[];
+  timeline?: string;
 };
 
 export const PlaceHolderImages: ImagePlaceholder[] = data.placeholderImages;

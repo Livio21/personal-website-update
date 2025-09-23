@@ -123,12 +123,12 @@ function ProjectScrollerContent() {
         {projects.map((project, index) => (
           <section
             key={project.id}
-            className="h-screen w-full snap-start flex flex-1 items-center justify-center relative p-4 md:p-8 pt-16 md:pt-16 border-b-4"
+            className="h-screen w-full snap-start flex items-center justify-center relative p-4 md:p-8"
           >
             <div className="absolute inset-0 z-0">
                {project.videoUrl ? (
                 <video
-                  key={project.videoUrl}
+                  key={`${project.videoUrl}-bg`}
                   src={project.videoUrl}
                   className="w-full h-full object-cover"
                   autoPlay
@@ -137,10 +137,31 @@ function ProjectScrollerContent() {
                   playsInline
                 />
               ) : null}
-                <div className="absolute inset-0 bg-black/70" />
+                <div className="absolute inset-0 bg-background/50 backdrop-blur-lg" />
             </div>
-            <div className="relative z-10 w-full max-w-6xl h-full flex items-center">
-              <ProjectCard project={project} isActive={currentProjectIndex === index} />
+            <div className="relative z-10 w-full max-w-7xl h-full flex items-center">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 w-full items-center">
+                <div 
+                    className="relative w-full aspect-video rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-black/30"
+                >
+                    {project.videoUrl ? (
+                        <video
+                            key={project.videoUrl}
+                            src={project.videoUrl}
+                            className="w-full h-full object-cover"
+                            autoPlay
+                            loop
+                            muted
+                            playsInline
+                        />
+                    ) : (
+                        <div className="w-full h-full bg-card/50 flex items-center justify-center">
+                            <p className="text-muted-foreground">No preview available</p>
+                        </div>
+                    )}
+                </div>
+                <ProjectCard project={project} isActive={currentProjectIndex === index} />
+              </div>
             </div>
           </section>
         ))}
