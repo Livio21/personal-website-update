@@ -43,7 +43,8 @@ function ProjectScrollerContent() {
         setTimeout(() => scrollToProject(projectIndex, 'auto'), 100);
       }
     }
-  }, [searchParams, projects]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const handleNext = () => {
     const nextIndex = (currentProjectIndex + 1) % projects.length;
