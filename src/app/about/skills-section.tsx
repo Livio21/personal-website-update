@@ -43,6 +43,11 @@ const itemVariants = {
 const breathingVariants = {
     breathe: (i: number) => ({
         scale: [1, 1.05, 1],
+        boxShadow: [
+            "0px 5px 15px hsla(var(--primary), 0.1)",
+            "0px 8px 25px hsla(var(--primary), 0.2)",
+            "0px 5px 15px hsla(var(--primary), 0.1)",
+        ],
         transition: {
             delay: i * 0.1,
             duration: 3,
@@ -74,13 +79,13 @@ export function SkillsSection() {
                         className="relative group"
                     >
                          <motion.div
-                            className="p-4 rounded-lg bg-card/40 backdrop-blur-sm border border-white/10 aspect-square flex flex-col items-center justify-center gap-3 shadow-lg transition-all duration-300"
-                            whileHover={{ scale: 1.2, zIndex: 10, y: -10, boxShadow: "0px 10px 30px hsla(var(--primary), 0.3)" }}
+                            className="p-4 rounded-2xl bg-card/30 backdrop-blur-xl border border-white/10 aspect-square flex flex-col items-center justify-center gap-3 shadow-lg transition-all duration-300"
+                            whileHover={{ scale: 1.2, zIndex: 10, y: -10, boxShadow: "0px 15px 40px hsla(var(--primary), 0.3)" }}
                             variants={breathingVariants}
                             animate="breathe"
                             custom={i}
                          >
-                            <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center">
+                            <div className="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center drop-shadow-lg">
                                 {skill.icon}
                             </div>
                             <p className="font-code text-xs text-center text-muted-foreground absolute -bottom-6 opacity-0 group-hover:opacity-100 transition-opacity">{skill.name}</p>

@@ -36,7 +36,7 @@ export function IntroSection() {
         viewport={{ once: true, amount: 0.5 }}
     >
         <motion.div className="md:col-span-3" variants={itemVariants}>
-            <Card className="bg-transparent border-none">
+            <Card className="bg-card/30 backdrop-blur-xl border-white/10 shadow-2xl shadow-primary/5 p-4 rounded-2xl">
                 <CardHeader>
                     <motion.h1 
                         className="text-4xl md:text-6xl font-headline font-light tracking-tight mb-4"

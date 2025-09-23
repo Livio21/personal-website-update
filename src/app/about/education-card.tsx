@@ -15,7 +15,9 @@ interface EducationItem {
 
 export function EducationCard({ item, isCertification = false }: { item: EducationItem, isCertification?: boolean }) {
     return (
-        <Card className="w-[350px] bg-card/40 backdrop-blur-sm border-white/10 shadow-lg hover:shadow-primary/20 transition-shadow duration-300">
+        <Card className="w-[350px] bg-card/30 backdrop-blur-xl border-white/10 shadow-2xl shadow-primary/10 hover:shadow-primary/20 transition-all duration-300 rounded-2xl group relative overflow-hidden">
+             <div className="absolute top-0 left-0 w-full h-full bg-gradient-to-br from-white/5 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+             <div className="absolute -bottom-1/2 -right-1/2 w-full h-full bg-primary/20 blur-3xl opacity-0 group-hover:opacity-30 animate-pulse transition-opacity duration-500"></div>
              <CardHeader>
                 <div className="flex items-start gap-4">
                     <div className="p-2 bg-primary/20 rounded-md">
