@@ -1,49 +1,103 @@
-"use client";
+"use client"
 
-import { AboutContent } from "./about-content"
+import { useState, useRef, useEffect } from 'react';
+import { AboutNav } from './about-nav';
+import { IntroSection } from './intro-section';
+import { ExperienceSection } from './experience-section';
+import { EducationSection } from './education-section';
+import { SkillsSection } from './skills-section';
 
-const skills = [
-  "Python", "JavaScript", "HTML/CSS", "Kotlin", "Odoo", "VueJS", "ReactJS", 
-  "TailwindCSS", "Jetpack Compose", "ReportLab", "NoSQL (Firebase)", 
-  "SQL (PostgreSQL, MySQL)", "GraphQL", "GIT", "Figma", "Docker", "Vercel"
-]
-
-const experience = [
-    {
-        role: "Freelance Web Developer",
-        company: "Freelance",
-        period: "May 2025 - Present",
-        description: "Creating customized web pages using technologies such as React.js, TailwindCSS and Sanity.io, ensuring pages are responsive and optimized for SEO, and collaborating closely with clients."
-    },
-    {
-        role: "Python/Odoo Developer",
-        company: "Communication Progress",
-        period: "April 2024 - Feb 2025",
-        description: "Developed and optimized back-end services in Odoo using Python. Assisted in implementing ERP functions, improved security, and created document templates using ReportLab."
-    },
-    {
-        role: "IT Intern",
-        company: "Ministry of Justice",
-        period: "April 2024 - Sep 2024",
-        description: "Provided IT support and maintenance for internal systems, assisted in diagnosing software and hardware problems, and managed computer equipment."
-    },
-    {
-        role: "Web Developer Intern",
-        company: "AKKSHI (NASRI)",
-        period: "April 2022 - Sep 2022",
-        description: "Assisted in designing responsive components for the company website and updated the frontend with a different navigation structure."
-    }
-]
+const sections = [
+  { id: 'Intro', component: <IntroSection /> },
+  { id: 'Experience', component: <ExperienceSection /> },
+  { id: 'Education', component: <EducationSection /> },
+  { id: 'Skills', component: <SkillsSection /> },
+];
 
 export default function AboutPage() {
-  return (
-    <div className="w-full min-h-screen p-4 sm:p-8 md:p-16 pt-24">
-      <header className="mb-12">
-        <h1 className="text-4xl md:text-6xl font-headline font-light tracking-tight mb-4">About Me</h1>
-        <p className="text-lg md:text-xl text-muted-foreground font-body">My story, skills, and professional journey.</p>
-      </header>
+  const [currentSection, setCurrentSection] = useState(0);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const isScrollingRef = useRef(false);
+  const scrollTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-      <AboutContent skills={skills} experience={experience} />
-    </div>
-  )
+  const scrollToSection = (index: number) => {
+    if (containerRef.current) {
+      isScrollingRef.current = true;
+      const sectionWidth = containerRef.current.clientWidth;
+      containerRef.current.scrollTo({
+        left: index * sectionWidth,
+        behavior: 'smooth',
+      });
+      setCurrentSection(index);
+      setTimeout(() => {
+        isScrollingRef.current = false;
+      }, 1000);
+    }
+  };
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (containerRef.current && !isScrollingRef.current) {
+        if (scrollTimeoutRef.current) {
+          clearTimeout(scrollTimeoutRef.current);
+        }
+        scrollTimeoutRef.current = setTimeout(() => {
+          const index = Math.round(containerRef.current!.scrollLeft / containerRef.current!.clientWidth);
+          if (index !== currentSection) {
+            setCurrentSection(index);
+          }
+        }, 150);
+      }
+    };
+
+    const currentContainer = containerRef.current;
+    currentContainer?.addEventListener('scroll', handleScroll, { passive: true });
+
+    return () => {
+      currentContainer?.removeEventListener('scroll', handleScroll);
+      if (scrollTimeoutRef.current) {
+        clearTimeout(scrollTimeoutRef.current);
+      }
+    };
+  }, [currentSection]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'ArrowRight') {
+        const nextIndex = (currentSection + 1) % sections.length;
+        scrollToSection(nextIndex);
+      } else if (e.key === 'ArrowLeft') {
+        const prevIndex = (currentSection - 1 + sections.length) % sections.length;
+        scrollToSection(prevIndex);
+      }
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => {
+      window.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [currentSection]);
+
+  return (
+    <main className="relative h-screen w-full overflow-hidden">
+      <AboutNav
+        sections={sections.map(s => s.id)}
+        currentSection={currentSection}
+        scrollToSection={scrollToSection}
+      />
+      <div
+        ref={containerRef}
+        className="flex h-full w-full snap-x snap-mandatory overflow-x-auto no-scrollbar scroll-smooth"
+      >
+        {sections.map((section, index) => (
+          <div
+            key={section.id}
+            className="h-full w-full flex-shrink-0 snap-center flex items-center justify-center p-4 md:p-8"
+          >
+            {section.component}
+          </div>
+        ))}
+      </div>
+    </main>
+  );
 }
