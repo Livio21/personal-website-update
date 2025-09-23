@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { ArrowRight } from "lucide-react"
 import { Section } from "./section"
-import { experience, education, skills, certifications } from "./data"
+import { experience, education, skills, certifications } from "./data.tsx"
 import { Badge } from "@/components/ui/badge"
 
 const containerVariants = {
