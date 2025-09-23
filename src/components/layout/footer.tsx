@@ -31,7 +31,7 @@ export function Footer() {
         </div>
         <div className="flex items-center gap-2">
             {socialLinks.map((link) => (
-                <Button key={link.label} variant="ghost" size="icon" asChild>
+                <Button key={link.label} variant="glass" size="icon" asChild className="rounded-full">
                     <Link href={link.href} target="_blank" rel="noopener noreferrer" aria-label={link.label}>
                         {link.icon}
                     </Link>

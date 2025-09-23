@@ -18,12 +18,12 @@ export default function Home() {
           </header>
           
           <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-            <Button asChild size="lg">
+            <Button asChild size="lg" variant="glass">
               <Link href="/projects">
                 View My Work
               </Link>
             </Button>
-            <Button asChild variant="outline" size="lg">
+            <Button asChild variant="secondary" size="lg">
               <Link href="/contact">Get In Touch</Link>
             </Button>
           </div>

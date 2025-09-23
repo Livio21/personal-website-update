@@ -78,7 +78,7 @@ export function AboutContent() {
                     I thrive on solving complex problems and am constantly learning new technologies to push the boundaries of what's possible on the web. From crafting sleek user interfaces to architecting robust back-end systems, I bring a commitment to quality and a creative spark to every project.
                 </motion.p>
                  <motion.div variants={itemVariants}>
-                    <Button asChild size="lg">
+                    <Button asChild size="lg" variant="glass">
                         <Link href="/contact">
                             Get In Touch <ArrowRight className="ml-2" />
                         </Link>
