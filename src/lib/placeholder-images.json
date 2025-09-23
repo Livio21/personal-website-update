@@ -1,6 +1,12 @@
 {
   "placeholderImages": [
     {
+      "id": "project-1",
+      "description": "Portfolio Website. The very site you are on now, built with Next.js, TailwindCSS, and Framer Motion.",
+      "videoUrl": "/project-1.webm",
+      "url": "https://github.com/Livio21/personal-website-update"
+    },
+    {
       "id": "project-2",
       "description": "Permakinat.al. A website for a car sales company, built with React.js, Sanity.io, and TailwindCSS.",
       "videoUrl": "/project-2.webm",

@@ -1,10 +1,11 @@
 "use client"
 
 import { useState, useEffect, useRef } from 'react';
-import { PlaceHolderImages, type ImagePlaceholder } from '@/lib/placeholder-images';
+import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 import { ArrowUp, ArrowDown } from 'lucide-react';
+import { ProjectCard } from './project-card';
 
 export function ProjectScroller() {
   const projects = PlaceHolderImages.filter(p => p.id.startsWith('project-'));
@@ -121,26 +122,16 @@ export function ProjectScroller() {
                   playsInline
                 />
               ) : null}
-                <div className="absolute inset-0 bg-black/50" />
+                <div className="absolute inset-0 bg-black/70" />
             </div>
             <div className="relative z-10 w-full max-w-6xl h-full flex items-center">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-                <div className="p-6 rounded-xl bg-card/40 backdrop-blur-lg border border-white/10">
-                  <h2 className="text-xl sm:text-2xl md:text-4xl font-headline font-light text-primary mb-3">{project.description.split('.')[0]}</h2>
-                  <p className="text-base text-muted-foreground mb-5 font-body">{project.description}</p>
-                  <Button variant="outline" asChild>
-                    <a href={project.url} target="_blank" rel="noopener noreferrer">
-                      View Project
-                    </a>
-                  </Button>
-                </div>
-              </div>
+              <ProjectCard project={project} isActive={currentProjectIndex === index} />
             </div>
           </section>
         ))}
       </div>
       
-      <div className="hidden md:flex flex-col justify-center p-2 pr-4">
+      <div className="hidden md:flex flex-col justify-center items-end p-2 pr-4">
         <div className="flex flex-col gap-4 w-full">
           {projects.map((project, index) => {
             const isActive = currentProjectIndex === index;
@@ -156,7 +147,7 @@ export function ProjectScroller() {
                 <span
                   className={cn(
                     "text-xs font-medium truncate transition-all duration-300 font-headline",
-                    isActive ? "text-primary text-lg font-bold" : "text-muted-foreground"
+                    isActive ? "text-primary text-base font-bold" : "text-muted-foreground hover:text-white"
                   )}
                 >
                   {project.description.split('.')[0]}
