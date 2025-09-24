@@ -1,7 +1,5 @@
 "use client"
-
 import { useState, useEffect } from 'react';
-import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 const words = ['design', 'develop', 'make'];
