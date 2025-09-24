@@ -19,6 +19,7 @@ export default {
         script: ['Pacifico', '"Great Vibes"', 'cursive'],
         stardos: ['"Stardos Stencil"', 'cursive'],
         melodrama: ['Melodrama', 'cursive'],
+        stardom: ['Stardom', 'cursive'],
       },
       colors: {
         background: 'hsl(var(--background))',

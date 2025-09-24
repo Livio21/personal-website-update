@@ -5,8 +5,9 @@ import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 const words = ['design', 'develop', 'make'];
-const fonts = ['font-headline', 'font-serif', 'font-script', 'font-stardos', 'font-melodrama'];
+const fonts = ['font-headline', 'font-serif', 'font-script', 'font-stardom', 'font-melodrama'];
 const weights = ['font-light', 'font-normal', 'font-bold'];
+const styles = ['italic', 'not-italic'];
 
 const getRandomItem = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
 
@@ -16,6 +17,7 @@ const Typewriter = () => {
   const [isDeleting, setIsDeleting] = useState(false);
   const [currentFont, setCurrentFont] = useState(fonts[0]);
   const [currentWeight, setCurrentWeight] = useState(weights[0]);
+  const [currentStyle, setCurrentStyle] = useState(styles[0]);
 
 
   useEffect(() => {
@@ -36,6 +38,7 @@ const Typewriter = () => {
         setWordIndex((prev) => (prev + 1) % words.length);
         setCurrentFont(getRandomItem(fonts));
         setCurrentWeight(getRandomItem(weights));
+        setCurrentStyle(getRandomItem(styles));
       }
     };
 
@@ -47,9 +50,10 @@ const Typewriter = () => {
 
   return (
     <span className={cn(
-      "min-w-[100px] italic underline decoration-wavy underline-offset-8 decoration-2 overflow-visible",
+      "min-w-[100px] underline decoration-wavy underline-offset-8 decoration-2 overflow-visible",
       currentFont,
       currentWeight,
+      currentStyle,
     )}>
       {text}
     </span>
