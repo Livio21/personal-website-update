@@ -12,7 +12,14 @@ export default {
       fontFamily: {
         body: ['Inter', 'sans-serif'],
         headline: ['Poppins', 'sans-serif'],
-        code: ['monospace'],
+        code: ['"JetBrains Mono"', 'monospace'],
+        thin: ['Raleway', 'Montserrat', 'sans-serif'],
+        bold: ['"Bebas Neue"', '"Poppins"', 'sans-serif'],
+        serif: ['"Playfair Display"', 'Merriweather', 'serif'],
+        script: ['Pacifico', '"Great Vibes"', 'cursive'],
+        stardos: ['"Stardos Stencil"', 'cursive'],
+        melodrama: ['Melodrama', 'cursive'],
+        stardom: ['Stardom', 'cursive'],
       },
       colors: {
         background: 'hsl(var(--background))',
