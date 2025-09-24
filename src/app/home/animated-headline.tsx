@@ -9,67 +9,80 @@ const nouns = ['websites', 'web apps'];
 const fonts = ['font-thin', 'font-bold', 'font-serif', 'font-script', 'font-body', 'font-code'];
 
 const letterVariants = {
-  enter: (i: number) => ({
-    y: 0,
+  initial: { opacity: 0, y: 20 },
+  animate: {
     opacity: 1,
+    y: 0,
     transition: {
-      y: { type: "spring", stiffness: 300, damping: 20 },
-      opacity: { duration: 0.3 },
-      delay: i * 0.05,
+      duration: 0.4,
+      ease: "easeOut",
     },
-  }),
-  exit: (i: number) => ({
-    y: -20,
+  },
+  exit: {
     opacity: 0,
+    y: -20,
     transition: {
-      y: { duration: 0.2 },
-      opacity: { duration: 0.2 },
-      delay: i * 0.05,
+      duration: 0.3,
+      ease: "easeIn",
     },
-  }),
+  },
 };
 
+
 const MorphingWord = ({ words }: { words: string[] }) => {
-  const [wordIndex, setWordIndex] = useState(0);
-  const [fontIndex, setFontIndex] =useState(0);
+    const [wordIndex, setWordIndex] = useState(0);
+    const [letters, setLetters] = useState(words[0].split('').map((char, i) => ({ char, font: fonts[i % fonts.length] })));
+    const [fontStartIndex, setFontStartIndex] = useState(0);
 
-  useEffect(() => {
-    const totalCycleTime = 3000; // Total time for one word cycle
-    const letterAnimationDuration = (words[wordIndex].length * 0.05 + 0.3) * 1000;
-    const holdTime = 300;
+    useEffect(() => {
+        const currentWord = words[wordIndex];
+        const nextWord = words[(wordIndex + 1) % words.length];
 
-    const timeout = setTimeout(() => {
-        setWordIndex((prev) => (prev + 1) % words.length);
-        setFontIndex((prev) => (prev + 1) % fonts.length);
-    }, totalCycleTime);
+        const morphTimeout = setTimeout(() => {
+            // Morph letter by letter
+            for (let i = 0; i < Math.max(currentWord.length, nextWord.length); i++) {
+                setTimeout(() => {
+                    setLetters(prevLetters => {
+                        const newLetters = [...prevLetters];
+                        newLetters[i] = {
+                            char: nextWord[i] || '',
+                            font: fonts[(fontStartIndex + 1 + i) % fonts.length]
+                        };
+                        return newLetters;
+                    });
+                }, i * 100); 
+            }
+        }, 300); // Hold the word for 300ms
 
-    return () => clearTimeout(timeout);
-  }, [wordIndex, words]);
+        const nextWordTimeout = setTimeout(() => {
+            setWordIndex((prevIndex) => (prevIndex + 1) % words.length);
+            setFontStartIndex((prevIndex) => (prevIndex + 1) % fonts.length);
+        }, 300 + Math.max(currentWord.length, nextWord.length) * 100 + 300); // Total animation cycle
 
-  const currentWord = words[wordIndex];
-  const letters = currentWord.split('');
+        return () => {
+            clearTimeout(morphTimeout);
+            clearTimeout(nextWordTimeout);
+        };
+    }, [wordIndex, words, fontStartIndex]);
 
-  return (
-    <div className="inline-block min-w-[200px] text-center">
-        <AnimatePresence mode="wait">
-            <motion.div key={wordIndex} className="flex justify-center">
-                {letters.map((letter, i) => (
+    return (
+        <div className="inline-flex justify-center min-w-[240px]">
+            <AnimatePresence>
+                {letters.map(({ char, font }, i) => (
                     <motion.span
-                        key={`${wordIndex}-${i}`}
-                        custom={i}
+                        key={`${wordIndex}-${i}-${char}`}
                         variants={letterVariants}
-                        initial="exit"
-                        animate="enter"
+                        initial="initial"
+                        animate="animate"
                         exit="exit"
-                        className={cn("inline-block", fonts[(fontIndex + i) % fonts.length], "bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-400")}
+                        className={cn("inline-block", font, "bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-400")}
                     >
-                        {letter}
+                        {char === ' ' ? '\u00A0' : char}
                     </motion.span>
                 ))}
-            </motion.div>
-        </AnimatePresence>
-    </div>
-  );
+            </AnimatePresence>
+        </div>
+    );
 };
 
 const FlippingWord = ({ words }: { words: string[] }) => {
@@ -103,7 +116,7 @@ const FlippingWord = ({ words }: { words: string[] }) => {
 
 export const AnimatedHeadline = () => {
   return (
-    <h1 className="text-4xl md:text-5xl font-light tracking-tight uppercase min-h-[140px] md:min-h-[70px] flex flex-wrap items-baseline">
+    <h1 className="text-4xl md:text-5xl font-light tracking-tight uppercase min-h-[140px] md:min-h-[70px] flex flex-wrap items-baseline justify-center md:justify-start">
       <span className="font-headline bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-400 mr-2">Hello, I</span> 
       <MorphingWord words={verbs} />
       <span className="mx-2"> </span>
