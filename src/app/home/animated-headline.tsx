@@ -1,13 +1,15 @@
 "use client"
 
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import { cn } from '@/lib/utils';
 
 const words = ['design', 'develop', 'make'];
+const fonts = ['font-headline', 'font-serif', 'font-script', 'font-code'];
 
 const Typewriter = () => {
   const [wordIndex, setWordIndex] = useState(0);
+  const [fontIndex, setFontIndex] = useState(0);
   const [text, setText] = useState('');
   const [isDeleting, setIsDeleting] = useState(false);
 
@@ -27,6 +29,7 @@ const Typewriter = () => {
       } else if (isDeleting && text === '') {
         setIsDeleting(false);
         setWordIndex((prev) => (prev + 1) % words.length);
+        setFontIndex((prev) => (prev + 1) % fonts.length);
       }
     };
 
@@ -37,7 +40,10 @@ const Typewriter = () => {
   }, [text, isDeleting, wordIndex]);
 
   return (
-    <span className="font-headline bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-400 min-w-[180px] inline-block text-center md:text-left">
+    <span className={cn(
+      "bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-400 min-w-[220px] inline-block text-center md:text-left",
+      fonts[fontIndex]
+    )}>
       {text}
       <motion.span
         initial={{ opacity: 0 }}
@@ -54,7 +60,7 @@ const Typewriter = () => {
 
 export const AnimatedHeadline = () => {
   return (
-    <h1 className="text-4xl md:text-5xl font-light tracking-tight flex flex-wrap items-baseline justify-center md:justify-start">
+    <h1 className="text-4xl md:text-5xl font-light tracking-tight flex flex-wrap items-baseline justify-center md:justify-start h-24 md:h-16">
       <span className="font-headline mr-2">Hello, I</span>
       <Typewriter />
       <span className="font-headline ml-2">websites &amp; web apps.</span>
