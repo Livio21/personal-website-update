@@ -14,7 +14,7 @@ const RotatingLetter = ({ letter }: { letter: string }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setFontIndex(prev => (prev + 1) % fonts.length);
-    }, 400 + Math.random() * 200); // Stagger font changes
+    }, 800 + Math.random() * 400); // Slower, staggered font changes
     return () => clearInterval(interval);
   }, []);
 
@@ -25,7 +25,7 @@ const RotatingLetter = ({ letter }: { letter: string }) => {
         initial={{ opacity: 0, y: -10 }}
         animate={{ opacity: 1, y: 0 }}
         exit={{ opacity: 0, y: 10 }}
-        transition={{ duration: 0.2 }}
+        transition={{ duration: 0.3 }}
         className="inline-block"
       >
         <span className={cn(fonts[fontIndex], "bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-400")}>
@@ -44,7 +44,7 @@ const FlippingWord = ({ words }: { words: string[] }) => {
     const interval = setInterval(() => {
       setWordIndex(prev => (prev + 1) % words.length);
       setFontIndex(prev => (prev + 1) % fonts.length);
-    }, 2000);
+    }, 2500); // Slower interval
     return () => clearInterval(interval);
   }, [words.length]);
 
@@ -55,7 +55,7 @@ const FlippingWord = ({ words }: { words: string[] }) => {
         initial={{ opacity: 0, rotateX: 90 }}
         animate={{ opacity: 1, rotateX: 0 }}
         exit={{ opacity: 0, rotateX: -90 }}
-        transition={{ duration: 0.5, ease: "easeInOut" }}
+        transition={{ duration: 0.6, ease: "easeInOut" }}
         className={cn("inline-block", fonts[fontIndex], "bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-400")}
       >
         {words[wordIndex]}
@@ -70,20 +70,20 @@ const AnimatedVerb = ({ verbs }: { verbs: string[] }) => {
   useEffect(() => {
     const interval = setInterval(() => {
       setVerbIndex(prev => (prev + 1) % verbs.length);
-    }, 2000);
+    }, 2500); // Slower interval, matching the noun flip
     return () => clearInterval(interval);
   }, [verbs.length]);
   
   const currentVerb = verbs[verbIndex];
 
   return (
-    <AnimatePresence mode="wait">
+    <AnimatePresence mode="popLayout">
         <motion.div
          key={currentVerb}
          initial={{ opacity: 0 }}
          animate={{ opacity: 1 }}
          exit={{ opacity: 0 }}
-         transition={{ duration: 0.2 }}
+         transition={{ duration: 0.3 }}
          className="inline-block"
         >
             {currentVerb.split('').map((letter, i) => (
@@ -96,10 +96,10 @@ const AnimatedVerb = ({ verbs }: { verbs: string[] }) => {
 
 export const AnimatedHeadline = () => {
   return (
-    <h1 className="text-4xl md:text-5xl font-light tracking-tight uppercase min-h-[140px] md:min-h-[70px]">
-      <span className="font-headline bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-400">Hello, I </span> 
+    <h1 className="text-4xl md:text-5xl font-light tracking-tight uppercase min-h-[140px] md:min-h-[70px] flex flex-wrap items-baseline">
+      <span className="font-headline bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-400 mr-2">Hello, I</span> 
       <AnimatedVerb verbs={verbs} />
-      <span> </span>
+      <span className="mx-2"> </span>
       <FlippingWord words={nouns} />
     </h1>
   );
