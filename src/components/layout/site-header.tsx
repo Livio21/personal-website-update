@@ -42,8 +42,8 @@ export function SiteHeader() {
 
     return (
         <header className="hidden fixed top-2 w-full md:flex justify-between items-center px-24 z-50">
-            <div className="text-center text-3xl uppercase underline underline-offset-4 decoration-sky-500/30 font-pacifico">
-                livio macaj
+            <div className="text-center text-3xl uppercase">
+                {pathname == '/' ? "":"livio macaj"}
             </div>
             <nav className="flex items-center gap-1 p-2 rounded-full bg-zinc-900/50 hover:bg-zinc-900/90 backdrop-blur-lg border border-white/10 shadow-lg">
                 {navItems.map((item) => {
