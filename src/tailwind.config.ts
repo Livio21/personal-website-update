@@ -17,6 +17,8 @@ export default {
         bold: ['"Bebas Neue"', '"Poppins"', 'sans-serif'],
         serif: ['"Playfair Display"', 'Merriweather', 'serif'],
         script: ['Pacifico', '"Great Vibes"', 'cursive'],
+        stardos: ['"Stardos Stencil"', 'cursive'],
+        melodrama: ['Melodrama', 'cursive'],
       },
       colors: {
         background: 'hsl(var(--background))',
