@@ -6,9 +6,9 @@ import { AnimatedHeadline } from './animated-headline';
 export default function Home() {
   return (
     <div className="w-full min-h-screen snap-y flex items-center justify-center p-4 sm:p-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-8xl items-center pt-20 md:pt-0 snap-start">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-7xl items-center pt-20 md:pt-0 snap-start">
         {/* Left Column: Intro */}
-        <div className="flex flex-col gap-8 md:text-left">
+        <div className="flex flex-col gap-8 text-center md:text-left">
           <header className="mb-4">
             <AnimatedHeadline />
             <p className="max-w-2xl mx-auto md:mx-0 text-lg text-muted-foreground font-body mt-8">
