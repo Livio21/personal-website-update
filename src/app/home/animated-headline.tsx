@@ -8,31 +8,67 @@ const verbs = ['design', 'develop', 'make'];
 const nouns = ['websites', 'web apps'];
 const fonts = ['font-thin', 'font-bold', 'font-serif', 'font-script', 'font-body', 'font-code'];
 
-const RotatingLetter = ({ letter }: { letter: string }) => {
-  const [fontIndex, setFontIndex] = useState(0);
+const letterVariants = {
+  enter: (i: number) => ({
+    y: 0,
+    opacity: 1,
+    transition: {
+      y: { type: "spring", stiffness: 300, damping: 20 },
+      opacity: { duration: 0.3 },
+      delay: i * 0.05,
+    },
+  }),
+  exit: (i: number) => ({
+    y: -20,
+    opacity: 0,
+    transition: {
+      y: { duration: 0.2 },
+      opacity: { duration: 0.2 },
+      delay: i * 0.05,
+    },
+  }),
+};
+
+const MorphingWord = ({ words }: { words: string[] }) => {
+  const [wordIndex, setWordIndex] = useState(0);
+  const [fontIndex, setFontIndex] =useState(0);
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      setFontIndex(prev => (prev + 1) % fonts.length);
-    }, 800 + Math.random() * 400); // Slower, staggered font changes
-    return () => clearInterval(interval);
-  }, []);
+    const totalCycleTime = 3000; // Total time for one word cycle
+    const letterAnimationDuration = (words[wordIndex].length * 0.05 + 0.3) * 1000;
+    const holdTime = 300;
+
+    const timeout = setTimeout(() => {
+        setWordIndex((prev) => (prev + 1) % words.length);
+        setFontIndex((prev) => (prev + 1) % fonts.length);
+    }, totalCycleTime);
+
+    return () => clearTimeout(timeout);
+  }, [wordIndex, words]);
+
+  const currentWord = words[wordIndex];
+  const letters = currentWord.split('');
 
   return (
-    <AnimatePresence mode="wait">
-      <motion.span
-        key={fontIndex}
-        initial={{ opacity: 0, y: -10 }}
-        animate={{ opacity: 1, y: 0 }}
-        exit={{ opacity: 0, y: 10 }}
-        transition={{ duration: 0.3 }}
-        className="inline-block"
-      >
-        <span className={cn(fonts[fontIndex], "bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-400")}>
-          {letter}
-        </span>
-      </motion.span>
-    </AnimatePresence>
+    <div className="inline-block min-w-[200px] text-center">
+        <AnimatePresence mode="wait">
+            <motion.div key={wordIndex} className="flex justify-center">
+                {letters.map((letter, i) => (
+                    <motion.span
+                        key={`${wordIndex}-${i}`}
+                        custom={i}
+                        variants={letterVariants}
+                        initial="exit"
+                        animate="enter"
+                        exit="exit"
+                        className={cn("inline-block", fonts[(fontIndex + i) % fonts.length], "bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-400")}
+                    >
+                        {letter}
+                    </motion.span>
+                ))}
+            </motion.div>
+        </AnimatePresence>
+    </div>
   );
 };
 
@@ -44,7 +80,7 @@ const FlippingWord = ({ words }: { words: string[] }) => {
     const interval = setInterval(() => {
       setWordIndex(prev => (prev + 1) % words.length);
       setFontIndex(prev => (prev + 1) % fonts.length);
-    }, 2500); // Slower interval
+    }, 3000); 
     return () => clearInterval(interval);
   }, [words.length]);
 
@@ -64,41 +100,12 @@ const FlippingWord = ({ words }: { words: string[] }) => {
   );
 };
 
-const AnimatedVerb = ({ verbs }: { verbs: string[] }) => {
-  const [verbIndex, setVerbIndex] = useState(0);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setVerbIndex(prev => (prev + 1) % verbs.length);
-    }, 2500); // Slower interval, matching the noun flip
-    return () => clearInterval(interval);
-  }, [verbs.length]);
-  
-  const currentVerb = verbs[verbIndex];
-
-  return (
-    <AnimatePresence mode="popLayout">
-        <motion.div
-         key={currentVerb}
-         initial={{ opacity: 0 }}
-         animate={{ opacity: 1 }}
-         exit={{ opacity: 0 }}
-         transition={{ duration: 0.3 }}
-         className="inline-block"
-        >
-            {currentVerb.split('').map((letter, i) => (
-                <RotatingLetter key={`${currentVerb}-${i}`} letter={letter} />
-            ))}
-        </motion.div>
-    </AnimatePresence>
-  );
-};
 
 export const AnimatedHeadline = () => {
   return (
     <h1 className="text-4xl md:text-5xl font-light tracking-tight uppercase min-h-[140px] md:min-h-[70px] flex flex-wrap items-baseline">
       <span className="font-headline bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-400 mr-2">Hello, I</span> 
-      <AnimatedVerb verbs={verbs} />
+      <MorphingWord words={verbs} />
       <span className="mx-2"> </span>
       <FlippingWord words={nouns} />
     </h1>
