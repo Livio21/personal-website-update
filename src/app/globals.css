@@ -1,3 +1,27 @@
+/* Raleway Thin */
+@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100&display=swap');
+
+/* Montserrat Thin */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap');
+
+/* Bebas Neue */
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+
+/* Poppins Bold */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@700&display=swap');
+
+/* Playfair Display */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
+
+/* Merriweather */
+@import url('https://fonts.googleapis.com/css2?family=Merriweather&display=swap');
+
+/* Pacifico */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
+/* Great Vibes */
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

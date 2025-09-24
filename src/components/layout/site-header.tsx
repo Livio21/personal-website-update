@@ -15,11 +15,11 @@ import { ChevronDown } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 
 const navItems = [
-    { href: "/", label: "Home" },
-    { href: "/about", label: "About" },
+    { href: "/", label: "home" },
+    { href: "/about", label: "about" },
     { 
       href: "/projects", 
-      label: "Projects",
+      label: "projects",
       sublinks: PlaceHolderImages.filter(p => p.id.startsWith('project-')).map((project) => ({
         href: `/projects?project=${project.id}`,
         label: project.description.split('.')[0]
@@ -27,21 +27,24 @@ const navItems = [
     },
     { 
       href: "/hobbies", 
-      label: "Hobbies",
+      label: "hobbies",
       sublinks: [
         { href: "/hobbies?section=Photography", label: "Photography" },
         { href: "/hobbies?section=Music", label: "Music" },
         { href: "/hobbies?section=Blog", label: "Blog" },
       ] 
     },
-    { href: "/contact", label: "Contact" },
+    { href: "/contact", label: "contact" },
 ];
 
 export function SiteHeader() {
     const pathname = usePathname();
 
     return (
-        <header className="hidden md:block fixed top-2 left-1/2 -translate-x-1/2 z-50">
+        <header className="hidden fixed top-2 w-full md:flex justify-between items-center px-24 z-50">
+            <div className="text-center text-3xl uppercase underline underline-offset-4 decoration-sky-500/30 font-pacifico">
+                livio macaj
+            </div>
             <nav className="flex items-center gap-1 p-2 rounded-full bg-zinc-900/50 hover:bg-zinc-900/90 backdrop-blur-lg border border-white/10 shadow-lg">
                 {navItems.map((item) => {
                     const isActive = pathname === item.href;
@@ -52,8 +55,8 @@ export function SiteHeader() {
                                 <DropdownMenuTrigger asChild>
                                     <div
                                         className={cn(
-                                            "relative px-4 py-2 rounded-full text-sm font-medium transition-colors hover:text-primary cursor-pointer flex items-center gap-1",
-                                            isActive ? "text-primary" : "text-gray-300"
+                                            "relative px-4 py-2 rounded-full text-sm font-medium transition-colors hover:text-primary cursor-pointer flex items-center gap-1 uppercase",
+                                            isActive ? "text-primary underline decoration-wavy underline-offset-2 italic" : "text-gray-300"
                                         )}
                                     >
                                         {isActive && (
@@ -84,8 +87,8 @@ export function SiteHeader() {
                             key={item.href}
                             href={item.href}
                             className={cn(
-                                "relative px-4 py-2 rounded-full text-sm font-medium transition-colors hover:text-primary",
-                                isActive ? "text-primary" : "text-gray-300"
+                                "relative px-4 py-2 rounded-full text-sm font-medium transition-colors hover:text-primary uppercase",
+                                isActive ? "text-primary underline decoration-wavy underline-offset-2 italic" : "text-gray-300"
                             )}
                         >
                             {isActive && (

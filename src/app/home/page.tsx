@@ -1,6 +1,7 @@
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Terminal } from './terminal';
+import { AnimatedHeadline } from './animated-headline';
 
 export default function Home() {
   return (
@@ -9,10 +10,8 @@ export default function Home() {
         {/* Left Column: Intro */}
         <div className="flex flex-col gap-8 md:text-left">
           <header className="mb-4">
-            <h1 className="text-4xl md:text-5xl font-headline font-light tracking-tight mb-4 bg-clip-text text-transparent bg-gradient-to-r from-primary to-gray-400">
-              Livio Macaj
-            </h1>
-            <p className="max-w-2xl mx-auto md:mx-0 text-lg text-muted-foreground font-body">
+            <AnimatedHeadline />
+            <p className="max-w-2xl mx-auto md:mx-0 text-lg text-muted-foreground font-body mt-8">
               I'm a Software Engineer with a Bachelor's and Master's from the Canadian Institute of Technology. I specialize in building robust web applications with technologies like Python, Odoo, Vue.js, and React. I enjoy solving complex problems and collaborating with teams to deliver clean, efficient solutions. Let's connect to discuss new opportunities or bring your next idea to life!
             </p>
           </header>

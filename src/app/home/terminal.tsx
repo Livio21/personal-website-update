@@ -65,7 +65,7 @@ export function Terminal() {
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay: 0.2 }}
-      className="w-full max-w-2xl min-h-[350px] max-h-[80vh] bg-card/40 backdrop-blur-md border border-white/10 rounded-xl shadow-2xl flex flex-col font-code"
+      className="w-full max-w-2xl min-h-[350px] max-h-[80vh] bg-card/40 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl flex flex-col font-code"
     >
       <div className="flex items-center gap-2 p-3 bg-secondary/30 rounded-t-xl border-b border-white/10">
         <div className="w-3 h-3 rounded-full bg-red-500"></div>
@@ -99,7 +99,7 @@ export function Terminal() {
             value={input}
             onChange={handleInputChange}
             onKeyDown={handleCommand}
-            className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground/50"
+            className="flex-1 bg-transparent border-none outline-none text-foreground placeholder:text-muted-foreground/70"
             autoComplete="off"
           />
         </div>

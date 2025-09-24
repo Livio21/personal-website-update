@@ -13,6 +13,10 @@ export default {
         body: ['Inter', 'sans-serif'],
         headline: ['Poppins', 'sans-serif'],
         code: ['"JetBrains Mono"', 'monospace'],
+        thin: ['Raleway', 'Montserrat', 'sans-serif'],
+        bold: ['"Bebas Neue"', '"Poppins"', 'sans-serif'],
+        serif: ['"Playfair Display"', 'Merriweather', 'serif'],
+        script: ['Pacifico', '"Great Vibes"', 'cursive'],
       },
       colors: {
         background: 'hsl(var(--background))',
