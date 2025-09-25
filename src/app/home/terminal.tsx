@@ -95,7 +95,7 @@ export function Terminal() {
           <input
             ref={inputRef}
             id="terminal-input"
-            autofocus="false"
+            autoFocus={false}
             type="text"
             value={input}
             onChange={handleInputChange}

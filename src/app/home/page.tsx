@@ -2,7 +2,6 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Terminal } from './terminal';
 import { AnimatedHeadline } from './animated-headline';
-import { GsapScrollSection } from './gsap-scroll-section';
 
 export default function Home() {
   return (
@@ -32,7 +31,6 @@ export default function Home() {
           <Terminal />
         </div>
       </div>
-      <GsapScrollSection />
     </div>
   );
 }
