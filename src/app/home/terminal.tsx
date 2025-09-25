@@ -25,11 +25,13 @@ const commands: { [key: string]: string | (() => string) } = {
 export function Terminal() {
   const [input, setInput] = useState('');
   const [output, setOutput] = useState<{ type: 'input' | 'output'; content: string }[]>([]);
-  const endOfTerminalRef = useRef<HTMLDivElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    endOfTerminalRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (containerRef.current) {
+        containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
   }, [output]);
   
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -57,7 +59,9 @@ export function Terminal() {
 
   const handleClick = () => {
     inputRef.current?.focus();
-    endOfTerminalRef.current?.scrollIntoView({ behavior: 'smooth' });
+    if (containerRef.current) {
+      containerRef.current.scrollTop = containerRef.current.scrollHeight;
+    }
   };
   
   return (
@@ -72,7 +76,7 @@ export function Terminal() {
         <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
         <div className="w-3 h-3 rounded-full bg-green-500"></div>
       </div>
-      <div className="flex-1 p-4 overflow-y-auto no-scrollbar" onClick={handleClick}>
+      <div ref={containerRef} className="flex-1 p-4 overflow-y-auto no-scrollbar" onClick={handleClick}>
         <div className='pb-2 text-muted-foreground'>
           <p>Welcome to my interactive terminal!</p>
           <p>Type `help` to see the list of available commands.</p>
@@ -104,8 +108,6 @@ export function Terminal() {
             autoComplete="off"
           />
         </div>
-        <div ref={endOfTerminalRef} />
-        
       </div>
     </motion.div>
   );
