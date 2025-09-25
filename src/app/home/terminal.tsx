@@ -95,6 +95,7 @@ export function Terminal() {
           <input
             ref={inputRef}
             id="terminal-input"
+            autofocus="false"
             type="text"
             value={input}
             onChange={handleInputChange}
@@ -104,6 +105,7 @@ export function Terminal() {
           />
         </div>
         <div ref={endOfTerminalRef} />
+        
       </div>
     </motion.div>
   );
