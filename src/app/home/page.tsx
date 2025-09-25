@@ -11,7 +11,7 @@ export default function Home() {
           <header className="mb-4">
             <AnimatedHeadline />
             <p className="max-w-2xl mx-auto md:mx-0 text-lg text-muted-foreground font-body mt-8">
-              I'm <span className="font-stardom text-xl font-thin text-primary underline underline-dashed underline-offset-2 decoration-1 italic">&nbsp;Livio Macaj&nbsp;</span>
+              I'm <span className="font-[Poppins] text-xl font-thin text-primary underline underline-dashed underline-offset-2 decoration-1 italic">&nbsp;Livio Macaj&nbsp;</span>
                a Software Engineer with a Bachelor's and Master's from the Canadian Institute of Technology. I specialize in building robust web applications with technologies like Python, Odoo, Vue.js, and React. I enjoy solving complex problems and collaborating with teams to deliver clean, efficient solutions. Let's connect to discuss new opportunities or bring your next idea to life!
             </p>
           </header>

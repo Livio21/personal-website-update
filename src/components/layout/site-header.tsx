@@ -98,7 +98,7 @@ export function SiteHeader() {
     return (
         <header className="hidden fixed top-2 w-full md:flex justify-between items-center px-24 z-50">
             <div className="text-center text-3xl uppercase">
-                {pathname === '/' ? "" : <Link href="/">livio macaj</Link>}
+                {pathname === '/' ? "" : <Link href="/" className="font-thin hover:bg-black/20 rounded-full px-6 py-2 border border-white/0 hover:border-white/20">livio macaj</Link>}
             </div>
             <nav className="flex items-center gap-1 p-2 rounded-full bg-zinc-900/50 hover:bg-zinc-900/90 backdrop-blur-lg border border-white/10 shadow-lg">
                 {navItems.map((item) => {
