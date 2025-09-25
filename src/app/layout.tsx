@@ -4,7 +4,6 @@ import './globals.css';
 import { MobileNav } from '@/components/layout/mobile-nav';
 import { Toaster } from '@/components/ui/toaster';
 import { SiteHeader } from '@/components/layout/site-header';
-import { LavaLamp } from '@/components/layout/lava-lamp';
 import { LoadingGate } from './loading-gate';
 import { ConditionalFooter } from '@/components/layout/conditional-footer';
 
@@ -22,8 +21,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
       </head>
-      <body className="font-body antialiased">
-        <LavaLamp />
+      <body className="font-body ">
         <LoadingGate>
           <div className="relative flex flex-col min-h-screen overflow-x-hidden content-area">
             <SiteHeader />

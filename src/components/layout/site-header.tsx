@@ -28,7 +28,7 @@ const navItems = [
     },
     { 
       href: "/hobbies", 
-      label: "hobbies",
+      label: "interests",
       sublinks: [
         { href: "/hobbies?section=Photography", label: "Photography" },
         { href: "/hobbies?section=Music", label: "Music" },
@@ -36,6 +36,7 @@ const navItems = [
       ] 
     },
     { href: "/contact", label: "contact" },
+    { href: "/design", label: "design" },
 ];
 
 interface HoverDropdownProps {
@@ -135,3 +136,4 @@ export function SiteHeader() {
         </header>
     );
 }
+

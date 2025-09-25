@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, User, Briefcase, Star, Mail } from "lucide-react";
+import { Home, User, Briefcase, Star, Mail, Paintbrush } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -12,6 +12,7 @@ const navItems = [
   { href: "/projects", label: "Projects", icon: Briefcase },
   { href: "/hobbies", label: "Hobbies", icon: Star },
   { href: "/contact", label: "Contact", icon: Mail },
+  { href: "/design", label: "Design", icon: Paintbrush },
 ];
 
 export function MobileNav() {

@@ -2,6 +2,7 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Terminal } from './terminal';
 import { AnimatedHeadline } from './animated-headline';
+import { ShinyButton } from '@/components/ui/shiny-button';
 
 export default function Home() {
   return (
