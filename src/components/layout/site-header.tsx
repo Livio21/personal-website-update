@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { ChevronDown } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
+import React, { useState } from "react";
 
 const navItems = [
     { href: "/", label: "home" },
@@ -37,13 +38,62 @@ const navItems = [
     { href: "/contact", label: "contact" },
 ];
 
+interface HoverDropdownProps {
+  item: typeof navItems[0];
+  isActive: boolean;
+  children: React.ReactNode;
+}
+
+function HoverDropdown({ item, isActive, children }: HoverDropdownProps) {
+  const [open, setOpen] = useState(false);
+
+  return (
+    <DropdownMenu open={open} onOpenChange={setOpen}>
+      <div 
+        className="flex items-center"
+        onMouseEnter={() => setOpen(true)}
+        onMouseLeave={() => setOpen(false)}
+      >
+        <Link
+            href={item.href}
+            className={cn(
+                "relative px-4 py-2 rounded-l-full text-sm font-medium transition-colors hover:text-primary uppercase",
+                isActive ? "text-primary underline decoration-wavy underline-offset-2 italic" : "text-gray-300"
+            )}
+        >
+            {isActive && (
+                <motion.div
+                    layoutId="desktop-nav-active-pill"
+                    className="absolute inset-0 bg-primary"
+                    style={{ borderRadius: 9999 }}
+                    transition={{ type: "spring", stiffness: 350, damping: 30 }}
+                />
+            )}
+            <span className={cn("relative z-10", isActive && "mix-blend-exclusion")}>{item.label}</span>
+        </Link>
+        <DropdownMenuTrigger asChild>
+            <div className={cn(
+                "relative pl-1 pr-3 py-2 rounded-r-full text-sm font-medium transition-colors hover:text-primary cursor-pointer flex items-center gap-1 uppercase",
+                isActive ? "text-primary" : "text-gray-300"
+              )}
+            >
+              <ChevronDown className={cn("relative z-10 h-4 w-4 transition-transform", isActive && "mix-blend-exclusion")} />
+            </div>
+        </DropdownMenuTrigger>
+      </div>
+      {children}
+    </DropdownMenu>
+  );
+}
+
+
 export function SiteHeader() {
     const pathname = usePathname();
 
     return (
         <header className="hidden fixed top-2 w-full md:flex justify-between items-center px-24 z-50">
             <div className="text-center text-3xl uppercase">
-                {pathname == '/' ? "":"livio macaj"}
+                {pathname === '/' ? "" : <Link href="/">livio macaj</Link>}
             </div>
             <nav className="flex items-center gap-1 p-2 rounded-full bg-zinc-900/50 hover:bg-zinc-900/90 backdrop-blur-lg border border-white/10 shadow-lg">
                 {navItems.map((item) => {
@@ -51,34 +101,15 @@ export function SiteHeader() {
                     
                     if (item.sublinks) {
                         return (
-                            <DropdownMenu key={item.href}>
-                                <DropdownMenuTrigger asChild>
-                                    <div
-                                        className={cn(
-                                            "relative px-4 py-2 rounded-full text-sm font-medium transition-colors hover:text-primary cursor-pointer flex items-center gap-1 uppercase",
-                                            isActive ? "text-primary underline decoration-wavy underline-offset-2 italic" : "text-gray-300"
-                                        )}
-                                    >
-                                        {isActive && (
-                                            <motion.div
-                                                layoutId="desktop-nav-active-pill"
-                                                className="absolute inset-0 bg-primary"
-                                                style={{ borderRadius: 9999 }}
-                                                transition={{ type: "spring", stiffness: 350, damping: 30 }}
-                                            />
-                                        )}
-                                        <span className={cn("relative z-10", isActive && "mix-blend-exclusion")}>{item.label}</span>
-                                        <ChevronDown className={cn("relative z-10 h-4 w-4 transition-transform", isActive && "mix-blend-exclusion")} />
-                                    </div>
-                                </DropdownMenuTrigger>
-                                <DropdownMenuContent className="bg-zinc-800/80 backdrop-blur-lg border-white/10 text-gray-200">
-                                    {item.sublinks.map((sublink) => (
-                                        <DropdownMenuItem key={sublink.href} asChild className="cursor-pointer focus:bg-zinc-700/80">
-                                            <Link href={sublink.href}>{sublink.label}</Link>
-                                        </DropdownMenuItem>
-                                    ))}
-                                </DropdownMenuContent>
-                            </DropdownMenu>
+                          <HoverDropdown key={item.href} item={item} isActive={isActive}>
+                            <DropdownMenuContent className="bg-zinc-900/80 backdrop-blur-xl border-white/10 text-gray-200 w-56">
+                                {item.sublinks.map((sublink) => (
+                                    <DropdownMenuItem key={sublink.href} asChild className="cursor-pointer focus:bg-zinc-700/80">
+                                        <Link href={sublink.href}>{sublink.label}</Link>
+                                    </DropdownMenuItem>
+                                ))}
+                            </DropdownMenuContent>
+                          </HoverDropdown>
                         )
                     }
 

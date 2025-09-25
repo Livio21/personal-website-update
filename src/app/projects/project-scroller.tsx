@@ -219,7 +219,7 @@ function ProjectScrollerContent() {
                             >
                                 <span
                                 className={cn(
-                                    "font-medium transition-all duration-300 font-headline",
+                                    "font-medium transition-all duration-300 font-headline line-clamp-1",
                                     isActive ? "text-primary font-bold" : "text-muted-foreground hover:text-white"
                                 )}
                                 >
