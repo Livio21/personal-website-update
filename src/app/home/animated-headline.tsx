@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils';
 
 const words = ['design', 'develop', 'make'];
 const fonts = ['font-headline', 'font-serif', 'font-script', 'font-stardom', 'font-melodrama'];
-const weights = ['font-light', 'font-normal', 'font-bold'];
+const weights = ['font-thin', 'font-normal', 'font-bold'];
 const styles = ['italic', 'not-italic'];
 
 const getRandomItem = (arr: string[]) => arr[Math.floor(Math.random() * arr.length)];
@@ -62,9 +62,9 @@ const Typewriter = () => {
 export const AnimatedHeadline = () => {
   return (
     <h1 className="text-4xl md:text-5xl font-light tracking-tight flex-wrap justify-center text-center">
-      <span className="font-headline">Hello, I&nbsp;</span>
+      <span className="font-headline font-thin">Hello, I&nbsp;</span>
       <Typewriter />
-      <span className="font-headline">&nbsp;websites.</span>
+      <span className="font-headline font-thin">&nbsp;websites.</span>
     </h1>
   );
 };

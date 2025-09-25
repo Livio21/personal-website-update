@@ -71,14 +71,34 @@ export function Terminal() {
       transition={{ duration: 0.5, delay: 0.2 }}
       className="w-full max-w-2xl min-h-[350px] max-h-[80vh] bg-card/40 backdrop-blur-xl border border-white/10 rounded-xl shadow-2xl flex flex-col font-code"
     >
-      <div className="flex items-center gap-2 p-3 bg-secondary/30 rounded-t-xl border-b border-white/10">
-        <div className="w-3 h-3 rounded-full bg-red-500"></div>
-        <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
-        <div className="w-3 h-3 rounded-full bg-green-500"></div>
+      <div className="flex items-center gap-2 p-3 bg-secondary/30 rounded-t-xl border-b border-white/10 group">
+ <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+ <motion.circle 
+  cx="6" cy="6" r="6" fill="#3b1fb8"
+  initial={{ scale: 1 }}
+  whileHover={{ scale: 1.2 }}
+  transition={{ duration: 0.2 }}
+ />
+ </svg>
+ <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+ <motion.rect 
+  x="0" width="12" height="12" rx="3" fill="#821fb8"
+  initial={{ scale: 1 }}
+  whileHover={{ rotate: 90, scale: 1.2 }}
+  transition={{ duration: 0.3 }}
+ />
+ </svg>
+ <svg width="12" height="12" viewBox="0 0 12 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+ <motion.path 
+  d="M6 0L12 12H0L6 0Z" fill="#1fb8b5"
+  initial={{ scale: 1 }}
+  whileHover={{ scale: 1.2, rotate: 360 }}
+  transition={{ duration: 0.5 }}
+ />
+ </svg>
       </div>
       <div ref={containerRef} className="flex-1 p-4 overflow-y-auto no-scrollbar" onClick={handleClick}>
-        <div className='pb-2 text-muted-foreground'>
-          <p>Welcome to my interactive terminal!</p>
+        <div className='pb-2 text-sm text-muted-foreground'>
           <p>Type `help` to see the list of available commands.</p>
         </div>
         {output.map((line, index) => (
