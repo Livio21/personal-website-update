@@ -48,7 +48,7 @@ function HoverDropdown({ item, isActive, children }: HoverDropdownProps) {
   const [open, setOpen] = useState(false);
 
   return (
-    <DropdownMenu open={open} onOpenChange={setOpen}>
+    <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
       <div 
         className="flex items-center"
         onMouseEnter={() => setOpen(true)}
