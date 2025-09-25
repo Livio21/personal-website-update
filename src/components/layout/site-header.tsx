@@ -41,15 +41,14 @@ const navItems = [
 interface HoverDropdownProps {
   item: typeof navItems[0];
   isActive: boolean;
-  children: React.ReactNode;
 }
 
-function HoverDropdown({ item, isActive, children }: HoverDropdownProps) {
+function HoverDropdown({ item, isActive }: HoverDropdownProps) {
   const [open, setOpen] = useState(false);
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
-      <div 
+       <div 
         className="flex items-center"
         onMouseEnter={() => setOpen(true)}
         onMouseLeave={() => setOpen(false)}
@@ -80,8 +79,14 @@ function HoverDropdown({ item, isActive, children }: HoverDropdownProps) {
               <ChevronDown className={cn("relative z-10 h-4 w-4 transition-transform", isActive && "mix-blend-exclusion")} />
             </div>
         </DropdownMenuTrigger>
+        <DropdownMenuContent className="bg-zinc-900/80 backdrop-blur-xl border-white/10 text-gray-200 w-56" onMouseLeave={() => setOpen(false)}>
+            {item.sublinks?.map((sublink) => (
+                <DropdownMenuItem key={sublink.href} asChild className="cursor-pointer focus:bg-zinc-700/80">
+                    <Link href={sublink.href}>{sublink.label}</Link>
+                </DropdownMenuItem>
+            ))}
+        </DropdownMenuContent>
       </div>
-      {children}
     </DropdownMenu>
   );
 }
@@ -97,19 +102,11 @@ export function SiteHeader() {
             </div>
             <nav className="flex items-center gap-1 p-2 rounded-full bg-zinc-900/50 hover:bg-zinc-900/90 backdrop-blur-lg border border-white/10 shadow-lg">
                 {navItems.map((item) => {
-                    const isActive = pathname === item.href;
+                    const isActive = pathname === item.href || (item.href !== "/" && pathname.startsWith(item.href));
                     
                     if (item.sublinks) {
                         return (
-                          <HoverDropdown key={item.href} item={item} isActive={isActive}>
-                            <DropdownMenuContent className="bg-zinc-900/80 backdrop-blur-xl border-white/10 text-gray-200 w-56">
-                                {item.sublinks.map((sublink) => (
-                                    <DropdownMenuItem key={sublink.href} asChild className="cursor-pointer focus:bg-zinc-700/80">
-                                        <Link href={sublink.href}>{sublink.label}</Link>
-                                    </DropdownMenuItem>
-                                ))}
-                            </DropdownMenuContent>
-                          </HoverDropdown>
+                          <HoverDropdown key={item.href} item={item} isActive={isActive} />
                         )
                     }
 
