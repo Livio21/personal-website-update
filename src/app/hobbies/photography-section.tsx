@@ -15,12 +15,15 @@ import {
 } from "@/components/ui/dialog"
 import { MasonryGallery, MasonrySkeleton } from './masonry-gallery';
 import { Button } from '@/components/ui/button';
-import { ArrowRight, ArrowLeft } from 'lucide-react';
+import { ArrowRight, ArrowLeft, Loader2 } from 'lucide-react';
+import { Skeleton } from '@/components/ui/skeleton';
 
 export function PhotographySection() {
   const [photos, setPhotos] = useState<ImagePlaceholder[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedImage, setSelectedImage] = useState<ImagePlaceholder | null>(null);
+  const [isFullImageLoading, setIsFullImageLoading] = useState(true);
+
 
   useEffect(() => {
     const fetchPhotos = async () => {
@@ -49,6 +52,7 @@ export function PhotographySection() {
   }, []);
 
   const handleImageClick = (hobby: ImagePlaceholder) => {
+    setIsFullImageLoading(true);
     setSelectedImage(hobby);
   };
   
@@ -58,6 +62,7 @@ export function PhotographySection() {
 
   const handleNextImage = useCallback(() => {
     if (!selectedImage || photos.length === 0) return;
+    setIsFullImageLoading(true);
     const currentIndex = photos.findIndex(p => p.id === selectedImage.id);
     const nextIndex = (currentIndex + 1) % photos.length;
     setSelectedImage(photos[nextIndex]);
@@ -65,6 +70,7 @@ export function PhotographySection() {
 
   const handlePrevImage = useCallback(() => {
     if (!selectedImage || photos.length === 0) return;
+    setIsFullImageLoading(true);
     const currentIndex = photos.findIndex(p => p.id === selectedImage.id);
     const prevIndex = (currentIndex - 1 + photos.length) % photos.length;
     setSelectedImage(photos[prevIndex]);
@@ -108,17 +114,25 @@ export function PhotographySection() {
       </section>
 
       <Dialog open={!!selectedImage} onOpenChange={(open) => !open && handleCloseDialog()}>
-        <DialogContent className="p-0 border-none bg-transparent w-full max-w-5xl h-[90vh] shadow-none">
+        <DialogContent className="p-0 border-none bg-transparent w-full max-w-5xl h-[90vh] shadow-none flex items-center justify-center">
           {selectedImage && (
             <div className='relative w-full h-full group'>
+               {isFullImageLoading && (
+                <div className="absolute inset-0 flex items-center justify-center bg-black/50 rounded-xl">
+                   <Skeleton className="w-full h-full rounded-xl" />
+                   <Loader2 className="absolute h-12 w-12 text-primary animate-spin" />
+                </div>
+              )}
               <Image
                 src={selectedImage.imageUrl}
                 alt={selectedImage.description}
                 fill
-                className="object-cover rounded-xl"
+                className="object-contain rounded-xl"
                 sizes="100vw"
+                onLoad={() => setIsFullImageLoading(false)}
+                style={{ opacity: isFullImageLoading ? 0 : 1 }}
               />
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end rounded-b-xl">
+              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end rounded-b-xl transition-opacity duration-300 opacity-0 group-hover:opacity-100">
                  <DialogHeader>
                     <DialogTitle className="text-lg font-bold text-white font-headline text-left max-w-[75%]">{selectedImage.description}</DialogTitle>
                     <DialogDescription className="text-left">
