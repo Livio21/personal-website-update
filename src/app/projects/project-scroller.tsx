@@ -37,6 +37,9 @@ function ProjectVideo({ project, isActive }: { project: typeof PlaceHolderImages
   useEffect(() => {
     // Reset when the project video changes
     setIsVideoLoaded(false);
+    if (!project.videoUrl) {
+      setIsVideoLoaded(true);
+    }
   }, [project.videoUrl]);
 
   return (
@@ -62,7 +65,7 @@ function ProjectVideo({ project, isActive }: { project: typeof PlaceHolderImages
         transition={{ duration: 0.5 }}
       >
         <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-black/30">
-          {project.videoUrl ? (
+          {project.videoUrl && (
             <video
               key={project.videoUrl}
               src={project.videoUrl}
@@ -73,9 +76,6 @@ function ProjectVideo({ project, isActive }: { project: typeof PlaceHolderImages
               playsInline
               onCanPlay={() => setIsVideoLoaded(true)}
             />
-          ) : (
-             // Immediately set to loaded if there's no video
-             () => { useEffect(() => setIsVideoLoaded(true), []) }()
           )}
         </div>
         <ProjectCard project={project} isActive={isActive} />
