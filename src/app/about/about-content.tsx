@@ -43,10 +43,12 @@ export function AboutContent() {
         animate="visible"
     >
         {/* --- INTRO SECTION --- */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+        <motion.div 
+            className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center bg-card/40 backdrop-blur-lg border border-white/10 rounded-lg p-8 mb-16"
+            variants={itemVariants}
+        >
             <motion.div 
-              className="relative w-full aspect-[4/5] rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-black/30 md:col-span-1"
-              variants={itemVariants}
+              className="relative w-full aspect-[4/5] rounded-lg overflow-hidden shadow-2xl bg-black/30 md:col-span-1"
             >
                 {aboutImage && (
                      <Image
@@ -85,67 +87,56 @@ export function AboutContent() {
                     </Button>
                 </motion.div>
             </motion.div>
-        </div>
+        </motion.div>
         
-        {/* --- EXPERIENCE SECTION --- */}
-        <Section title="Experience">
-            <div className="flex flex-col gap-10">
-                {experience.map((job, index) => (
-                    <motion.div key={index} className="flex flex-col md:flex-row gap-4" variants={itemVariants}>
-                        <div className="md:w-1/4">
+        {/* --- EXPERIENCE & EDUCATION SECTION --- */}
+        <div className="grid md:grid-cols-2 gap-8">
+            <Section title="Experience">
+                <div className="flex flex-col gap-8">
+                    {experience.map((job, index) => (
+                        <motion.div key={index} className="flex flex-col gap-2" variants={itemVariants}>
                             <p className="font-code text-sm text-muted-foreground">{job.duration}</p>
-                        </div>
-                        <div className="md:w-3/4">
                             <h3 className="text-xl font-headline font-medium text-primary">{job.role}</h3>
                             <p className="text-lg font-body text-muted-foreground mb-2">{job.company}</p>
                             <p className="font-body text-foreground/80">{job.description}</p>
-                        </div>
-                    </motion.div>
-                ))}
-            </div>
-        </Section>
-        
-        {/* --- EDUCATION SECTION --- */}
-        <Section title="Education">
-            <div className="flex flex-col gap-10">
-                {education.map((edu, index) => (
-                    <motion.div key={index} className="flex flex-col md:flex-row gap-4" variants={itemVariants}>
-                        <div className="md:w-1/4">
+                        </motion.div>
+                    ))}
+                </div>
+            </Section>
+            
+            <Section title="Education">
+                <div className="flex flex-col gap-8">
+                    {education.map((edu, index) => (
+                        <motion.div key={index} className="flex flex-col gap-2" variants={itemVariants}>
                             <p className="font-code text-sm text-muted-foreground">{edu.duration}</p>
-                        </div>
-                        <div className="md:w-3/4">
                             <h3 className="text-xl font-headline font-medium text-primary">{edu.degree}</h3>
                             <p className="text-lg font-body text-muted-foreground">{edu.institution}</p>
-                        </div>
-                    </motion.div>
-                ))}
-            </div>
-        </Section>
+                        </motion.div>
+                    ))}
+                </div>
+            </Section>
+        </div>
         
         {/* --- SKILLS SECTION --- */}
-        <Section title="Skills">
+        <Section title="Skills & Certifications">
              <motion.div className="flex flex-wrap gap-4" variants={itemVariants}>
                 {skills.map((skill, index) => (
-                   <div key={index} className="flex items-center gap-3 bg-card/40 backdrop-blur-sm border border-white/10 rounded-lg p-3">
+                   <div key={index} className="flex items-center gap-3 bg-card/40 backdrop-blur-sm border border-white/10 rounded-lg p-3 hover:bg-card/60 transition-colors">
                        {skill.icon && <div className="w-6 h-6 text-primary">{skill.icon}</div>}
                        <span className="font-code text-sm font-medium">{skill.name}</span>
                    </div>
                 ))}
             </motion.div>
-        </Section>
-        
-        {/* --- CERTIFICATIONS SECTION --- */}
-        <Section title="Certifications">
-            <motion.div className="flex flex-col gap-4" variants={itemVariants}>
+            <motion.div className="flex flex-wrap gap-4 mt-8" variants={itemVariants}>
                 {certifications.map((cert, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-card/40 backdrop-blur-sm border border-white/10 rounded-lg">
+                    <div key={index} className="flex items-center justify-between p-3 bg-card/40 backdrop-blur-sm border border-white/10 rounded-lg grow">
                         <p className="font-body font-medium">{cert.name}</p>
                         <Badge variant="secondary" className="font-code">{cert.year}</Badge>
                     </div>
                 ))}
             </motion.div>
         </Section>
-
+        
     </motion.div>
   );
 }

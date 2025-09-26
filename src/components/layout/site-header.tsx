@@ -36,7 +36,7 @@ const navItems = [
       ] 
     },
     { href: "/contact", label: "contact" },
-    { href: "/design", label: "design" },
+   
 ];
 
 interface HoverDropdownProps {

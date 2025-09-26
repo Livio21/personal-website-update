@@ -21,7 +21,7 @@ const itemVariants = {
 export function Section({ title, children }: SectionProps) {
     return (
         <motion.section 
-          className="py-16" 
+          className="bg-card/40 backdrop-blur-lg border border-white/10 rounded-lg p-8"
           variants={itemVariants}
           initial="hidden"
           whileInView="visible"
