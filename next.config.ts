@@ -41,7 +41,13 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_UNSPLASH_USERNAME: process.env.NEXT_PUBLIC_UNSPLASH_USERNAME,
     LASTFM_API_KEY: process.env.LASTFM_API_KEY,
     NEXT_PUBLIC_LASTFM_USERNAME: process.env.NEXT_PUBLIC_LASTFM_USERNAME,
-  }
+  },
+  experimental: {
+    allowedDevOrigins: [
+      "https://*.cloudworkstations.dev",
+      "https://*.firebase.studio"
+    ]
+  },
 };
 
 export default nextConfig;

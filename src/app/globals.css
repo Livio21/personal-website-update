@@ -30,6 +30,7 @@
 @tailwind utilities;
 
 @layer base {
+  /*
   @font-face {
     font-family: 'Melodrama';
     src: url('/fonts/Melodrama-Regular.woff2') format('woff2');
@@ -45,6 +46,7 @@
     font-style: normal;
     font-display: swap;
   }
+  */
 
   :root {
     --background: 0 0% 100%;
