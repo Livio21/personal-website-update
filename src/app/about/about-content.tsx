@@ -7,7 +7,7 @@ import { Button } from "@/components/ui/button"
 import { PlaceHolderImages } from "@/lib/placeholder-images"
 import { ArrowRight } from "lucide-react"
 import { Section } from "./section"
-import { experience, education, skills, certifications } from "./data.tsx"
+import { experience, education, skills, certifications } from "./data"
 import { Badge } from "@/components/ui/badge"
 
 const containerVariants = {
@@ -90,15 +90,15 @@ export function AboutContent() {
         </motion.div>
         
         {/* --- EXPERIENCE & EDUCATION SECTION --- */}
-        <div className="grid md:grid-cols-2 gap-8">
-            <Section title="Experience">
+        <div className="grid md:grid-cols-2 gap-8 mb-8">
+            <Section title="Work Experience">
                 <div className="flex flex-col gap-8">
                     {experience.map((job, index) => (
                         <motion.div key={index} className="flex flex-col gap-2" variants={itemVariants}>
                             <p className="font-code text-sm text-muted-foreground">{job.duration}</p>
                             <h3 className="text-xl font-headline font-medium text-primary">{job.role}</h3>
                             <p className="text-lg font-body text-muted-foreground mb-2">{job.company}</p>
-                            <p className="font-body text-foreground/80">{job.description}</p>
+                            <p className="font-body text-foreground/80 leading-relaxed">{job.description}</p>
                         </motion.div>
                     ))}
                 </div>
@@ -117,25 +117,32 @@ export function AboutContent() {
             </Section>
         </div>
         
-        {/* --- SKILLS SECTION --- */}
-        <Section title="Skills & Certifications">
-             <motion.div className="flex flex-wrap gap-4" variants={itemVariants}>
-                {skills.map((skill, index) => (
-                   <div key={index} className="flex items-center gap-3 bg-card/40 backdrop-blur-sm border border-white/10 rounded-lg p-3 hover:bg-card/60 transition-colors">
-                       {skill.icon && <div className="w-6 h-6 text-primary">{skill.icon}</div>}
-                       <span className="font-code text-sm font-medium">{skill.name}</span>
-                   </div>
-                ))}
-            </motion.div>
-            <motion.div className="flex flex-wrap gap-4 mt-8" variants={itemVariants}>
-                {certifications.map((cert, index) => (
-                    <div key={index} className="flex items-center justify-between p-3 bg-card/40 backdrop-blur-sm border border-white/10 rounded-lg grow">
-                        <p className="font-body font-medium">{cert.name}</p>
-                        <Badge variant="secondary" className="font-code">{cert.year}</Badge>
+        {/* --- SKILLS & CERTIFICATIONS SECTION --- */}
+        <div className="grid grid-cols-1 gap-8">
+            <Section title="Skills">
+                <motion.div className="flex flex-wrap gap-4" variants={itemVariants}>
+                    {skills.map((skill, index) => (
+                    <div key={index} className="flex items-center gap-3 bg-card/40 backdrop-blur-sm border border-white/10 rounded-lg p-3 hover:bg-card/60 transition-colors">
+                        {skill.icon && <div className="w-6 h-6 text-primary">{skill.icon}</div>}
+                        <span className="font-code text-sm font-medium">{skill.name}</span>
                     </div>
-                ))}
-            </motion.div>
-        </Section>
+                    ))}
+                </motion.div>
+            </Section>
+             <Section title="Certifications">
+                <motion.div className="flex flex-col gap-4" variants={itemVariants}>
+                    {certifications.map((cert, index) => (
+                        <div key={index} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-card/40 backdrop-blur-sm border border-white/10 rounded-lg">
+                            <div>
+                                <p className="font-body font-medium text-primary">{cert.name}</p>
+                                <p className="text-sm text-muted-foreground">{cert.issuer}</p>
+                            </div>
+                            <Badge variant="secondary" className="font-code mt-2 sm:mt-0">{cert.year}</Badge>
+                        </div>
+                    ))}
+                </motion.div>
+            </Section>
+        </div>
         
     </motion.div>
   );

@@ -1,4 +1,3 @@
-
 export const OdooIcon = () => (
     <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 14H7v-2h4v2zm0-3H7v-2h4v2zm0-3H7V8h4v2zm5 6h-4v-2h4v2zm0-3h-4v-2h4v2zm0-3h-4V8h4v2z" fill="currentColor"/>
@@ -79,3 +78,32 @@ export const FirebaseIcon = () => (
         <path d="M4.62 19.34L11.75 4.35a.5.5 0 0 1 .45-.35h0a.5.5 0 0 1 .45.35l2.37 5-9.4 14.12a.5.5 0 0 1-.9-.48v-3.8z" fillOpacity="0.2"/>
     </svg>
 );
+
+export const KotlinIcon = () => (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M2 2h20L12 12 2 22V2zm10 10L22 2v20L12 12z" fill="currentColor" />
+    </svg>
+);
+
+export const JetpackComposeIcon = () => (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L3 7.5V16.5L12 22L21 16.5V7.5L12 2ZM11 12.5L7 10.25V14.75L11 17V12.5ZM13 12.5V17L17 14.75V10.25L13 12.5ZM12 4.5L16 7L12 9.5L8 7L12 4.5Z" fill="currentColor" />
+    </svg>
+);
+
+export const GraphQLIcon = () => (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-5-9h10v2H7v-2z" fill="currentColor" />
+        <path d="M7 11h2v5H7zm4 0h2v5h-2zm4 0h2v5h-2z" fill="currentColor" />
+        <circle cx="8" cy="8" r="1" fill="currentColor" />
+        <circle cx="12" cy="8" r="1" fill="currentColor" />
+        <circle cx="16" cy="8" r="1" fill="currentColor" />
+    </svg>
+);
+
+export const VercelIcon = () => (
+    <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M12 2L2 22h20L12 2z" fill="currentColor" />
+    </svg>
+);
+    

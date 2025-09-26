@@ -25,6 +25,14 @@
       "timeline": "2 Weeks"
     },
     {
+      "id": "project-4",
+      "description": "ITSA System. A system for Lesson and Student Management.",
+      "videoUrl": "https://picsum.photos/seed/project4/1280/720.webm",
+      "url": "https://itsa-vue.web.app/about",
+      "technologies": ["VueJS", "TailwindCSS", "Firebase", "Vuex"],
+      "timeline": "Ongoing"
+    },
+    {
       "id": "about-main",
       "description": "Portrait of the developer",
       "imageUrl": "https://picsum.photos/seed/portrait1/600/800",

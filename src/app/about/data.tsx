@@ -1,62 +1,77 @@
 "use client";
 
-import { Code, Database, Wind, GitBranch, Figma, Component, MonitorSmartphone } from "lucide-react";
-import { OdooIcon, VueIcon, ReactIcon, TailwindIcon, JavascriptIcon, TypescriptIcon, NextjsIcon, SanityIcon, DockerIcon, PythonIcon, AWSIcon, GoogleCloudIcon, FirebaseIcon } from "./timeline-icons";
+import { GitBranch, Figma, Database } from "lucide-react";
+import { OdooIcon, VueIcon, ReactIcon, TailwindIcon, JavascriptIcon, TypescriptIcon, NextjsIcon, SanityIcon, DockerIcon, PythonIcon, AWSIcon, GoogleCloudIcon, FirebaseIcon, KotlinIcon, JetpackComposeIcon, GraphQLIcon, VercelIcon } from "./timeline-icons";
 
 export const experience = [
     {
-        role: "Software Engineer",
-        company: "Tech Solutions Inc.",
-        duration: "2021 - Present",
-        description: "Developed and maintained web applications using React, Next.js, and Python. Collaborated with cross-functional teams to deliver high-quality software solutions. Specialized in building scalable backend services and responsive user interfaces."
+        role: "Freelance Web Developer",
+        company: "Freelance",
+        duration: "May 2025 - Present",
+        description: "Created customized web pages using technologies such as React.js, TailwindCSS and Sanity.io. Ensured pages were responsive and optimized for SEO. Collaborated closely with clients to understand their needs and provide effective solutions."
     },
     {
-        role: "Junior Developer",
-        company: "Web Wizards",
-        duration: "2019 - 2021",
-        description: "Assisted in the development of client websites using Vue.js and Odoo. Gained experience in version control with Git and contributed to UI/UX design processes with Figma."
+        role: "Python/Odoo Developer",
+        company: "Communication Progress",
+        duration: "Apr 2024 - Feb 2025",
+        description: "Developed and optimized back-end services in Odoo using Python. Assisted in implementing ERP functions to improve business processes. Improved security and access rights in various projects. Created document templates using ReportLab."
+    },
+    {
+        role: "IT Intern",
+        company: "Ministry of Justice",
+        duration: "Apr 2024 - Sep 2024",
+        description: "Provided IT support and maintenance for internal systems. Assisted in diagnosing software and hardware problems. Repaired computers and other office equipment. Managed computers."
+    },
+    {
+        role: "Web Developer Intern",
+        company: "AKKSHI (NASRI)",
+        duration: "Apr 2022 - Sep 2022",
+        description: "Assisted in designing responsive components for the company website. Updated the frontend with a different navigation structure."
     }
 ];
 
 export const education = [
     {
-        degree: "Master of Science in Software Engineering",
-        institution: "Canadian Institute of Technology",
-        duration: "2020 - 2022"
+        degree: "Master Software Engineering",
+        institution: "Canadian Institute of Technology, Tirana, Albania",
+        duration: "Oct 2022 - Jul 2024"
     },
     {
-        degree: "Bachelor of Science in Software Engineering",
-        institution: "Canadian Institute of Technology",
-        duration: "2017 - 2020"
+        degree: "Bachelor Software Engineering",
+        institution: "Canadian Institute of Technology, Tirana, Albania",
+        duration: "Oct 2019 - Jul 2022"
     }
 ];
 
 export const skills = [
     { name: "Python", icon: <PythonIcon /> },
     { name: "JavaScript", icon: <JavascriptIcon /> },
-    { name: "TypeScript", icon: <TypescriptIcon /> },
-    { name: "React", icon: <ReactIcon /> },
-    { name: "Next.js", icon: <NextjsIcon /> },
-    { name: "Vue.js", icon: <VueIcon /> },
+    { name: "HTML/CSS", icon: <TailwindIcon /> },
+    { name: "Kotlin", icon: <KotlinIcon /> },
     { name: "Odoo", icon: <OdooIcon /> },
+    { name: "Vue.js", icon: <VueIcon /> },
+    { name: "React", icon: <ReactIcon /> },
     { name: "TailwindCSS", icon: <TailwindIcon /> },
-    { name: "Sanity.io", icon: <SanityIcon /> },
-    { name: "Docker", icon: <DockerIcon /> },
-    { name: "Git", icon: <GitBranch /> },
+    { name: "Jetpack Compose", icon: <JetpackComposeIcon /> },
+    { name: "ReportLab", icon: <PythonIcon /> },
+    { name: "NoSQL (Firebase)", icon: <FirebaseIcon /> },
+    { name: "SQL (PostgreSQL, MySQL)", icon: <Database /> },
+    { name: "GraphQL", icon: <GraphQLIcon /> },
+    { name: "GIT/GitLab/Github", icon: <GitBranch /> },
     { name: "Figma", icon: <Figma /> },
-    { name: "SQL", icon: <Database /> },
-    { name: "AWS", icon: <AWSIcon /> },
-    { name: "GCP", icon: <GoogleCloudIcon /> },
-    { name: "Firebase", icon: <FirebaseIcon /> },
+    { name: "Docker", icon: <DockerIcon /> },
+    { name: "Vercel", icon: <VercelIcon /> },
 ];
 
 export const certifications = [
     {
-        name: "AWS Certified Developer - Associate",
-        year: "2023"
+        name: "English Language (C1)",
+        issuer: "UT Faculty of Foreign Languages",
+        year: "2025"
     },
     {
-        name: "Google Cloud Certified - Associate Cloud Engineer",
-        year: "2022"
+        name: "IMPRO-ERP Systems Developer",
+        issuer: "Communication Progress",
+        year: "2024"
     }
 ];
