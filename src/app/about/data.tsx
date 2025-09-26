@@ -1,0 +1,70 @@
+import {
+    PythonIcon,
+    OdooIcon,
+    VueIcon,
+    ReactIcon,
+    TailwindIcon,
+    JavascriptIcon,
+    TypescriptIcon,
+    NextjsIcon,
+    SanityIcon,
+    FirebaseIcon,
+    VercelIcon,
+    KotlinIcon,
+    JetpackComposeIcon,
+    GraphQLIcon,
+    DockerIcon,
+    AWSIcon,
+    GoogleCloudIcon,
+} from './timeline-icons';
+
+
+export const data = {
+    experience: [
+        {
+            date: "Nov 2022 - Present",
+            title: "Python/Odoo Developer",
+            subtitle: "Communication Progress",
+            description: "Developed and optimized back-end services for ERP systems, managed complex business logic, and ensured data security. My work with Odoo gave me a unique perspective on building scalable, integrated solutions.",
+        },
+        {
+            date: "Jan 2021 - Oct 2022",
+            title: "Freelance Web Developer",
+            subtitle: "Upwork & Fiverr",
+            description: "Honed my skills in creating bespoke web pages using modern technologies like React.js, TailwindCSS, and headless CMS solutions. This role taught me the art of client communication and delivering pixel-perfect products.",
+        },
+    ],
+    education: [
+        {
+            date: "2022 - 2024",
+            title: "Canadian Institute of Technology",
+            subtitle: "Master's Degree, Software Engineering",
+            description: "Specialized in architecting complex systems and mastering development workflows, from conception to deployment.",
+        },
+        {
+            date: "2019 - 2022",
+            title: "Canadian Institute of Technology",
+            subtitle: "Bachelor's Degree, Software Engineering",
+            description: "A foundational period defined by late-night coding sessions and a growing fascination with how abstract logic can build tangible, interactive experiences.",
+        },
+    ],
+    skills: [
+        { name: "Python", Icon: PythonIcon },
+        { name: "JavaScript", Icon: JavascriptIcon },
+        { name: "TypeScript", Icon: TypescriptIcon },
+        { name: "React", Icon: ReactIcon },
+        { name: "Next.js", Icon: NextjsIcon },
+        { name: "Vue.js", Icon: VueIcon },
+        { name: "TailwindCSS", Icon: TailwindIcon },
+        { name: "Odoo", Icon: OdooIcon },
+        { name: "Firebase", Icon: FirebaseIcon },
+        { name: "Sanity.io", Icon: SanityIcon },
+        { name: "Vercel", Icon: VercelIcon },
+        { name: "Kotlin", Icon: KotlinIcon },
+        { name: "Jetpack Compose", Icon: JetpackComposeIcon },
+        { name: "GraphQL", Icon: GraphQLIcon },
+        { name: "Docker", Icon: DockerIcon },
+        { name: "AWS", Icon: AWSIcon },
+        { name: "Google Cloud", Icon: GoogleCloudIcon },
+    ],
+};
