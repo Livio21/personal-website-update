@@ -1,40 +1,47 @@
+
 "use client";
 
 import { useEffect, useState } from "react";
 import { getPhotosByUsername } from "@/lib/unsplash";
 import { type ImagePlaceholder } from "@/lib/placeholder-images";
 import { getWeeklyTopAlbums, getWeeklyTopTracks, LastfmAlbum, LastfmTrack } from "@/lib/lastfm";
-import Image from "next/image";
 
 const username = process.env.NEXT_PUBLIC_LASTFM_USERNAME || 'doresty';
 
-// This component is responsible for preloading image assets for the hobbies page.
-// It fetches the data and renders hidden Image components to trigger caching.
+// This component is responsible for preloading image assets for the hobbies page in the background.
+// It fetches the data and creates image elements to trigger browser caching.
 export function PreloadHobbiesResources({ onFinished }: { onFinished: () => void }) {
   const [preloaded, setPreloaded] = useState(false);
 
   useEffect(() => {
-    if (preloaded) return;
+    if (preloaded) {
+      onFinished();
+      return;
+    };
+
+    let isCancelled = false;
 
     const preload = async () => {
       try {
         // Preload Unsplash Photos
-        const unsplashPhotos = await getPhotosByUsername(process.env.NEXT_PUBLIC_UNSPLASH_USERNAME || "l1v1o");
+        const unsplashPhotosPromise = getPhotosByUsername(process.env.NEXT_PUBLIC_UNSPLASH_USERNAME || "l1v1o");
+        
+        // Preload Last.fm Album Art
+        const tracksPromise = getWeeklyTopTracks(username);
+        const albumsPromise = getWeeklyTopAlbums(username);
+
+        const [unsplashPhotos, tracks, albums] = await Promise.all([
+          unsplashPhotosPromise,
+          tracksPromise,
+          albumsPromise,
+        ]);
+
+        if (isCancelled) return;
+
         const photographyPhotos: ImagePlaceholder[] = unsplashPhotos.map((p: any) => ({
-          id: p.id,
-          description: p.description || p.alt_description || 'Unsplash Photo',
-          imageUrl: p.urls.regular,
           smallImageUrl: p.urls.small,
-          unsplashUrl: p.links.html,
-          imageHint: p.alt_description || 'photo',
         }));
 
-        // Preload Last.fm Album Art
-        const [tracks, albums] = await Promise.all([
-          getWeeklyTopTracks(username),
-          getWeeklyTopAlbums(username),
-        ]);
-        
         const lastFmImages: string[] = [];
         if (tracks.length > 0) {
             const track = tracks[0];
@@ -45,31 +52,39 @@ export function PreloadHobbiesResources({ onFinished }: { onFinished: () => void
             if(album.image) lastFmImages.push(album.image);
         });
 
-        // Render hidden images to preload them
+        // Create a list of all image URLs to preload
         const imagesToPreload = [
             ...photographyPhotos.map(p => p.smallImageUrl!),
             ...lastFmImages,
         ].filter(Boolean);
 
-
+        // Preload all images
         await Promise.all(imagesToPreload.map(src => {
-            return new Promise((resolve, reject) => {
-                const img = document.createElement('img');
+            return new Promise((resolve) => {
+                const img = new Image();
                 img.src = src;
                 img.onload = resolve;
-                img.onerror = reject;
+                img.onerror = resolve; // Resolve on error so one failed image doesn't block everything
             });
         }));
 
       } catch (error) {
         console.error("Failed to preload resources:", error);
       } finally {
-        setPreloaded(true);
-        onFinished();
+        if (!isCancelled) {
+          setPreloaded(true);
+          onFinished();
+        }
       }
     };
 
-    preload();
+    // Start preloading after a short delay to not interfere with initial page render
+    const timeoutId = setTimeout(preload, 1000);
+
+    return () => {
+      isCancelled = true;
+      clearTimeout(timeoutId);
+    };
   }, [preloaded, onFinished]);
 
   return null; // This component does not render anything visible

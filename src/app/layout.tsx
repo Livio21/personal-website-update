@@ -4,7 +4,6 @@ import './globals.css';
 import { MobileNav } from '@/components/layout/mobile-nav';
 import { Toaster } from '@/components/ui/toaster';
 import { SiteHeader } from '@/components/layout/site-header';
-import { LoadingGate } from './loading-gate';
 import { ConditionalFooter } from '@/components/layout/conditional-footer';
 
 export const metadata: Metadata = {
@@ -22,7 +21,6 @@ export default function RootLayout({
       <head>
       </head>
       <body className="font-body ">
-        <LoadingGate>
           <div className="relative flex flex-col min-h-screen overflow-x-hidden content-area">
             <SiteHeader />
             <main className="flex-1 w-full h-full">
@@ -31,7 +29,6 @@ export default function RootLayout({
             <ConditionalFooter />
             <MobileNav />
           </div>
-        </LoadingGate>
         <Toaster />
         <SpeedInsights />
       </body>

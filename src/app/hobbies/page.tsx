@@ -49,6 +49,7 @@ function HobbiesPageContent() {
         setTimeout(() => scrollToSection(sectionIndex, 'auto'), 100);
       }
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams]);
 
   useEffect(() => {
@@ -97,7 +98,9 @@ function HobbiesPageContent() {
 
 export default function HobbiesPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div className="w-full h-screen flex items-center justify-center">
+      <div className="w-16 h-16 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
+    </div>}>
       <HobbiesPageContent />
     </Suspense>
   )
