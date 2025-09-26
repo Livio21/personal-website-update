@@ -1,21 +1,21 @@
 
 "use client"
-import { useState } from 'react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Terminal } from './terminal';
 import { AnimatedHeadline } from './animated-headline';
 import { PreloadHobbiesResources } from '../hobbies/preload-resources';
 import { AnimatePresence, motion } from 'framer-motion';
+import { usePreload } from '@/contexts/preload-context';
 
 export default function Home() {
-  const [loading, setLoading] = useState(true);
+  const { isPreloaded } = usePreload();
 
   return (
     <>
-      <PreloadHobbiesResources onFinished={() => setLoading(false)} />
+      <PreloadHobbiesResources />
       <AnimatePresence>
-        {loading && (
+        {!isPreloaded && (
            <motion.div
             key="loader"
             className="fixed inset-0 z-[100] flex items-center justify-center bg-background"

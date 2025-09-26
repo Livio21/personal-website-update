@@ -1,21 +1,21 @@
 
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { getPhotosByUsername } from "@/lib/unsplash";
 import { type ImagePlaceholder } from "@/lib/placeholder-images";
-import { getWeeklyTopAlbums, getWeeklyTopTracks, LastfmAlbum, LastfmTrack } from "@/lib/lastfm";
+import { getWeeklyTopAlbums, getWeeklyTopTracks } from "@/lib/lastfm";
+import { usePreload } from "@/contexts/preload-context";
 
 const username = process.env.NEXT_PUBLIC_LASTFM_USERNAME || 'doresty';
 
 // This component is responsible for preloading image assets for the hobbies page in the background.
 // It fetches the data and creates image elements to trigger browser caching.
-export function PreloadHobbiesResources({ onFinished }: { onFinished: () => void }) {
-  const [preloaded, setPreloaded] = useState(false);
+export function PreloadHobbiesResources() {
+  const { isPreloaded, setPreloaded } = usePreload();
 
   useEffect(() => {
-    if (preloaded) {
-      onFinished();
+    if (isPreloaded) {
       return;
     };
 
@@ -73,7 +73,6 @@ export function PreloadHobbiesResources({ onFinished }: { onFinished: () => void
       } finally {
         if (!isCancelled) {
           setPreloaded(true);
-          onFinished();
         }
       }
     };
@@ -85,7 +84,7 @@ export function PreloadHobbiesResources({ onFinished }: { onFinished: () => void
       isCancelled = true;
       clearTimeout(timeoutId);
     };
-  }, [preloaded, onFinished]);
+  }, [isPreloaded, setPreloaded]);
 
   return null; // This component does not render anything visible
 }

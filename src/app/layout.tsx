@@ -5,6 +5,7 @@ import { MobileNav } from '@/components/layout/mobile-nav';
 import { Toaster } from '@/components/ui/toaster';
 import { SiteHeader } from '@/components/layout/site-header';
 import { ConditionalFooter } from '@/components/layout/conditional-footer';
+import { PreloadProvider } from '@/contexts/preload-context';
 
 export const metadata: Metadata = {
   title: 'Livio Macaj',
@@ -21,6 +22,7 @@ export default function RootLayout({
       <head>
       </head>
       <body className="font-body ">
+        <PreloadProvider>
           <div className="relative flex flex-col min-h-screen overflow-x-hidden content-area">
             <SiteHeader />
             <main className="flex-1 w-full h-full">
@@ -29,6 +31,7 @@ export default function RootLayout({
             <ConditionalFooter />
             <MobileNav />
           </div>
+        </PreloadProvider>
         <Toaster />
         <SpeedInsights />
       </body>
