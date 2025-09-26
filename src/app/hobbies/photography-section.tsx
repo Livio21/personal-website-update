@@ -9,6 +9,9 @@ import { type ImagePlaceholder } from '@/lib/placeholder-images';
 import {
   Dialog,
   DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
 } from "@/components/ui/dialog"
 import { MasonryGallery, MasonrySkeleton } from './masonry-gallery';
 import { Button } from '@/components/ui/button';
@@ -116,15 +119,19 @@ export function PhotographySection() {
                 sizes="100vw"
               />
               <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end rounded-b-xl">
-                <h3 className="text-lg font-bold text-white font-headline max-w-[75%]">{selectedImage.description}</h3>
-                {selectedImage.unsplashUrl && (
-                  <Button asChild variant="outline" size="sm" className="bg-card/20 backdrop-blur-sm border-white/20 text-white hover:bg-card/50 hover:text-white">
-                    <Link href={selectedImage.unsplashUrl} target="_blank" rel="noopener noreferrer">
-                      View Full Quality
-                      <ArrowRight className="ml-2 h-4 w-4" />
-                    </Link>
-                  </Button>
-                )}
+                 <DialogHeader>
+                    <DialogTitle className="text-lg font-bold text-white font-headline text-left max-w-[75%]">{selectedImage.description}</DialogTitle>
+                    <DialogDescription className="text-left">
+                        {selectedImage.unsplashUrl && (
+                        <Button asChild variant="outline" size="sm" className="bg-card/20 backdrop-blur-sm border-white/20 text-white hover:bg-card/50 hover:text-white mt-2">
+                            <Link href={selectedImage.unsplashUrl} target="_blank" rel="noopener noreferrer">
+                            View Full Quality
+                            <ArrowRight className="ml-2 h-4 w-4" />
+                            </Link>
+                        </Button>
+                        )}
+                    </DialogDescription>
+                </DialogHeader>
               </div>
               
               <Button
