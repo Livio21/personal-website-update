@@ -13,7 +13,6 @@ import {
 import { MasonryGallery, MasonrySkeleton } from './masonry-gallery';
 import { Button } from '@/components/ui/button';
 import { ArrowRight, ArrowLeft } from 'lucide-react';
-import { cn } from '@/lib/utils';
 
 export function PhotographySection() {
   const [photos, setPhotos] = useState<ImagePlaceholder[]>([]);
