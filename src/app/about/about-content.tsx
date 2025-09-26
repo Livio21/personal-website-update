@@ -1,149 +1,67 @@
 "use client"
 
-import Image from "next/image"
-import Link from "next/link"
 import { motion } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { PlaceHolderImages } from "@/lib/placeholder-images"
-import { ArrowRight } from "lucide-react"
-import { Section } from "./section"
-import { experience, education, skills, certifications } from "./data"
-import { Badge } from "@/components/ui/badge"
+import { HighlightedWord } from "./highlighted-word"
 
 const containerVariants = {
-  hidden: { opacity: 0 },
+  hidden: {},
   visible: {
-    opacity: 1,
     transition: {
       staggerChildren: 0.1,
-      delayChildren: 0.2,
     },
   },
 };
 
 const itemVariants = {
-  hidden: { y: 20, opacity: 0 },
-  visible: {
+  hidden: { opacity: 0, y: 20 },
+  visible: { 
+    opacity: 1, 
     y: 0,
-    opacity: 1,
-    transition: {
-      duration: 0.6
-    }
+    transition: { duration: 0.5 }
   },
 };
 
 export function AboutContent() {
-  const aboutImage = PlaceHolderImages.find(p => p.id === 'about-main');
-
   return (
-    <motion.div
-        className="w-full max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24"
-        variants={containerVariants}
-        initial="hidden"
-        animate="visible"
+    <motion.article 
+      className="w-full max-w-3xl mx-auto py-16 sm:py-24 px-8 sm:px-12 bg-card/20 backdrop-blur-lg border border-white/10 rounded-xl font-serif text-lg leading-relaxed text-muted-foreground"
+      variants={containerVariants}
+      initial="hidden"
+      animate="visible"
     >
-        {/* --- INTRO SECTION --- */}
-        <motion.div 
-            className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center bg-card/40 backdrop-blur-lg border border-white/10 rounded-lg p-8 mb-16"
-            variants={itemVariants}
-        >
-            <motion.div 
-              className="relative w-full aspect-[4/5] rounded-lg overflow-hidden shadow-2xl bg-black/30 md:col-span-1"
-            >
-                {aboutImage && (
-                     <Image
-                        src={aboutImage.imageUrl}
-                        alt={aboutImage.description}
-                        fill
-                        className="object-cover"
-                        data-ai-hint={aboutImage.imageHint}
-                        sizes="(max-width: 768px) 100vw, 33vw"
-                        priority
-                    />
-                )}
-            </motion.div>
+      <motion.header variants={itemVariants}>
+        <h1 className="text-4xl md:text-5xl font-headline font-light tracking-tight text-primary mb-2">
+          Livio Macaj
+        </h1>
+        <p className="text-xl text-muted-foreground mb-12 border-b border-white/10 pb-4">
+          Software Engineer & Web Developer
+        </p>
+      </motion.header>
 
-            <motion.div className="flex flex-col gap-6 md:col-span-2" variants={containerVariants}>
-                <motion.h1 
-                    className="text-4xl md:text-6xl font-headline font-light tracking-tight text-primary" 
-                    variants={itemVariants}
-                >
-                    About Me
-                </motion.h1>
-                <motion.p 
-                    className="text-lg text-muted-foreground font-body"
-                    variants={itemVariants}
-                >
-                    Hello! I'm a passionate developer and designer with a knack for creating engaging and user-friendly digital experiences. My journey into the world of tech began with a fascination for how things work, which quickly evolved into a love for building and designing applications.
-                </motion.p>
-                <motion.p className="text-lg text-muted-foreground font-body" variants={itemVariants}>
-                    I thrive on solving complex problems and am constantly learning new technologies to push the boundaries of what's possible on the web. From crafting sleek user interfaces to architecting robust back-end systems, I bring a commitment to quality and a creative spark to every project.
-                </motion.p>
-                 <motion.div variants={itemVariants}>
-                    <Button asChild size="lg" variant="glass">
-                        <Link href="/contact">
-                            Get In Touch <ArrowRight className="ml-2" />
-                        </Link>
-                    </Button>
-                </motion.div>
-            </motion.div>
-        </motion.div>
-        
-        {/* --- EXPERIENCE & EDUCATION SECTION --- */}
-        <div className="grid md:grid-cols-2 gap-8 mb-8">
-            <Section title="Work Experience">
-                <div className="flex flex-col gap-8">
-                    {experience.map((job, index) => (
-                        <motion.div key={index} className="flex flex-col gap-2" variants={itemVariants}>
-                            <p className="font-code text-sm text-muted-foreground">{job.duration}</p>
-                            <h3 className="text-xl font-headline font-medium text-primary">{job.role}</h3>
-                            <p className="text-lg font-body text-muted-foreground mb-2">{job.company}</p>
-                            <p className="font-body text-foreground/80 leading-relaxed">{job.description}</p>
-                        </motion.div>
-                    ))}
-                </div>
-            </Section>
-            
-            <Section title="Education">
-                <div className="flex flex-col gap-8">
-                    {education.map((edu, index) => (
-                        <motion.div key={index} className="flex flex-col gap-2" variants={itemVariants}>
-                            <p className="font-code text-sm text-muted-foreground">{edu.duration}</p>
-                            <h3 className="text-xl font-headline font-medium text-primary">{edu.degree}</h3>
-                            <p className="text-lg font-body text-muted-foreground">{edu.institution}</p>
-                        </motion.div>
-                    ))}
-                </div>
-            </Section>
-        </div>
-        
-        {/* --- SKILLS & CERTIFICATIONS SECTION --- */}
-        <div className="grid grid-cols-1 gap-8">
-            <Section title="Skills">
-                <motion.div className="flex flex-wrap gap-4" variants={itemVariants}>
-                    {skills.map((skill, index) => (
-                    <div key={index} className="flex items-center gap-3 bg-card/40 backdrop-blur-sm border border-white/10 rounded-lg p-3 hover:bg-card/60 transition-colors">
-                        {skill.icon && <div className="w-6 h-6 text-primary">{skill.icon}</div>}
-                        <span className="font-code text-sm font-medium">{skill.name}</span>
-                    </div>
-                    ))}
-                </motion.div>
-            </Section>
-             <Section title="Certifications">
-                <motion.div className="flex flex-col gap-4" variants={itemVariants}>
-                    {certifications.map((cert, index) => (
-                        <div key={index} className="flex flex-col sm:flex-row items-start sm:items-center justify-between p-4 bg-card/40 backdrop-blur-sm border border-white/10 rounded-lg">
-                            <div>
-                                <p className="font-body font-medium text-primary">{cert.name}</p>
-                                <p className="text-sm text-muted-foreground">{cert.issuer}</p>
-                            </div>
-                            <Badge variant="secondary" className="font-code mt-2 sm:mt-0">{cert.year}</Badge>
-                        </div>
-                    ))}
-                </motion.div>
-            </Section>
-        </div>
-        
-    </motion.div>
+      <motion.p variants={itemVariants} className="mb-6">
+        My journey into the world of technology began at the Canadian Institute of Technology, where a spark of curiosity evolved into a full-fledged passion. I first pursued a Bachelor's degree in <HighlightedWord>Software Engineering</HighlightedWord>, graduating in 2022. This foundational period was defined by late-night coding sessions and a growing fascination with how abstract logic could build tangible, interactive experiences. It was here I first dove into languages like <HighlightedWord>Python</HighlightedWord> and frameworks that would shape my career.
+      </motion.p>
+      
+      <motion.p variants={itemVariants} className="mb-6">
+        Driven by a desire to deepen my expertise, I immediately continued with a Master's degree, completing it in 2024. This advanced chapter of my education was less about learning what to do, and more about understanding why. I specialized in architecting complex systems and mastering development workflows, from conception to deployment.
+      </motion.p>
+      
+      <motion.p variants={itemVariants} className="mb-6">
+        My professional career began in parallel with my studies. As a freelance developer, I honed my skills in creating bespoke web pages using modern technologies like <HighlightedWord>React.js</HighlightedWord>, <HighlightedWord>TailwindCSS</HighlightedWord>, and headless CMS solutions like <HighlightedWord>Sanity.io</HighlightedWord>. This role taught me the art of client communication and the discipline of delivering pixel-perfect, responsive, and SEO-optimized products.
+      </motion.p>
+
+      <motion.p variants={itemVariants} className="mb-6">
+        I then joined Communication Progress as a <HighlightedWord>Python/Odoo Developer</HighlightedWord>. This position was a deep dive into the world of ERP systems, where I developed and optimized back-end services, managed complex business logic, and secured critical data. It was a formative experience in understanding how software powers the core operations of a business. My work with <HighlightedWord>Odoo</HighlightedWord>, an open-source suite of business apps, gave me a unique perspective on building scalable, integrated solutions.
+      </motion.p>
+
+      <motion.p variants={itemVariants} className="mb-6">
+        Throughout my career, I've cultivated a versatile skill set. On the frontend, I'm proficient in <HighlightedWord>Vue.js</HighlightedWord> and <HighlightedWord>React</HighlightedWord>, and I have a keen eye for design and user experience. On the backend, my expertise lies in <HighlightedWord>Python</HighlightedWord> and both NoSQL (<HighlightedWord>Firebase</HighlightedWord>) and SQL (<HighlightedWord>PostgreSQL</HighlightedWord>, <HighlightedWord>MySQL</HighlightedWord>) databases. I'm comfortable with the entire development lifecycle, from version control with <HighlightedWord>GIT</HighlightedWord> to deployment on platforms like <HighlightedWord>Vercel</HighlightedWord>.
+      </motion.p>
+
+      <motion.p variants={itemVariants} className="mb-6">
+        Today, I stand as a developer who is not just a coder, but a problem-solver. I thrive on translating complex requirements into clean, efficient, and user-friendly applications. My story is one of continuous learning and a relentless drive to build things that are not only functional but also elegant and impactful.
+      </motion.p>
+      
+    </motion.article>
   );
 }
