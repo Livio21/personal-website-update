@@ -2,7 +2,7 @@
 
 "use client"
 
-import { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import { Button } from '@/components/ui/button';
@@ -11,6 +11,79 @@ import { ArrowUp, ArrowDown } from 'lucide-react';
 import { ProjectCard } from './project-card';
 import { Suspense } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { Skeleton } from '@/components/ui/skeleton';
+
+function ProjectSkeleton() {
+  return (
+    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 w-full items-center">
+      <Skeleton className="relative w-full aspect-video rounded-lg" />
+      <div className="space-y-4">
+        <Skeleton className="h-10 w-3/4" />
+        <Skeleton className="h-5 w-full" />
+        <Skeleton className="h-5 w-5/6" />
+        <div className="flex gap-4 pt-4">
+          <Skeleton className="h-12 w-32" />
+          <Skeleton className="h-12 w-32" />
+        </div>
+      </div>
+    </div>
+  );
+}
+
+
+function ProjectVideo({ project, isActive }: { project: typeof PlaceHolderImages[0], isActive: boolean }) {
+  const [isVideoLoaded, setIsVideoLoaded] = useState(false);
+
+  useEffect(() => {
+    // Reset when the project video changes
+    setIsVideoLoaded(false);
+  }, [project.videoUrl]);
+
+  return (
+    <div className="relative z-10 w-full max-w-7xl h-full flex items-center pr-12">
+      <AnimatePresence>
+        {!isVideoLoaded && (
+          <motion.div
+            key="skeleton"
+            className="w-full"
+            initial={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.3 }}
+          >
+            <ProjectSkeleton />
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <motion.div
+        className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 w-full items-center absolute"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: isVideoLoaded ? 1 : 0 }}
+        transition={{ duration: 0.5 }}
+      >
+        <div className="relative w-full aspect-video rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-black/30">
+          {project.videoUrl ? (
+            <video
+              key={project.videoUrl}
+              src={project.videoUrl}
+              className="w-full h-full object-cover"
+              autoPlay
+              loop
+              muted
+              playsInline
+              onCanPlay={() => setIsVideoLoaded(true)}
+            />
+          ) : (
+             // Immediately set to loaded if there's no video
+             () => { useEffect(() => setIsVideoLoaded(true), []) }()
+          )}
+        </div>
+        <ProjectCard project={project} isActive={isActive} />
+      </motion.div>
+    </div>
+  );
+}
+
 
 function ProjectScrollerContent() {
   const projects = PlaceHolderImages.filter(p => p.id.startsWith('project-'));
@@ -144,30 +217,7 @@ function ProjectScrollerContent() {
               ) : null}
                 <div className="absolute inset-0 bg-background/50 backdrop-blur-lg" />
             </div>
-            <div className="relative z-10 w-full max-w-7xl h-full flex items-center pr-12">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 w-full items-center">
-                <div 
-                    className="relative w-full aspect-video rounded-lg overflow-hidden border border-white/10 shadow-2xl bg-black/30"
-                >
-                    {project.videoUrl ? (
-                        <video
-                            key={project.videoUrl}
-                            src={project.videoUrl}
-                            className="w-full h-full object-cover"
-                            autoPlay
-                            loop
-                            muted
-                            playsInline
-                        />
-                    ) : (
-                        <div className="w-full h-full bg-card/50 flex items-center justify-center">
-                            <p className="text-muted-foreground">No preview available</p>
-                        </div>
-                    )}
-                </div>
-                <ProjectCard project={project} isActive={currentProjectIndex === index} />
-              </div>
-            </div>
+            <ProjectVideo project={project} isActive={currentProjectIndex === index} />
           </section>
         ))}
       </div>
@@ -245,5 +295,3 @@ export function ProjectScroller() {
     </Suspense>
   )
 }
-
-    
