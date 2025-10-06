@@ -93,82 +93,84 @@ export function MusicSection() {
           <p className="text-lg text-muted-foreground font-body">What I like to listen to as of late.</p>
         </header>
 
-      <div className="flex-grow w-full max-w-6xl mx-auto grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-        {/* Top Track of the Week */}
-        <div className='group flex flex-col items-center text-center'>
-            <h3 className="text-2xl font-light mb-4 text-primary font-headline">Top Track This Week</h3>
-            {topTrack ? (
-                <div className="relative w-full max-w-xs aspect-square record-container">
-                    <Image
-                        src={topTrack.image || 'https://picsum.photos/seed/vinyl/600/600'}
-                        alt={`Album art for ${topTrack.name} by ${topTrack.artist}`}
-                        width={600}
-                        height={600}
-                        className="record object-cover w-full h-full rounded-full shadow-lg"
-                        data-ai-hint="album cover"
-                        priority
-                    />
-                    <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
-                         <Button asChild size="icon" className="w-20 h-20 bg-primary/80 hover:bg-primary play-icon opacity-0 scale-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100">
-                            <Link href={topTrack.url} target="_blank" rel="noopener noreferrer">
-                                <Play className="w-8 h-8 fill-primary-foreground text-primary-foreground" />
-                            </Link>
-                        </Button>
-                    </div>
-                </div>
-            ) : <p className='text-muted-foreground'>Could not load top track.</p>}
-            <div className="mt-4 text-center">
-                {topTrack && (
-                    <>
-                        <h4 className="text-2xl font-light font-headline">{topTrack.name}</h4>
-                        <p className="text-lg text-muted-foreground mb-4 font-body">{topTrack.artist}</p>
-                    </>
-                )}
-            </div>
-        </div>
+      <div className="flex-grow w-full max-w-6xl mx-auto flex items-center justify-center py-8">
+        <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
+          {/* Top Track of the Week */}
+          <div className='group flex flex-col items-center text-center'>
+              <h3 className="text-2xl font-light mb-4 text-primary font-headline">Top Track This Week</h3>
+              {topTrack ? (
+                  <div className="relative w-full max-w-xs aspect-square record-container">
+                      <Image
+                          src={topTrack.image || 'https://picsum.photos/seed/vinyl/600/600'}
+                          alt={`Album art for ${topTrack.name} by ${topTrack.artist}`}
+                          width={600}
+                          height={600}
+                          className="record object-cover w-full h-full rounded-full shadow-lg"
+                          data-ai-hint="album cover"
+                          priority
+                      />
+                      <div className="absolute inset-0 bg-black/50 rounded-full flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                           <Button asChild size="icon" className="w-20 h-20 bg-primary/80 hover:bg-primary play-icon opacity-0 scale-75 transition-all duration-300 group-hover:opacity-100 group-hover:scale-100">
+                              <Link href={topTrack.url} target="_blank" rel="noopener noreferrer">
+                                  <Play className="w-8 h-8 fill-primary-foreground text-primary-foreground" />
+                              </Link>
+                          </Button>
+                      </div>
+                  </div>
+              ) : <p className='text-muted-foreground'>Could not load top track.</p>}
+              <div className="mt-4 text-center">
+                  {topTrack && (
+                      <>
+                          <h4 className="text-2xl font-light font-headline">{topTrack.name}</h4>
+                          <p className="text-lg text-muted-foreground mb-4 font-body">{topTrack.artist}</p>
+                      </>
+                  )}
+              </div>
+          </div>
 
-        {/* Top Albums of the Week */}
-        <div className="flex flex-col items-center">
-            <h3 className="text-2xl font-light mb-4 font-headline">Top Albums This Week</h3>
-            <div className="relative group w-full max-w-xs aspect-square">
-                {topAlbums.length > 0 ? (
-                     <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
-                        {topAlbums.slice(0, 4).map((album, index) => (
-                            <Card key={album.name + index} className="overflow-hidden bg-card/40 backdrop-blur-sm border-none shadow-lg group/item">
-                                <CardContent className="p-0 w-full h-full relative">
-                                    <Image
-                                        src={album.image || 'https://picsum.photos/seed/album/300/300'}
-                                        alt={`Album art for ${album.name} by ${album.artist}`}
-                                        width={300}
-                                        height={300}
-                                        className="object-cover w-full h-full"
-                                        data-ai-hint="album art"
-                                    />
-                                    <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-2 text-center opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
-                                        <Button asChild variant="link" className="text-primary font-bold font-body">
-                                            <Link href={album.url} target="_blank" rel="noopener noreferrer">
-                                                Listen
-                                            </Link>
-                                        </Button>
-                                    </div>
-                                </CardContent>
-                            </Card>
-                        ))}
-                    </div>
-                ) : (
-                    <p className='text-muted-foreground'>No albums to display.</p>
-                )}
-                {topAlbums.length > 4 && (
-                    <Button
-                        variant="outline"
-                        size="sm"
-                        className="absolute top-2 right-2 z-10 bg-card/50 backdrop-blur-sm"
-                        onClick={() => setIsModalOpen(true)}
-                    >
-                        View All
-                    </Button>
-                )}
-            </div>
+          {/* Top Albums of the Week */}
+          <div className="flex flex-col items-center">
+              <h3 className="text-2xl font-light mb-4 font-headline">Top Albums This Week</h3>
+              <div className="relative group w-full max-w-xs aspect-square">
+                  {topAlbums.length > 0 ? (
+                       <div className="grid grid-cols-2 grid-rows-2 gap-2 h-full">
+                          {topAlbums.slice(0, 4).map((album, index) => (
+                              <Card key={album.name + index} className="overflow-hidden bg-card/40 backdrop-blur-sm border-none shadow-lg group/item">
+                                  <CardContent className="p-0 w-full h-full relative">
+                                      <Image
+                                          src={album.image || 'https://picsum.photos/seed/album/300/300'}
+                                          alt={`Album art for ${album.name} by ${album.artist}`}
+                                          width={300}
+                                          height={300}
+                                          className="object-cover w-full h-full"
+                                          data-ai-hint="album art"
+                                      />
+                                      <div className="absolute inset-0 bg-black/70 flex flex-col items-center justify-center p-2 text-center opacity-0 group-hover/item:opacity-100 transition-opacity duration-300">
+                                          <Button asChild variant="link" className="text-primary font-bold font-body">
+                                              <Link href={album.url} target="_blank" rel="noopener noreferrer">
+                                                  Listen
+                                              </Link>
+                                          </Button>
+                                      </div>
+                                  </CardContent>
+                              </Card>
+                          ))}
+                      </div>
+                  ) : (
+                      <p className='text-muted-foreground'>No albums to display.</p>
+                  )}
+                  {topAlbums.length > 4 && (
+                      <Button
+                          variant="outline"
+                          size="sm"
+                          className="absolute top-2 right-2 z-10 bg-card/50 backdrop-blur-sm"
+                          onClick={() => setIsModalOpen(true)}
+                      >
+                          View All
+                      </Button>
+                  )}
+              </div>
+          </div>
         </div>
       </div>
       <Dialog open={isModalOpen} onOpenChange={setIsModalOpen}>
