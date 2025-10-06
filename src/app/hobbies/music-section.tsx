@@ -93,7 +93,7 @@ export function MusicSection() {
           <p className="text-lg text-muted-foreground font-body">What I like to listen to as of late.</p>
         </header>
 
-      <div className="flex-grow w-full max-w-6xl mx-auto flex items-center justify-center py-8">
+      <div className="flex-grow w-full max-w-6xl mx-auto flex items-center justify-center py-8 pb-16">
         <div className="w-full grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-8 items-center">
           {/* Top Track of the Week */}
           <div className='group flex flex-col items-center text-center'>
