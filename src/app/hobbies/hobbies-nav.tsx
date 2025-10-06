@@ -46,14 +46,14 @@ export function HobbiesNav({ currentSection, scrollToSection }: HobbiesNavProps)
         <span className="sr-only">Next Section</span>
       </Button>
 
-      <div className="fixed top-8 md:top-auto md:bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2 bg-black/10 backdrop-blur-sm border border-white/10 p-4 rounded-full ">
+      <div className="fixed top-8 md:top-auto md:bottom-8 left-1/2 -translate-x-1/2 z-20 flex gap-2 bg-black/10 backdrop-blur-sm border border-white/10 p-2 rounded-full ">
         {sections.map((section, index) => (
           <button
             key={section}
             onClick={() => scrollToSection(index)}
             className={cn(
-              "h-4 w-4 md:h-2 md:w-2 rounded-full bg-white/40 transition-all duration-300",
-              currentSection === index ? "w-6 md:w-6 bg-white" : "hover:bg-white/70"
+              "h-2 w-2 rounded-full bg-white/40 transition-all duration-300",
+              currentSection === index ? "w-6 bg-white" : "hover:bg-white/70"
             )}
             aria-label={`Go to ${section} section`}
           />
