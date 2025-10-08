@@ -6,6 +6,7 @@ import { usePathname, useRouter } from "next/navigation";
 import { Home, User, Briefcase, Star, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import {useVibration as haptics} from "@/hooks/use-vibration"
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
@@ -25,10 +26,7 @@ export function MobileNav() {
   const [hoveredId, setHoveredId] = useState<number | null>(null);
   const [constraints, setConstraints] = useState<{ left: number; right: number } | undefined>(undefined);
 
-  // simple haptic helper
-  function vibrate(duration = 10) {
-    if (navigator.vibrate) navigator.vibrate(duration);
-  }
+
 
   useLayoutEffect(() => {
     function measure() {
@@ -69,7 +67,7 @@ export function MobileNav() {
     }
     const idx = Math.floor((rel / rect.width) * navItems.length);
     if (idx !== lastHoveredRef.current) {
-      vibrate(15); // short tap when moving over a new item
+      haptics(10) // short tap when moving over a new item
     }
     lastHoveredRef.current = idx;
     setHoveredId(idx);
@@ -83,7 +81,7 @@ export function MobileNav() {
   function onDragEnd() {
     const idx = lastHoveredRef.current;
     if (idx != null && navItems[idx]) {
-      vibrate(25); // stronger feedback on select
+      haptics([10,25]); // stronger feedback on select
       router.push(navItems[idx].href);
     }
     lastHoveredRef.current = null;
