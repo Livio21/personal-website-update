@@ -5,7 +5,6 @@ import { MobileNav } from '@/components/layout/mobile-nav';
 import { Toaster } from '@/components/ui/toaster';
 import { SiteHeader } from '@/components/layout/site-header';
 import { ConditionalFooter } from '@/components/layout/conditional-footer';
-import { PreloadProvider } from '@/contexts/preload-context';
 import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
@@ -23,7 +22,6 @@ export default function RootLayout({
       <head>
       </head>
       <body className={cn("font-body bg-background text-foreground border-border")}>
-        <PreloadProvider>
           <div className="relative flex flex-col min-h-screen overflow-x-hidden content-area">
             <SiteHeader />
             <main className="flex-1 w-full h-full">
@@ -32,7 +30,6 @@ export default function RootLayout({
             <ConditionalFooter />
             <MobileNav />
           </div>
-        </PreloadProvider>
         <Toaster />
         <SpeedInsights />
         <svg style={{display: "none"}}>

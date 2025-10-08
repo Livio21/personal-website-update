@@ -13,7 +13,6 @@ const navItems = [
   { href: "/projects", label: "Projects", icon: Briefcase },
   { href: "/hobbies", label: "Hobbies", icon: Star },
   { href: "/contact", label: "Contact", icon: Mail },
-  { href: "/design", label: "Design", icon: Paintbrush },
 ];
 
 export function MobileNav() {
