@@ -28,7 +28,7 @@ export function MobileNav() {
               {isActive && (
                 <motion.div
                   layoutId="mobile-nav-indicator"
-                  className="absolute h-full w-full p-4 rounded-full"
+                  className="absolute"
                   initial={false}
                   animate={{ opacity: 1 }}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
