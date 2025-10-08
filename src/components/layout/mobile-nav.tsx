@@ -1,12 +1,13 @@
+
 "use client";
 
 import Link from "next/link";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Home, User, Briefcase, Star, Mail, Paintbrush } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useRef, useEffect } from "react";
-import { useSnap } from "@/hooks/useSnap"; 
+import { useSnap } from "@/hooks/useSnap";
+import { useRef, useEffect, useState } from "react";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
@@ -19,59 +20,43 @@ const navItems = [
 
 export function MobileNav() {
   const pathname = usePathname();
-  const navRef = useRef<HTMLDivElement>(null);
-  const indicatorRef = useRef<HTMLDivElement>(null);
-
-  // Find current active index based on pathname
-  const currentIndex = navItems.findIndex(item => item.href === pathname);
-
-  const { dragProps, snapTo, currentSnappointIndex, hasMeasured } = useSnap({
-    direction: 'x',
-    ref: indicatorRef,
-    constraints: navRef,
-    snapPoints: {
-      type: 'constraints-box',
-      unit: 'percent',
-      points: navItems.map((_, index) => ({ 
-        x: (index / (navItems.length - 1))
-      }))
-    },
-    springOptions: { stiffness: 500, damping: 30 },
-    dragElastic: 0.2,
-    onDragEnd: (event, info) => {
-      console.log('Drag ended', info);
-    }
+  const router = useRouter();
+  const { ref, snapTo, onDragEnd: useSnapOnDragEnd, hasMeasured } = useSnap<HTMLDivElement>({
+    snapPoints: [0, 1, 2, 3, 4, 5],
   });
+  const hoveredIndexRef = useRef<number | null>(null);
 
-  // Sync the snap position with the current route
+  const currentIndex = navItems.findIndex(
+    (item) => item.href === pathname || (item.href !== "/" && pathname.startsWith(item.href))
+  );
+
   useEffect(() => {
-    if (hasMeasured && currentIndex !== -1 && currentSnappointIndex !== currentIndex) {
+    if (hasMeasured && currentIndex !== -1) {
       snapTo(currentIndex);
     }
-  }, [currentIndex, snapTo, currentSnappointIndex, hasMeasured]);
+  }, [pathname, snapTo, currentIndex, hasMeasured]);
+  
 
-  // Handle link click to update snap position
-  const handleLinkClick = (index: number) => {
-    snapTo(index);
+  const handleDragEnd = (event: MouseEvent | TouchEvent | PointerEvent, info: any) => {
+    useSnapOnDragEnd(event, info);
+    if (hoveredIndexRef.current !== null) {
+      const newRoute = navItems[hoveredIndexRef.current].href;
+      if (pathname !== newRoute) {
+        router.push(newRoute);
+      }
+    }
   };
 
   return (
-    <div 
-      ref={navRef}
-      className="md:hidden fixed bottom-0 m-4 left-0 right-0 z-50 rounded-full bg-black/20 border-2 border-white/10 p-2"
-    >
-      <nav className="flex justify-around items-center h-16 px-2 relative">
-        {/* Snap Indicator */}
+    <div className="md:hidden fixed bottom-0 left-0 right-0 z-50 p-4">
+      <div className="relative flex justify-around items-center h-16 px-2 rounded-full bg-black/20 border-2 border-white/10">
         <motion.div
-          ref={indicatorRef}
-          {...dragProps}
-          layoutId="mobile-nav-indicator"
-          className="absolute w-1/6 h-full pointer-events-auto"
-          initial={false}
-          animate={{ opacity: 1 }}
-          style={{ 
-            x: 0, // This will be controlled by the useSnap hook
-          }}
+          ref={ref}
+          drag="x"
+          dragConstraints={{ left: 0, right: 0 }}
+          dragElastic={0.2}
+          onDragEnd={handleDragEnd}
+          className="absolute w-1/6 h-full top-0 left-0 z-10"
         >
           <div className="liquidGlass w-full h-full">
             <div className="liquidGlass effect"></div>
@@ -79,29 +64,33 @@ export function MobileNav() {
           </div>
         </motion.div>
 
-        {/* Navigation Links */}
-        {navItems.map((item, index) => {
-          const isActive = pathname === item.href;
+        {navItems.map((item, i) => {
+          const isActive = i === currentIndex;
           return (
-            <Link 
-              key={item.href} 
+            <Link
+              id={`${i}`}
+              key={item.href}
               href={item.href}
-              onClick={() => handleLinkClick(index)}
-              className="flex flex-col items-center justify-center w-1/6 h-full relative z-10 hover:scale-105 active:scale-110 transition-all duration-150"
+              className="flex flex-col items-center justify-center w-1/6 h-full relative z-20 hover:scale-105 active:scale-110 transition-all duration-150"
+              onMouseOver={() => {
+                hoveredIndexRef.current = i;
+              }}
             >
               <motion.div
                 animate={{ y: isActive ? -2 : 0 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
               >
-                <item.icon className={cn(
-                  "w-6 h-6 transition-colors", 
-                  isActive ? "text-primary" : "text-gray-400"
-                )} />
+                <item.icon
+                  className={cn(
+                    "w-6 h-6 transition-colors",
+                    isActive ? "text-primary" : "text-gray-400"
+                  )}
+                />
               </motion.div>
             </Link>
           );
         })}
-      </nav>
+      </div>
     </div>
   );
 }
