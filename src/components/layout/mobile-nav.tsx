@@ -5,7 +5,7 @@ import { usePathname } from "next/navigation";
 import { Home, User, Briefcase, Star, Mail, Paintbrush } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import { useSnap } from "@/hooks/useSnap"; // Adjust the import path as needed
 
 const navItems = [
@@ -21,6 +21,11 @@ export function MobileNav() {
   const pathname = usePathname();
   const navRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
+  const [hasMounted, setHasMounted] = useState(false);
+
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
 
   // Find current active index based on pathname
   const currentIndex = navItems.findIndex(item => item.href === pathname);
@@ -46,10 +51,10 @@ export function MobileNav() {
 
   // Sync the snap position with the current route
   useEffect(() => {
-    if (currentIndex !== -1 && currentSnappointIndex !== currentIndex) {
+    if (hasMounted && currentIndex !== -1 && currentSnappointIndex !== currentIndex) {
       snapTo(currentIndex);
     }
-  }, [currentIndex, snapTo, currentSnappointIndex]);
+  }, [currentIndex, snapTo, currentSnappointIndex, hasMounted]);
 
   // Handle link click to update snap position
   const handleLinkClick = (index: number) => {
