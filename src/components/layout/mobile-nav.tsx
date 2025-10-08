@@ -111,9 +111,9 @@ export function MobileNav() {
                   ref={(el) => (dragRef.current = el as any)}
                   drag="x"
                   dragDirectionLock
-                  whileDrag={{ scale: 1.2 }}
+                  whileDrag={{ scaleX:1.3, scaleY:1.2 }}
                   dragConstraints={constraints}
-                  dragElastic={0}
+                  dragElastic={0.2}
                   onDrag={(e, info) => onDrag(e, info)}
                   onDragEnd={onDragEnd}
                   layoutId="mobile-nav-indicator"
