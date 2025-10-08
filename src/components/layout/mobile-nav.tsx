@@ -67,7 +67,7 @@ export function MobileNav() {
     }
     const idx = Math.floor((rel / rect.width) * navItems.length);
     if (idx !== lastHoveredRef.current) {
-      haptics(10) // short tap when moving over a new item
+      haptics(50) // short tap when moving over a new item
     }
     lastHoveredRef.current = idx;
     setHoveredId(idx);
@@ -81,7 +81,7 @@ export function MobileNav() {
   function onDragEnd() {
     const idx = lastHoveredRef.current;
     if (idx != null && navItems[idx]) {
-      haptics([10,25]); // stronger feedback on select
+      haptics([50,30]); // stronger feedback on select
       router.push(navItems[idx].href);
     }
     lastHoveredRef.current = null;
