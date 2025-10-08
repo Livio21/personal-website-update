@@ -4,33 +4,11 @@ import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 import { Terminal } from './terminal';
 import { AnimatedHeadline } from './animated-headline';
-import { PreloadHobbiesResources } from '../hobbies/preload-resources';
 import { AnimatePresence, motion } from 'framer-motion';
-import { usePreload } from '@/contexts/preload-context';
 
 export default function Home() {
-  const { isPreloaded } = usePreload();
 
   return (
-    <>
-      <PreloadHobbiesResources />
-      <AnimatePresence>
-        {!isPreloaded && (
-           <motion.div
-            key="loader"
-            className="fixed inset-0 z-[100] flex items-center justify-center bg-background"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            <div className="flex flex-col items-center gap-4">
-              <div className="w-16 h-16 border-4 border-primary/20 border-t-primary rounded-full animate-spin" />
-              <p className="text-muted-foreground font-code">Loading assets...</p>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
-
       <div className="w-full min-h-screen  flex flex-col items-center justify-center p-4 sm:p-6">
         <div className="segment-1 grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-8xl items-center pt-20 md:pt-0 h-screen">
           <div className="flex flex-col gap-8 text-center md:text-left">
@@ -57,6 +35,5 @@ export default function Home() {
           </div>
         </div>
       </div>
-    </>
   );
 }
