@@ -5,8 +5,8 @@ import { usePathname } from "next/navigation";
 import { Home, User, Briefcase, Star, Mail, Paintbrush } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import { useRef, useEffect, useState } from "react";
-import { useSnap } from "@/hooks/useSnap"; // Adjust the import path as needed
+import { useRef, useEffect } from "react";
+import { useSnap } from "@/hooks/useSnap"; 
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
@@ -21,16 +21,11 @@ export function MobileNav() {
   const pathname = usePathname();
   const navRef = useRef<HTMLDivElement>(null);
   const indicatorRef = useRef<HTMLDivElement>(null);
-  const [hasMounted, setHasMounted] = useState(false);
-
-  useEffect(() => {
-    setHasMounted(true);
-  }, []);
 
   // Find current active index based on pathname
   const currentIndex = navItems.findIndex(item => item.href === pathname);
 
-  const { dragProps, snapTo, currentSnappointIndex } = useSnap({
+  const { dragProps, snapTo, currentSnappointIndex, hasMeasured } = useSnap({
     direction: 'x',
     ref: indicatorRef,
     constraints: navRef,
@@ -38,23 +33,22 @@ export function MobileNav() {
       type: 'constraints-box',
       unit: 'percent',
       points: navItems.map((_, index) => ({ 
-        x: (index / (navItems.length - 1)) // 0, 0.2, 0.4, 0.6, 0.8, 1 for 6 items
+        x: (index / (navItems.length - 1))
       }))
     },
     springOptions: { stiffness: 500, damping: 30 },
     dragElastic: 0.2,
     onDragEnd: (event, info) => {
-      // Optional: Add any additional drag end logic here
       console.log('Drag ended', info);
     }
   });
 
   // Sync the snap position with the current route
   useEffect(() => {
-    if (hasMounted && currentIndex !== -1 && currentSnappointIndex !== currentIndex) {
+    if (hasMeasured && currentIndex !== -1 && currentSnappointIndex !== currentIndex) {
       snapTo(currentIndex);
     }
-  }, [currentIndex, snapTo, currentSnappointIndex, hasMounted]);
+  }, [currentIndex, snapTo, currentSnappointIndex, hasMeasured]);
 
   // Handle link click to update snap position
   const handleLinkClick = (index: number) => {
@@ -72,7 +66,7 @@ export function MobileNav() {
           ref={indicatorRef}
           {...dragProps}
           layoutId="mobile-nav-indicator"
-          className="absolute w-1/5 h-full pointer-events-auto" // w-1/5 because we have 5 items (20% width each)
+          className="absolute w-1/6 h-full pointer-events-auto"
           initial={false}
           animate={{ opacity: 1 }}
           style={{ 
@@ -93,7 +87,7 @@ export function MobileNav() {
               key={item.href} 
               href={item.href}
               onClick={() => handleLinkClick(index)}
-              className="flex flex-col items-center justify-center w-1/5 h-full relative z-10 hover:scale-105 active:scale-110 transition-all duration-150"
+              className="flex flex-col items-center justify-center w-1/6 h-full relative z-10 hover:scale-105 active:scale-110 transition-all duration-150"
             >
               <motion.div
                 animate={{ y: isActive ? -2 : 0 }}

@@ -36,6 +36,7 @@ export type UseSnapResult = {
     dragProps: Pick<MotionProps, 'drag' | 'onDragStart' | 'onDragEnd' | 'onMeasureDragConstraints' | 'dragMomentum'> & Partial<Pick<MotionProps, 'dragConstraints'>>,
     snapTo: (index: number) => void,
     currentSnappointIndex: number | null,
+    hasMeasured: boolean,
 };
  
 const minmax = (num: number, min: number, max: number) => Math.max(Math.min(max, num), min);
@@ -44,6 +45,8 @@ export const useSnap = ({
     direction, snapPoints, ref, springOptions = {}, constraints, dragElastic = 0.5,
     onDragStart, onDragEnd, onMeasureDragConstraints,
 }: SnapOptions): UseSnapResult => {
+    const [hasMeasured, setHasMeasured] = useState(false);
+
     const resolveConstraints = () => {
         if (constraints === undefined) {
             return null;
@@ -321,6 +324,7 @@ export const useSnap = ({
         onDragEnd: onDragEndHandler,
         onMeasureDragConstraints(constraints) {
             constraintsBoxRef.current = constraints;
+            setHasMeasured(true);
             onMeasureDragConstraints?.(constraints);
         },
  
@@ -332,7 +336,8 @@ export const useSnap = ({
     return {
         dragProps,
         snapTo,
-        currentSnappointIndex
+        currentSnappointIndex,
+        hasMeasured
     };
  
 };
