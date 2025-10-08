@@ -1,3 +1,4 @@
+
 "use client"
 
 import React, { useState, useEffect, useRef } from 'react';
@@ -137,6 +138,7 @@ function ProjectScrollerContent() {
                 clearTimeout(scrollTimeoutRef.current);
             }
             scrollTimeoutRef.current = setTimeout(() => {
+              if (!containerRef.current) return;
               const index = Math.round(containerRef.current.scrollTop / containerRef.current.clientHeight);
               if (index !== currentProjectIndex) {
                 setCurrentProjectIndex(index);
