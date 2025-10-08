@@ -6,6 +6,7 @@ import { Toaster } from '@/components/ui/toaster';
 import { SiteHeader } from '@/components/layout/site-header';
 import { ConditionalFooter } from '@/components/layout/conditional-footer';
 import { PreloadProvider } from '@/contexts/preload-context';
+import { cn } from '@/lib/utils';
 
 export const metadata: Metadata = {
   title: 'Livio Macaj',
@@ -21,7 +22,7 @@ export default function RootLayout({
     <html lang="en" className="dark">
       <head>
       </head>
-      <body className="font-body ">
+      <body className={cn("font-body bg-background text-foreground border-border")}>
         <PreloadProvider>
           <div className="relative flex flex-col min-h-screen overflow-x-hidden content-area">
             <SiteHeader />
