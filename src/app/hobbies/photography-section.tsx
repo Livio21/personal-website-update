@@ -97,14 +97,14 @@ export function PhotographySection() {
   return (
     <>
       <section className="h-full w-full flex-shrink-0 flex flex-col bg-transparent ">
-        <header className="text-left mb-8 ">
+        <header className="text-left ">
           <h2 className="text-4xl md:text-5xl font-headline font-light tracking-tight mb-2">
             Photography
           </h2>
           <p className="text-lg text-muted-foreground font-body">Capturing moments and perspectives.</p>
         </header>
         
-        <div className="flex-grow w-full overflow-y-auto no-scrollbar pb-24">
+        <div className="flex-grow w-full overflow-y-auto no-scrollbar ">
             {isLoading ? (
               <MasonrySkeleton />
             ) : (

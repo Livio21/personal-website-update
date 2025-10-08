@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={cn("font-body bg-background text-foreground border-border")}>
           <div className="relative flex flex-col min-h-screen overflow-x-hidden content-area">
             <SiteHeader />
-            <main className="flex-1 w-full h-full">
+            <main className="flex-1 w-full h-full my-24">
               {children}
             </main>
             <ConditionalFooter />
