@@ -110,6 +110,7 @@ export function MobileNav() {
                   ref={(el) => (dragRef.current = el as any)}
                   drag="x"
                   dragDirectionLock
+                  whileDrag={{ scale: 1.2 }}
                   // use measured pixel constraints (undefined until measured)
                   dragConstraints={constraints}
                   dragElastic={0} // prevent overshoot
