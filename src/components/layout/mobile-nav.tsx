@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useState, useRef, useLayoutEffect } from "react";
 import { usePathname, useRouter } from "next/navigation";
-import { Home, User, Briefcase, Star, Mail, Paintbrush } from "lucide-react";
+import { Home, User, Briefcase, Star, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
 
@@ -20,13 +20,16 @@ export function MobileNav() {
   const router = useRouter();
 
   const navRef = useRef<HTMLElement | null>(null);
-  const dragRef = useRef<HTMLElement | null>(null); // indicator
+  const dragRef = useRef<HTMLElement | null>(null);
   const lastHoveredRef = useRef<number | null>(null);
   const [hoveredId, setHoveredId] = useState<number | null>(null);
-
   const [constraints, setConstraints] = useState<{ left: number; right: number } | undefined>(undefined);
 
-  // measure nav and indicator and compute pixel constraints
+  // simple haptic helper
+  function vibrate(duration = 10) {
+    if (navigator.vibrate) navigator.vibrate(duration);
+  }
+
   useLayoutEffect(() => {
     function measure() {
       const navEl = navRef.current;
@@ -35,11 +38,8 @@ export function MobileNav() {
 
       const navRect = navEl.getBoundingClientRect();
       const indRect = indEl.getBoundingClientRect();
-
-      // indicator's offset relative to nav left
       const initialOffset = indRect.left - navRect.left;
 
-      // allow indicator to move from x = 0 (leftmost) to x = navWidth - indicatorWidth
       const left = -initialOffset;
       const right = navRect.width - indRect.width - initialOffset;
 
@@ -47,7 +47,6 @@ export function MobileNav() {
     }
 
     measure();
-
     const ro = new ResizeObserver(() => measure());
     if (navRef.current) ro.observe(navRef.current);
     if (dragRef.current) ro.observe(dragRef.current);
@@ -59,7 +58,6 @@ export function MobileNav() {
     };
   }, []);
 
-  // overlay mapping: compute index from clientX
   function setIndexFromClientX(clientX: number | undefined) {
     if (!navRef.current || typeof clientX !== "number") return;
     const rect = navRef.current.getBoundingClientRect();
@@ -70,6 +68,9 @@ export function MobileNav() {
       return;
     }
     const idx = Math.floor((rel / rect.width) * navItems.length);
+    if (idx !== lastHoveredRef.current) {
+      vibrate(15); // short tap when moving over a new item
+    }
     lastHoveredRef.current = idx;
     setHoveredId(idx);
   }
@@ -82,6 +83,7 @@ export function MobileNav() {
   function onDragEnd() {
     const idx = lastHoveredRef.current;
     if (idx != null && navItems[idx]) {
+      vibrate(25); // stronger feedback on select
       router.push(navItems[idx].href);
     }
     lastHoveredRef.current = null;
@@ -106,14 +108,12 @@ export function MobileNav() {
             >
               {isActive && (
                 <motion.div
-                  // indicator ref
                   ref={(el) => (dragRef.current = el as any)}
                   drag="x"
                   dragDirectionLock
                   whileDrag={{ scale: 1.2 }}
-                  // use measured pixel constraints (undefined until measured)
                   dragConstraints={constraints}
-                  dragElastic={0} // prevent overshoot
+                  dragElastic={0}
                   onDrag={(e, info) => onDrag(e, info)}
                   onDragEnd={onDragEnd}
                   layoutId="mobile-nav-indicator"
