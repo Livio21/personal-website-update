@@ -141,7 +141,7 @@ export function PhotographySection() {
                 onLoad={() => setIsFullImageLoading(false)}
                 style={{ opacity: isFullImageLoading ? 0 : 1 }}
               />
-              <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-black/80 to-transparent flex justify-between items-end rounded-b-xl transition-opacity duration-300 opacity-0 group-hover:opacity-100">
+              <div className="absolute bottom-0 left-0 right-0 p-6 flex justify-between items-end rounded-b-xl transition-opacity duration-300 opacity-0 group-hover:opacity-100">
                 <DialogHeader>
                   <DialogTitle className="text-lg font-bold text-white font-headline text-left max-w-[75%]">
                     {selectedImage.description}

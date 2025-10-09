@@ -139,6 +139,7 @@ export function MobileNav() {
               <motion.div
                 animate={{ y: isActive ? -2 : 0 }}
                 transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                className={isActive ? "pointer-events-none" : ""}
               >
                 <Icon
                   className={cn(
