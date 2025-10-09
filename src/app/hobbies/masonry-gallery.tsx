@@ -31,7 +31,7 @@ const itemVariants = {
 export function MasonryGallery({ photos, onImageClick }: MasonryGalleryProps) {
   return (
     <motion.div 
-      className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 gap-2"
+      className="columns-2 sm:columns-3 md:columns-4 lg:columns-5 gap-2 pb-12"
       variants={containerVariants}
       initial="hidden"
       animate="visible"

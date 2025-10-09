@@ -125,7 +125,7 @@ function HobbiesPageContent() {
       >
         {sections.map((section) => (
           <div key={section.id} className="h-full w-full flex-shrink-0 snap-center px-4 md:px-6 overflow-hidden">
-            <div className="h-full w-full overflow-y-auto no-scrollbar">
+            <div className="h-full w-full overflow-y-auto no-scrollbar py-12">
               {section.component}
             </div>
           </div>
