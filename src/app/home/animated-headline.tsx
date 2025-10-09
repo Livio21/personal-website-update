@@ -61,7 +61,7 @@ const Typewriter = () => {
 
 export const AnimatedHeadline = () => {
   return (
-    <h1 className="text-4xl md:text-5xl font-light tracking-tight flex-wrap justify-center text-center">
+    <h1 className="h-fit w-full min-h-12 text-4xl md:text-5xl font-light tracking-tight flex-wrap justify-center ">
       <span className="font-headline font-thin">Hello, I&nbsp;</span>
       <Typewriter />
       <span className="font-headline font-thin">&nbsp;websites.</span>

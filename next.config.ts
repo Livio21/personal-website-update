@@ -43,10 +43,6 @@ const nextConfig: NextConfig = {
     NEXT_PUBLIC_LASTFM_USERNAME: process.env.NEXT_PUBLIC_LASTFM_USERNAME,
   },
   experimental: {
-    allowedDevOrigins: [
-      "https://*.cloudworkstations.dev",
-      "https://*.firebase.studio"
-    ]
   },
 };
 

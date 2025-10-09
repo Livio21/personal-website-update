@@ -6,7 +6,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { Home, User, Briefcase, Star, Mail } from "lucide-react";
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
-import {useVibration as haptics} from "@/hooks/use-vibration"
+import { useVibration } from "@/hooks/use-vibration";
+import { LiquidGlass } from "@/components/ui/liquid-glass";
 
 const navItems = [
   { href: "/", label: "Home", icon: Home },
@@ -19,14 +20,15 @@ const navItems = [
 export function MobileNav() {
   const pathname = usePathname();
   const router = useRouter();
+  const vibrate = useVibration();
 
   const navRef = useRef<HTMLElement | null>(null);
   const dragRef = useRef<HTMLElement | null>(null);
   const lastHoveredRef = useRef<number | null>(null);
   const [hoveredId, setHoveredId] = useState<number | null>(null);
-  const [constraints, setConstraints] = useState<{ left: number; right: number } | undefined>(undefined);
-
-
+  const [constraints, setConstraints] = useState<
+    { left: number; right: number } | undefined
+  >(undefined);
 
   useLayoutEffect(() => {
     function measure() {
@@ -36,10 +38,11 @@ export function MobileNav() {
 
       const navRect = navEl.getBoundingClientRect();
       const indRect = indEl.getBoundingClientRect();
-      const initialOffset = indRect.left - navRect.left;
 
-      const left = -initialOffset;
-      const right = navRect.width - indRect.width - initialOffset;
+      // Calculate constraints relative to current position of draggable element
+      const currentOffset = indRect.left - navRect.left;
+      const left = -currentOffset;
+      const right = navRect.width - indRect.width - currentOffset;
 
       setConstraints({ left, right });
     }
@@ -54,7 +57,7 @@ export function MobileNav() {
       ro.disconnect();
       window.removeEventListener("resize", measure);
     };
-  }, []);
+  }, [pathname]); // Add pathname dependency to recalculate when active item changes
 
   function setIndexFromClientX(clientX: number | undefined) {
     if (!navRef.current || typeof clientX !== "number") return;
@@ -67,7 +70,7 @@ export function MobileNav() {
     }
     const idx = Math.floor((rel / rect.width) * navItems.length);
     if (idx !== lastHoveredRef.current) {
-      haptics(50) // short tap when moving over a new item
+      vibrate(50); // short tap when moving over a new item
     }
     lastHoveredRef.current = idx;
     setHoveredId(idx);
@@ -81,7 +84,7 @@ export function MobileNav() {
   function onDragEnd() {
     const idx = lastHoveredRef.current;
     if (idx != null && navItems[idx]) {
-      haptics([50,30]); // stronger feedback on select
+      vibrate([50, 30]); // stronger feedback on select
       router.push(navItems[idx].href);
     }
     lastHoveredRef.current = null;
@@ -90,7 +93,10 @@ export function MobileNav() {
 
   return (
     <div className="md:hidden fixed bottom-0 m-4 left-0 right-0 z-50 rounded-full bg-black/20 border-2 border-white/10 p-2">
-      <nav ref={navRef as any} className="flex justify-around items-center h-16 px-2">
+      <nav
+        ref={navRef as any}
+        className="flex justify-around items-center h-16 px-2"
+      >
         {navItems.map((item, i) => {
           const isActive = pathname === item.href;
           const Icon = item.icon;
@@ -109,7 +115,7 @@ export function MobileNav() {
                   ref={(el) => (dragRef.current = el as any)}
                   drag="x"
                   dragDirectionLock
-                  whileDrag={{ scaleX:1.3, scaleY:1.2 }}
+                  whileDrag={{ scaleX: 1.3, scaleY: 1.2 }}
                   dragConstraints={constraints}
                   dragElastic={0.2}
                   onDrag={(e, info) => onDrag(e, info)}
@@ -120,15 +126,26 @@ export function MobileNav() {
                   animate={{ opacity: 1 }}
                   transition={{ type: "spring", stiffness: 500, damping: 30 }}
                 >
-                  <div className="liquidGlass">
-                    <div className="liquidGlass effect"></div>
-                    <div className="liquidGlass shine"></div>
-                  </div>
+                  <LiquidGlass
+                    className="w-full h-full"
+                    baseFrequency="0.015 0.015"
+                    displacementScale={100}
+                    shineIntensity="medium"
+                    blurAmount={2}
+                  />
                 </motion.div>
               )}
 
-              <motion.div animate={{ y: isActive ? -2 : 0 }} transition={{ type: "spring", stiffness: 300, damping: 20 }}>
-                <Icon className={cn("w-6 h-6 transition-colors", isActive ? "text-primary" : "text-gray-400")} />
+              <motion.div
+                animate={{ y: isActive ? -2 : 0 }}
+                transition={{ type: "spring", stiffness: 300, damping: 20 }}
+              >
+                <Icon
+                  className={cn(
+                    "w-6 h-6 transition-colors",
+                    isActive ? "text-primary" : "text-gray-400"
+                  )}
+                />
               </motion.div>
             </Link>
           );

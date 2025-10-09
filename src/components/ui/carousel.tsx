@@ -8,6 +8,7 @@ import { ArrowLeft, ArrowRight } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
+import { useVibration } from "@/hooks/use-vibration"
 
 type CarouselApi = UseEmblaCarouselType[1]
 type UseCarouselParameters = Parameters<typeof useEmblaCarousel>
@@ -197,8 +198,15 @@ CarouselItem.displayName = "CarouselItem"
 const CarouselPrevious = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
+>(({ className, variant = "outline", size = "icon", onClick, ...props }, ref) => {
   const { orientation, scrollPrev, canScrollPrev } = useCarousel()
+  const vibrate = useVibration()
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    vibrate(30); // Light feedback for carousel navigation
+    scrollPrev();
+    onClick?.(e);
+  };
 
   return (
     <Button
@@ -213,7 +221,7 @@ const CarouselPrevious = React.forwardRef<
         className
       )}
       disabled={!canScrollPrev}
-      onClick={scrollPrev}
+      onClick={handleClick}
       {...props}
     >
       <ArrowLeft className="h-4 w-4" />
@@ -226,8 +234,15 @@ CarouselPrevious.displayName = "CarouselPrevious"
 const CarouselNext = React.forwardRef<
   HTMLButtonElement,
   React.ComponentProps<typeof Button>
->(({ className, variant = "outline", size = "icon", ...props }, ref) => {
+>(({ className, variant = "outline", size = "icon", onClick, ...props }, ref) => {
   const { orientation, scrollNext, canScrollNext } = useCarousel()
+  const vibrate = useVibration()
+
+  const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    vibrate(30); // Light feedback for carousel navigation
+    scrollNext();
+    onClick?.(e);
+  };
 
   return (
     <Button
@@ -242,7 +257,7 @@ const CarouselNext = React.forwardRef<
         className
       )}
       disabled={!canScrollNext}
-      onClick={scrollNext}
+      onClick={handleClick}
       {...props}
     >
       <ArrowRight className="h-4 w-4" />

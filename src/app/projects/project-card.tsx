@@ -34,78 +34,94 @@ export function ProjectCard({ project, isActive }: ProjectCardProps) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     return (
+      <motion.div
+        className="w-full relative" 
+        variants={cardVariants}
+        initial="hidden"
+        animate={isActive ? "visible" : "hidden"}
+      >
         <motion.div
-            className="w-full"
-            variants={cardVariants}
-            initial="hidden"
-            animate={isActive ? "visible" : "hidden"}
+          className="p-6 md:p-8 rounded-xl border border-white/10  bg-black/20"
+          variants={itemVariants}
         >
-            <motion.div 
-                className="p-6 md:p-8 rounded-xl bg-card/40 backdrop-blur-lg border border-white/10"
-                variants={itemVariants}
-            >
-                <motion.h2 
-                    className="text-2xl sm:text-3xl md:text-4xl font-headline font-light text-primary mb-3"
-                    variants={itemVariants}
-                >
-                    {project.description.split('.')[0]}
-                </motion.h2>
-                <motion.p 
-                    className="text-base text-muted-foreground mb-6 font-body"
-                    variants={itemVariants}
-                >
-                    {project.description}
-                </motion.p>
-                
-                <AnimatePresence>
-                    {isExpanded && (
-                        <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            transition={{ duration: 0.3, ease: "easeInOut" }}
-                            className="overflow-hidden"
-                        >
-                            <div className="mb-6">
-                                {project.technologies && (
-                                    <div className="mb-4">
-                                        <h4 className="font-headline text-lg text-primary mb-2">Technologies Used</h4>
-                                        <div className="flex flex-wrap gap-2">
-                                            {project.technologies.map(tech => (
-                                                <Badge key={tech} variant="secondary" className="font-code">{tech}</Badge>
-                                            ))}
-                                        </div>
-                                    </div>
-                                )}
-                                {project.timeline && (
-                                     <div>
-                                        <h4 className="font-headline text-lg text-primary mb-2">Timeline</h4>
-                                        <p className="font-code text-sm text-muted-foreground">{project.timeline}</p>
-                                    </div>
-                                )}
-                            </div>
-                        </motion.div>
-                    )}
-                </AnimatePresence>
+          <motion.h2
+            className="text-2xl sm:text-3xl md:text-4xl font-headline font-light text-primary mb-3"
+            variants={itemVariants}
+          >
+            {project.description.split(".")[0]}
+          </motion.h2>
+          <motion.p
+            className="text-base text-muted-foreground mb-6 font-body"
+            variants={itemVariants}
+          >
+            {project.description}
+          </motion.p>
 
-                <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
-                     <Button variant="default" asChild size="lg">
-                        <a href={project.url} target="_blank" rel="noopener noreferrer">
-                            View Project
-                            <ExternalLink className="ml-2" />
-                        </a>
-                    </Button>
-                    <Button variant="secondary" size="lg" onClick={() => setIsExpanded(!isExpanded)}>
-                        More Info
-                        <motion.div
-                            animate={{ rotate: isExpanded ? 180 : 0 }}
-                            transition={{ duration: 0.3 }}
-                        >
-                            <ChevronDown className="ml-2" />
-                        </motion.div>
-                    </Button>
-                </motion.div>
-            </motion.div>
+          <AnimatePresence>
+            {isExpanded && (
+              <motion.div
+                initial={{ opacity: 0, height: 0 }}
+                animate={{ opacity: 1, height: "auto" }}
+                exit={{ opacity: 0, height: 0 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="overflow-hidden"
+              >
+                <div className="mb-6">
+                  {project.technologies && (
+                    <div className="mb-4">
+                      <h4 className="font-headline text-lg text-primary mb-2">
+                        Technologies Used
+                      </h4>
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.map((tech) => (
+                          <Badge
+                            key={tech}
+                            variant="secondary"
+                            className="font-code"
+                          >
+                            {tech}
+                          </Badge>
+                        ))}
+                      </div>
+                    </div>
+                  )}
+                  {project.timeline && (
+                    <div>
+                      <h4 className="font-headline text-lg text-primary mb-2">
+                        Timeline
+                      </h4>
+                      <p className="font-code text-sm text-muted-foreground">
+                        {project.timeline}
+                      </p>
+                    </div>
+                  )}
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+          <motion.div variants={itemVariants} className="flex flex-wrap gap-4">
+            <Button variant="default" asChild size="lg">
+              <a href={project.url} target="_blank" rel="noopener noreferrer">
+                View Project
+                <ExternalLink className="ml-2" />
+              </a>
+            </Button>
+            <Button
+              variant="secondary"
+              size="lg"
+              onClick={() => setIsExpanded(!isExpanded)}
+            >
+              More Info
+              <motion.div
+                animate={{ rotate: isExpanded ? 180 : 0 }}
+                transition={{ duration: 0.3 }}
+              >
+                <ChevronDown className="ml-2" />
+              </motion.div>
+            </Button>
+          </motion.div>
         </motion.div>
+      </motion.div>
     );
 }

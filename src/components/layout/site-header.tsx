@@ -14,6 +14,7 @@ import {
 import { ChevronDown } from "lucide-react";
 import { PlaceHolderImages } from "@/lib/placeholder-images";
 import React, { useState } from "react";
+import { useVibration } from "@/hooks/use-vibration";
 
 const navItems = [
     { href: "/", label: "home" },
@@ -46,6 +47,7 @@ interface HoverDropdownProps {
 
 function HoverDropdown({ item, isActive }: HoverDropdownProps) {
   const [open, setOpen] = useState(false);
+  const vibrate = useVibration();
 
   return (
     <DropdownMenu open={open} onOpenChange={setOpen} modal={false}>
@@ -60,6 +62,7 @@ function HoverDropdown({ item, isActive }: HoverDropdownProps) {
                 "relative px-4 py-2 rounded-l-full text-sm font-medium transition-colors hover:text-primary uppercase",
                 isActive ? "text-primary underline decoration-wavy underline-offset-2 italic" : "text-gray-300"
             )}
+            onClick={() => vibrate(35)}
         >
             {isActive && (
                 <motion.div
@@ -83,7 +86,7 @@ function HoverDropdown({ item, isActive }: HoverDropdownProps) {
         <DropdownMenuContent className="bg-zinc-900/80 backdrop-blur-xl border-white/10 text-gray-200 w-56" onMouseLeave={() => setOpen(false)}>
             {item.sublinks?.map((sublink) => (
                 <DropdownMenuItem key={sublink.href} asChild className="cursor-pointer focus:bg-zinc-700/80">
-                    <Link href={sublink.href}>{sublink.label}</Link>
+                    <Link href={sublink.href} onClick={() => vibrate(35)}>{sublink.label}</Link>
                 </DropdownMenuItem>
             ))}
         </DropdownMenuContent>
@@ -95,11 +98,12 @@ function HoverDropdown({ item, isActive }: HoverDropdownProps) {
 
 export function SiteHeader() {
     const pathname = usePathname();
+    const vibrate = useVibration();
 
     return (
         <header className="hidden fixed top-2 w-full md:flex justify-between items-center px-24 z-50">
             <div className="text-center text-3xl uppercase">
-                {pathname === '/' ? "" : <Link href="/" className="font-thin hover:bg-black/20 rounded-full px-6 py-2 border border-white/0 hover:border-white/20">livio macaj</Link>}
+                {pathname === '/' ? "" : <Link href="/" className="font-thin hover:bg-black/20 rounded-full px-6 py-2 border border-white/0 hover:border-white/20" onClick={() => vibrate(35)}>livio macaj</Link>}
             </div>
             <nav className="flex items-center gap-1 p-2 rounded-full bg-zinc-900/50 hover:bg-zinc-900/90 backdrop-blur-lg border border-white/10 shadow-lg">
                 {navItems.map((item) => {
@@ -119,6 +123,7 @@ export function SiteHeader() {
                                 "relative px-4 py-2 rounded-full text-sm font-medium transition-colors hover:text-primary uppercase",
                                 isActive ? "text-primary underline decoration-wavy underline-offset-2 italic" : "text-gray-300"
                             )}
+                            onClick={() => vibrate(35)}
                         >
                             {isActive && (
                                 <motion.div

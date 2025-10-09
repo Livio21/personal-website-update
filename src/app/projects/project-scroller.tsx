@@ -43,6 +43,7 @@ function ProjectVideo({ project, isActive }: { project: typeof PlaceHolderImages
 
   return (
     <div className="relative z-10 w-full max-w-7xl h-full flex items-center pr-12">
+      
       <AnimatePresence>
         {!isVideoLoaded && (
           <motion.div
@@ -52,6 +53,7 @@ function ProjectVideo({ project, isActive }: { project: typeof PlaceHolderImages
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
           >
+            
             <ProjectSkeleton />
           </motion.div>
         )}
@@ -75,9 +77,12 @@ function ProjectVideo({ project, isActive }: { project: typeof PlaceHolderImages
               playsInline
               onCanPlay={() => setIsVideoLoaded(true)}
             />
+            
           )}
         </div>
+        
         <ProjectCard project={project} isActive={isActive} />
+        
       </motion.div>
     </div>
   );
@@ -183,16 +188,17 @@ function ProjectScrollerContent() {
         <Button 
           size="icon" 
           variant="outline" 
-          className="rounded-full bg-card/50 backdrop-blur-sm fixed top-4 left-1/2 -translate-x-1/2 z-20 md:hidden" 
+          className="rounded-r-none md:rounded-full bg-card/50 backdrop-blur-sm fixed bottom-28 md:top-4  right-1/2 md:-translate-x-1/2 z-20 md:hidden" 
           onClick={handlePrev}
         >
           <ArrowUp />
+          
         </Button>
 
         <Button 
             size="icon" 
             variant="outline" 
-            className="rounded-full bg-card/50 backdrop-blur-sm fixed bottom-4 left-1/2 -translate-x-1/2 z-20 md:hidden" 
+            className=" rounded-l-none md:rounded-full bg-card/50 backdrop-blur-sm fixed bottom-28 md:bottom-4 left-1/2 md:-translate-x-1/2 z-20 md:hidden" 
             onClick={handleNext}
         >
             <ArrowDown />

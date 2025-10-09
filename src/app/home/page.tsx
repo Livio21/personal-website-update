@@ -11,7 +11,7 @@ export default function Home() {
   return (
       <div className="w-full min-h-screen  flex flex-col items-center justify-center p-4 sm:p-6">
         <div className="segment-1 grid grid-cols-1 md:grid-cols-2 gap-12 w-full max-w-8xl items-center pt-20 md:pt-0 h-screen">
-          <div className="flex flex-col gap-8 text-center md:text-left">
+          <div className="flex flex-col gap-8">
             <header className="mb-4">
               <AnimatedHeadline />
               <p className="max-w-2xl mx-auto md:mx-0 text-lg text-muted-foreground font-body mt-8">
